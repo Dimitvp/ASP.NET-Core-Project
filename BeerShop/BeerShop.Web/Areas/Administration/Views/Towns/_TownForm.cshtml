@@ -1,0 +1,24 @@
+﻿@model TownFormModel
+
+<form method="post">
+    <hr />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ZipCode"></label>
+        <input asp-for="ZipCode" class="form-control" />
+        <span asp-validation-for="ZipCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CountryId"></label>
+        <select asp-for="CountryId" asp-items="@Model.Countries" class="form-control">
+            <option>Please select one</option>
+        </select>
+        <span asp-validation-for="CountryId" class="text-danger"></span>
+    </div>
+    <a href="/administration/towns/all" class="btn btn-primary">Back</a>
+    <button type="submit" class="btn btn-success">Save Town</button>
+</form>

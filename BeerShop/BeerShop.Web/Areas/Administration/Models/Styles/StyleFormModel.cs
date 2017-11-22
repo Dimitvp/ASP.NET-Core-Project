@@ -1,0 +1,20 @@
+﻿using BeerShop.Models;
+
+namespace BeerShop.Web.Areas.Administration.Models.Styles
+{
+    using System.ComponentModel.DataAnnotations;
+    using static ModelConstants;
+
+    public class StyleFormModel
+    {
+        [Required]
+        [MinLength(StyleNameMinLength)]
+        [MaxLength(StyleNameMaxLength)]
+        public string Name { get; set; }
+
+        [Required]
+        [MaxLength(ServingTempMaxLength)]
+        [Display(Name = "Serving Temperature")]
+        public string ServingTemp { get; set; }
+    }
+}

@@ -4,8 +4,8 @@
     {
         public const int BeerNameMaxLength = 100;
         public const int BeerNameMinLength = 2;
-        public const int BeerDescriptionMinLength = 6000;
-        public const int BeerDescriptionMaxLength = 5;
+        public const int BeerDescriptionMinLength = 5;
+        public const int BeerDescriptionMaxLength = 6000;
 
         public const int BreweryNameMaxLength = 100;
         public const int BreweryNameMinLength = 2;

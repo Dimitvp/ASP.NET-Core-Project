@@ -1,0 +1,35 @@
+﻿@model IEnumerable<StyleListingModel>
+@{
+    ViewData["Title"] = "All Styles";
+}
+<h2>@ViewData["Title"]</h2>
+<div>
+    <a href="/administration/styles/create" class="btn btn-lg btn-info">Add Style</a>
+</div>
+<hr />
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Serving Temperature</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var style in Model)
+        {
+            <tr>
+                <td>
+                    @style.Name
+                </td>
+                <td>
+                    @style.ServingTemp
+                </td>
+                <td>
+                    <a href="/administration/styles/edit/@style.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="/administration/styles/delete/@style.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

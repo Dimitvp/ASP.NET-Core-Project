@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BeerShop.Web</title>
+    <title>@ViewData["Title"] - Beer Shop</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BeerShop.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Beer Shop</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -34,11 +34,11 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="Beers" asp-action="All">Beers</a></li>
-                            <li><a asp-area="" asp-controller="Towns" asp-action="All">Towns</a></li>
-                            <li><a asp-area="" asp-controller="Countries" asp-action="All">Countries</a></li>
-                            <li><a asp-area="" asp-controller="Styles" asp-action="All">Styles</a></li>
-                            <li><a asp-area="" asp-controller="Logs" asp-action="All">Logs</a></li>
+                            <li><a asp-area="Administration" asp-controller="Beers" asp-action="All">Beers</a></li>
+                            <li><a asp-area="Administration" asp-controller="Towns" asp-action="All">Towns</a></li>
+                            <li><a asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a></li>
+                            <li><a asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a></li>
+                            <li><a asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a></li>
                             <li><a asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
                         </ul>
                     </li>
@@ -72,7 +72,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - BeerShop.Web</p>
+            <p>&copy; @DateTime.UtcNow.Year - Beer Shop</p>
         </footer>
     </div>
 

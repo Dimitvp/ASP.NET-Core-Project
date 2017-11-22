@@ -1,0 +1,40 @@
+﻿@model IEnumerable<TownListingModel>
+@{
+    ViewData["Title"] = "All towns";
+}
+<h2>@ViewData["Title"]</h2>
+<div>
+    <a href="/administration/towns/create" class="btn btn-lg btn-info">Add Town</a>
+</div>
+<hr />
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Zip Code</th>
+            <th>Country</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var town in Model)
+        {
+            <tr>
+                <td>
+                    @town.Name
+                </td>
+                <td>
+                    @town.ZipCode
+                </td>
+                <td>
+                    @town.CountryName
+                </td>
+                <td>
+                    <a href="/administration/towns/edit/@town.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="/administration/towns/delete/@town.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
