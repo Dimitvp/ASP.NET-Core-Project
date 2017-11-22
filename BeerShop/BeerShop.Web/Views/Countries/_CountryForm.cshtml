@@ -1,0 +1,19 @@
+﻿@model CountryFormModel
+
+<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <hr />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Continent"></label>
+        <select asp-for="Continent" asp-items="Html.GetEnumSelectList<Continent>()" class="form-control">
+            <option>Please Select One</option>
+        </select>
+        <span asp-validation-for="Continent" class="text-danger"></span>
+    </div>
+    <a href="/countries/all" class="btn btn-primary">Back</a>
+    <button type="submit" class="btn btn-success">Save Country</button>
+</form>
