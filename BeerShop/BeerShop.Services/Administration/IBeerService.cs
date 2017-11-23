@@ -6,7 +6,9 @@
 
     public interface IBeerService
     {
-        IEnumerable<BeerListingModel> AllListing();
+        IEnumerable<BeerListingModel> AllListing(string searchTerm, int page = 1, int pageSize = 10);
+
+        int Total(string searchTerm);
 
         void Create(
             string name, 

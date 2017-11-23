@@ -18,11 +18,34 @@
             this.db = db;
         }
 
-        public IEnumerable<BeerListingModel> AllListing()
-            => this.db.Beers
+        public IEnumerable<BeerListingModel> AllListing(string searchTerm, int page = 1, int pageSize = 10)
+        {
+            var beers = this.db.Beers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                beers = beers.Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            return beers
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .OrderByDescending(b => b.Id)
                 .ProjectTo<BeerListingModel>()
                 .ToList();
+        }
+
+        public int Total(string searchTerm)
+        {
+            var beers = this.db.Beers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                beers = beers.Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            return beers.Count();
+        }
 
         public void Create(
             string name,

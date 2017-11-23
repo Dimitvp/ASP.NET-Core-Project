@@ -4,7 +4,7 @@
 }
 <h2>@ViewData["Title"]</h2>
 <div>
-    <a href="/administration/styles/create" class="btn btn-lg btn-info">Add Style</a>
+    <a href="/administration/styles/create" class="btn btn-lg btn-outline-primary">Add Style</a>
 </div>
 <hr />
 <table class="table table-bordered table-hover table-striped">
@@ -26,8 +26,8 @@
                     @style.ServingTemp
                 </td>
                 <td>
-                    <a href="/administration/styles/edit/@style.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="/administration/styles/delete/@style.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="/administration/styles/edit/@style.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="/administration/styles/delete/@style.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

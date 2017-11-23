@@ -4,7 +4,7 @@
 }
 <h2>@ViewData["Title"]</h2>
 <div>
-    <a href="/administration/users/create" class="btn btn-lg btn-info">Add User</a>
+    <a href="/administration/users/create" class="btn btn-lg btn-outline-primary">Add User</a>
 </div>
 <hr />
 <table class="table table-hover table-bordered table-striped">
@@ -22,9 +22,9 @@
                 <td>@user.Username</td>
                 <td>@user.Email</td>
                 <td>
-                    <a href="/administration/users/details/@user.Id" class="btn btn-sm btn-default">Details</a>
-                    <a href="/administration/users/edit/@user.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="/administration/users/delete/@user.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="/administration/users/details/@user.Id" class="btn btn-sm btn-outline-info">Details</a>
+                    <a href="/administration/users/edit/@user.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="/administration/users/delete/@user.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

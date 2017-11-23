@@ -1,0 +1,21 @@
+﻿<h1>My First Google Map</h1>
+
+<div id="map" style="width:800px;height:400px;background:yellow"></div>
+
+<script>
+    function myMap() {
+        var myLatLng = { lat: 42.498220, lng: 27.465126 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: myLatLng
+        });
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'Beer Academy'
+        });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFf6lEs1_IeY4SCrcLdSPrSAMud22pBIA&callback=myMap"></script>
+

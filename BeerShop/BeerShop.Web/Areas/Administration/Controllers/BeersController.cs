@@ -7,6 +7,7 @@
     using BeerShop.Web.Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -29,7 +30,18 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All() => View(this.beers.AllListing());
+        public IActionResult All(string searchTerm, int page = 1)
+        {
+            var beers = this.beers.AllListing(searchTerm, page, WebConstants.PageSize);
+
+            return View(new BeerPageListingModel
+            {
+                Beers = beers,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.beers.Total(searchTerm) / (double)WebConstants.PageSize),
+                SearchTerm = searchTerm
+            });
+        }
 
         public IActionResult Create()
         {

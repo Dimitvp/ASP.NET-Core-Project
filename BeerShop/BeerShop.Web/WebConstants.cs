@@ -5,5 +5,7 @@
         public const string AdminRole = "Admin";
 
         public const string ModeratorRole = "Moderator";
+
+        public const int PageSize = 10;
     }
 }

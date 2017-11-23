@@ -4,7 +4,7 @@
 }
 <h2>@ViewData["Title"]</h2>
 <div>
-    <a href="/administration/towns/create" class="btn btn-lg btn-info">Add Town</a>
+    <a href="/administration/towns/create" class="btn btn-lg btn-outline-primary">Add Town</a>
 </div>
 <hr />
 
@@ -31,8 +31,8 @@
                     @town.CountryName
                 </td>
                 <td>
-                    <a href="/administration/towns/edit/@town.Id" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="/administration/towns/delete/@town.Id" class="btn btn-sm btn-danger">Delete</a>
+                    <a href="/administration/towns/edit/@town.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="/administration/towns/delete/@town.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }
