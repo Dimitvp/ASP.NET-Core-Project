@@ -6,6 +6,7 @@
         public const int BeerNameMinLength = 2;
         public const int BeerDescriptionMinLength = 5;
         public const int BeerDescriptionMaxLength = 6000;
+        public const int BeerImageMaxLength = 2097152;
 
         public const int BreweryNameMaxLength = 100;
         public const int BreweryNameMinLength = 2;

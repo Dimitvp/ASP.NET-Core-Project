@@ -1,6 +1,6 @@
 ﻿@model BeerFormModel
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <hr />
     <div class="form-group">
         <label asp-for="Name"></label>
@@ -35,6 +35,11 @@
             <option>Please select one</option>
         </select>
         <span asp-validation-for="BreweryId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input asp-for="Image" class="form-control" type="file"/>
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <a href="/administration/beers/all" class="btn btn-primary">Back</a>
     <button type="submit" class="btn btn-success">Save Beer</button>

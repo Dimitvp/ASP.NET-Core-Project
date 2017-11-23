@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
+    using AutoMapper;
     using BeerShop.Models.Enums;
     using BeerShop.Services.Administration;
     using BeerShop.Web.Areas.Administration.Models.Beers;
@@ -14,21 +15,21 @@
         private readonly IBreweryService breweries;
         private readonly IStyleService styles;
         private readonly IBeerService beers;
+        private readonly IMapper mapper;
 
         public BeersController(
             IBreweryService breweries,
             IStyleService styles,
-            IBeerService beers)
+            IBeerService beers,
+            IMapper mapper)
         {
             this.breweries = breweries;
             this.styles = styles;
             this.beers = beers;
+            this.mapper = mapper;
         }
 
-        public IActionResult All()
-        {
-            return View(this.beers.AllListing());
-        }
+        public IActionResult All() => View(this.beers.AllListing());
 
         public IActionResult Create()
         {
@@ -50,7 +51,15 @@
                 return View(model);
             }
 
-            this.beers.Create(model.Name, model.Price, model.Quantity, model.Description, model.StyleId, model.BreweryId);
+            this.beers.Create(
+                model.Name,
+                model.Price,
+                model.Quantity,
+                model.Description,
+                model.StyleId,
+                model.BreweryId,
+                model.Image);
+
             TempData["SuccessMessage"] = $"Succesfully added beer {model.Name}.";
 
             return RedirectToAction(nameof(All));
@@ -65,17 +74,11 @@
                 return NotFound();
             }
 
-            return View(new BeerFormModel
-            {
-                Name = beer.Name,
-                Price = beer.Price,
-                Quantity = beer.Quantity,
-                Description = beer.Description,
-                StyleId = beer.StyleId,
-                BreweryId = beer.BreweryId,
-                Breweries = this.GetBreweriesListItems(),
-                Styles = this.GetStylesListItems()
-            });
+            var beerFormModel = this.mapper.Map<BeerFormModel>(beer);
+            beerFormModel.Breweries = this.GetBreweriesListItems();
+            beerFormModel.Styles = this.GetStylesListItems();
+
+            return View(beerFormModel);
         }
 
         [HttpPost]
@@ -95,7 +98,8 @@
                     model.Price,
                     model.Quantity,
                     model.StyleId,
-                    model.BreweryId);
+                    model.BreweryId,
+                    model.Image);
 
             TempData["WarningMessage"] = $"Successfully editted beer {model.Name}";
 
@@ -106,17 +110,11 @@
         {
             var beer = this.beers.ById(id);
 
-            return View(new BeerFormModel
-            {
-                Name = beer.Name,
-                Price = beer.Price,
-                Quantity = beer.Quantity,
-                StyleId = beer.StyleId,
-                Description = beer.Description,
-                BreweryId = beer.BreweryId,
-                Breweries = this.GetBreweriesListItems(),
-                Styles = this.GetStylesListItems()
-            });
+            var beerFormModel = this.mapper.Map<BeerFormModel>(beer);
+            beerFormModel.Breweries = this.GetBreweriesListItems();
+            beerFormModel.Styles = this.GetStylesListItems();
+
+            return View(beerFormModel);
         }
 
         [HttpPost]

@@ -2,13 +2,15 @@
 
 namespace BeerShop.Web.Areas.Administration.Models.Towns
 {
+    using BeerShop.Common.Mapping;
+    using BeerShop.Services.Administration.Models.Towns;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static ModelConstants;
 
-    public class TownFormModel
+    public class TownFormModel : IMapFrom<TownEditModel>
     {
         [Required]
         [MinLength(TownNameMinLength)]

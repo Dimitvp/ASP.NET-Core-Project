@@ -75,5 +75,19 @@
 
             return RedirectToAction(nameof(Details), new { id = id });
         }
+
+        public async Task<IActionResult> ClearRoles(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var roles = await this.userManager.GetRolesAsync(user);
+            await this.userManager.RemoveFromRolesAsync(user, roles);
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
     }
 }

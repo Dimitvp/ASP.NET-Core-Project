@@ -3,55 +3,30 @@
     ViewData["Title"] = $"Details for {Model.Username}";
 }
 <h2>@ViewData["Title"]</h2>
-<div>
-    <a href="/administration/users/addrole/@Model.Id" class="btn btn-lg btn-info">Add Role</a>
-</div>
 <hr />
 
-<table class="table table-bordered table-hover table-striped">
-    <thead>
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Number of Orders</th>
-            <th>Registered On</th>
-            <th>Last Login</th>
-            <th>Roles</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model.Username</td>
-            <td>@Model.Email</td>
-            <td>@Model.FirstName</td>
-            <td>@Model.LastName</td>
-            <td>@Model.Address</td>
-            <td>@Model.OrdersCount</td>
-            <td>@Model.RegisteredOn</td>
-            <td>@Model.LastLogin</td>
-            <td>
-                <ul>
-                    @if (!Model.Roles.Any())
-                    {
-                        <li>Regular User</li>
-                    }
-                    @foreach (var role in Model.Roles)
-                    {
-                        <li>
-                            @role
-                        </li>
-                    }
-                </ul>
-            </td>
-            <td>
-                <a href="/administration/users/delete/@Model.Id" class="btn btn-sm btn-danger">Delete</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<a href="/administration/users/all/" class="btn btn-sm btn-primary">Back</a>
+<div class="container">
+    <div class="row col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><strong>Username : @Model.Username </strong></div>
+            <div class="panel-body">
+                <p><strong>Name:</strong> @Model.FirstName @Model.LastName</p>
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Address:</strong> @Model.Address</p>
+                <p><strong>Number of orders:</strong> @Model.OrdersCount</p>
+                <p><strong>Registered On: </strong> @Model.RegisteredOn</p>
+                <p><strong>Last Login: </strong> @Model.LastLogin</p>
+            </div>
+            <div class="panel-footer">
+                <strong>Roles:</strong> @(string.Join(", ", Model.Roles))
+            </div>
+        </div>
+        <a href="/administration/users/all" class="btn btn-info">Back</a>
+        <a href="/administration/users/addrole/@Model.Id" class="btn btn-primary">Add Role</a>
+        @if (Model.Username != WebConstants.AdminRole)
+        {
+            <a href="/administration/users/clearroles/@Model.Id" class="btn btn-danger">Remove Roles</a>
+        }
+    </div>
+</div>
 

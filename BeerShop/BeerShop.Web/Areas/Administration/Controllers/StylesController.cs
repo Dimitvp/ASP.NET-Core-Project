@@ -5,14 +5,17 @@
     using Models.Styles;
     using BeerShop.Web.Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
+    using AutoMapper;
 
     public class StylesController : AdminBaseController
     {
         private readonly IStyleService styles;
+        private readonly IMapper mapper;
 
-        public StylesController(IStyleService styles)
+        public StylesController(IStyleService styles, IMapper mapper)
         {
             this.styles = styles;
+            this.mapper = mapper;
         }
 
         public IActionResult All()
@@ -49,11 +52,7 @@
                 return NotFound();
             }
 
-            return View(new StyleFormModel
-            {
-                Name = currentStyle.Name,
-                ServingTemp = currentStyle.ServingTemp
-            });
+            return View(this.mapper.Map<StyleFormModel>(currentStyle));
         }
 
         [HttpPost]
@@ -84,11 +83,7 @@
                 return NotFound();
             }
 
-            return View(new StyleFormModel
-            {
-                Name = currentStyle.Name,
-                ServingTemp = currentStyle.ServingTemp
-            });
+            return View(this.mapper.Map<StyleFormModel>(currentStyle));
         }
 
         [HttpPost]

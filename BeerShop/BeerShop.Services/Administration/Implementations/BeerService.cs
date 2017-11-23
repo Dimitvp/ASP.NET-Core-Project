@@ -3,8 +3,10 @@
     using AutoMapper.QueryableExtensions;
     using BeerShop.Data;
     using BeerShop.Models;
+    using Microsoft.AspNetCore.Http;
     using Models.Beers;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class BeerService : IBeerService
@@ -18,7 +20,7 @@
 
         public IEnumerable<BeerListingModel> AllListing()
             => this.db.Beers
-                .OrderBy(b => b.Name)
+                .OrderByDescending(b => b.Id)
                 .ProjectTo<BeerListingModel>()
                 .ToList();
 
@@ -28,8 +30,15 @@
             int quantity,
             string description,
             int styleId,
-            int breweryId)
+            int breweryId,
+            IFormFile image)
         {
+            var memoryStream = new MemoryStream();
+            using (memoryStream)
+            {
+                image.CopyTo(memoryStream);
+            }
+
             var beer = new Beer
             {
                 Name = name,
@@ -37,7 +46,8 @@
                 Quantity = quantity,
                 Description = description,
                 StyleId = styleId,
-                BreweryId = breweryId
+                BreweryId = breweryId,
+                Image = memoryStream.ToArray()
             };
 
             this.db.Beers.Add(beer);
@@ -56,7 +66,8 @@
             decimal price,
             int quantity,
             int styleId,
-            int breweryId)
+            int breweryId,
+            IFormFile image)
         {
             var beer = this.db.Beers.Find(id);
 
@@ -65,11 +76,18 @@
                 return;
             }
 
+            var memoryStream = new MemoryStream();
+            using (memoryStream)
+            {
+                image.CopyTo(memoryStream);
+            }
+
             beer.Name = name;
             beer.Price = price;
             beer.Quantity = quantity;
             beer.StyleId = styleId;
             beer.BreweryId = breweryId;
+            beer.Image = memoryStream.ToArray();
 
             this.db.SaveChanges();
         }

@@ -8,18 +8,22 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System.Collections.Generic;
     using System.Linq;
+    using AutoMapper;
 
     public class TownsController : AdminBaseController
     {
         private readonly ITownService towns;
         private readonly ICountryService countries;
+        private readonly IMapper mapper;
 
         public TownsController(
             ITownService towns,
-            ICountryService countries)
+            ICountryService countries,
+            IMapper mapper)
         {
             this.towns = towns;
             this.countries = countries;
+            this.mapper = mapper;
         }
 
         public IActionResult All()
@@ -59,13 +63,10 @@
                 return NotFound();
             }
 
-            return View(new TownFormModel
-            {
-                Name = town.Name,
-                ZipCode = town.ZipCode,
-                CountryId = town.CountryId,
-                Countries = this.GetAllCountriesItems()
-            });
+            var townFormMolde = this.mapper.Map<TownFormModel>(town);
+            townFormMolde.Countries = this.GetAllCountriesItems();
+
+            return View(townFormMolde);
         }
 
         [HttpPost]
@@ -88,13 +89,10 @@
         {
             var town = this.towns.ById(id);
 
-            return View(new TownFormModel
-            {
-                Name = town.Name,
-                ZipCode = town.ZipCode,
-                Countries = this.GetAllCountriesItems(),
-                CountryId = town.CountryId
-            });
+            var townFormMolde = this.mapper.Map<TownFormModel>(town);
+            townFormMolde.Countries = this.GetAllCountriesItems();
+
+            return View(townFormMolde);
         }
 
         [HttpPost]

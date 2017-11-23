@@ -24,6 +24,9 @@
         [MaxLength(BeerDescriptionMaxLength)]
         [MinLength(BeerDescriptionMinLength)]
         public string Description { get; set; }
+        
+        [MaxLength(BeerImageMaxLength)]
+        public byte[] Image { get; set; }
 
         public int StyleId { get; set; }
 
