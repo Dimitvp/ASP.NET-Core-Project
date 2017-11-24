@@ -6,6 +6,13 @@
     margin-top: 40px;
 }
 
+.row-map-contact {
+    margin: 0 !important;
+}
+.no-padding{
+    padding: 0 !important;
+}
+
 #my-loc {
     height: 400px;
 }

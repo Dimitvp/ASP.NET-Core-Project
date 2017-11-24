@@ -69,33 +69,72 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-        @{
-            if (TempData.ContainsKey("SuccessMessage"))
-            {
-                <div class="alert alert-success text-center" role="alert">
-                    <p><strong>@TempData["SuccessMessage"]</strong></p>
-                </div>
-            }
-            else if (TempData.ContainsKey("WarningMessage"))
-            {
-                <div class="alert alert-warning text-center" role="alert">
-                    <p><strong>@TempData["WarningMessage"]</strong></p>
-                </div>
-            }
-            else if (TempData.ContainsKey("DangerMessage"))
-            {
-                <div class="alert alert-danger text-center" role="alert">
-                    <p><strong>@TempData["DangerMessage"]</strong></p>
-                </div>
-            }
+    @{
+        if (TempData.ContainsKey("SuccessMessage"))
+        {
+            <div class="alert alert-success text-center" role="alert">
+                <p><strong>@TempData["SuccessMessage"]</strong></p>
+            </div>
         }
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.UtcNow.Year - Beer Shop</p>
-        </footer>
-    </div>
+        else if (TempData.ContainsKey("WarningMessage"))
+        {
+            <div class="alert alert-warning text-center" role="alert">
+                <p><strong>@TempData["WarningMessage"]</strong></p>
+            </div>
+        }
+        else if (TempData.ContainsKey("DangerMessage"))
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                <p><strong>@TempData["DangerMessage"]</strong></p>
+            </div>
+        }
+    }
+    @RenderBody()
+    <footer class="bg-inverse blockquote-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Beer Academy</h3>
+                    <p>
+                        Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Contact into</h3>
+                    <h5>Address</h5>
+                    <p>loremlorem lorem lorem lorem</p>
+                    <p>loremlorem lorem</p>
+                    <h5>Phone Number</h5>
+                    <p>+32423423 3232</p>
+                    <h5>Email Address</h5>
+                    <p>mail@mail.bg</p>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Pages</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>Shop</li>
+                        <li>Profile</li>
+                        <li>Contacts</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Follow us</h3>
+                    <i class="fa fa-facebook-square"></i>
+                    <i class="fa fa-twitter-square"></i>
+                    <i class="fa fa-linkedin-square"></i>
+                    <i class="fa fa-youtube-square"></i>
+                    <hr />
+                    <h3 class="text-uppercase">Mailing list</h3>
+                    <p>Sign up for newlester</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your E-mail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-uppercase">&copy; @DateTime.UtcNow.Year - Beer Academy</p>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
