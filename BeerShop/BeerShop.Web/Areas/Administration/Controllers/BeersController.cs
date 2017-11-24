@@ -13,15 +13,15 @@
 
     public class BeersController : AdminBaseController
     {
-        private readonly IBreweryService breweries;
-        private readonly IStyleService styles;
-        private readonly IBeerService beers;
+        private readonly IAdminBreweryService breweries;
+        private readonly IAdminStyleService styles;
+        private readonly IAdminBeerService beers;
         private readonly IMapper mapper;
 
         public BeersController(
-            IBreweryService breweries,
-            IStyleService styles,
-            IBeerService beers,
+            IAdminBreweryService breweries,
+            IAdminStyleService styles,
+            IAdminBeerService beers,
             IMapper mapper)
         {
             this.breweries = breweries;

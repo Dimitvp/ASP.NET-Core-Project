@@ -9,10 +9,10 @@
 
     public class StylesController : AdminBaseController
     {
-        private readonly IStyleService styles;
+        private readonly IAdminStyleService styles;
         private readonly IMapper mapper;
 
-        public StylesController(IStyleService styles, IMapper mapper)
+        public StylesController(IAdminStyleService styles, IMapper mapper)
         {
             this.styles = styles;
             this.mapper = mapper;

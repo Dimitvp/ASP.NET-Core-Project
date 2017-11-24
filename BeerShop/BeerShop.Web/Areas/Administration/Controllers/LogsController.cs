@@ -5,9 +5,9 @@
 
     public class LogsController : AdminBaseController
     {
-        private readonly ILogService logs;
+        private readonly IAdminLogService logs;
 
-        public LogsController(ILogService logs)
+        public LogsController(IAdminLogService logs)
         {
             this.logs = logs;
         }

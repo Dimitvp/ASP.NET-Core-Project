@@ -5,9 +5,9 @@
 
     public class BreweriesController : AdminBaseController
     {
-        private readonly IBreweryService breweries;
+        private readonly IAdminBreweryService breweries;
 
-        public BreweriesController(IBreweryService breweries)
+        public BreweriesController(IAdminBreweryService breweries)
         {
             this.breweries = breweries;
         }

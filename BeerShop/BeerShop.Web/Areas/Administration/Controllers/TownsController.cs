@@ -12,13 +12,13 @@
 
     public class TownsController : AdminBaseController
     {
-        private readonly ITownService towns;
-        private readonly ICountryService countries;
+        private readonly IAdminTownService towns;
+        private readonly IAdminCountryService countries;
         private readonly IMapper mapper;
 
         public TownsController(
-            ITownService towns,
-            ICountryService countries,
+            IAdminTownService towns,
+            IAdminCountryService countries,
             IMapper mapper)
         {
             this.towns = towns;

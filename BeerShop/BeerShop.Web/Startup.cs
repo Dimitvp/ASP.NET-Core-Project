@@ -36,9 +36,17 @@
                 .AddEntityFrameworkStores<BeerShopDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = Configuration["Authentication:Facebook:AppId"];
+                options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddDomainServices();
 
             services.AddAutoMapper();
+
+            services.AddRouting(routing => routing.LowercaseUrls = true);
 
             services.AddMvc(options =>
             {
@@ -58,7 +66,7 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/home/error");
             }
 
             app.UseStaticFiles();
@@ -67,6 +75,12 @@
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "blog",
+                    template: "blog/articles/{id}/{title}",
+                    defaults: new { area = "Blog", controller = "Blog", action = "Details" }
+                    );
+
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

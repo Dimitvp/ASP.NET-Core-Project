@@ -8,9 +8,9 @@
 
     public class CountriesController : AdminBaseController
     {
-        private readonly ICountryService countries;
+        private readonly IAdminCountryService countries;
 
-        public CountriesController(ICountryService countries)
+        public CountriesController(IAdminCountryService countries)
         {
             this.countries = countries;
         }

@@ -11,12 +11,12 @@
 
     public class UsersController : AdminBaseController
     {
-        private readonly IAdminService admins;
+        private readonly IAdminUserService admins;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
         public UsersController(
-            IAdminService admins,
+            IAdminUserService admins,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager)
         {
