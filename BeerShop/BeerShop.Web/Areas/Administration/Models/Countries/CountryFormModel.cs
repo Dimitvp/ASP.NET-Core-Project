@@ -1,10 +1,8 @@
-﻿using BeerShop.Models;
-
-namespace BeerShop.Web.Areas.Administration.Models.Countries
+﻿namespace BeerShop.Web.Areas.Administration.Models.Countries
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static ModelConstants;
+    using static BeerShop.Models.ModelConstants;
 
     public class CountryFormModel
     {

@@ -1,0 +1,28 @@
+﻿@model MessageDetailsModel
+@{
+    ViewData["Title"] = "Message Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="jumbotron">
+        <p>
+            Sender name: @Model.Name
+        </p>
+        <p>
+            Sender Email: @Model.Email
+        </p>
+        <p>
+            Sender Phone Number: @Model.Phone
+        </p>
+        <p>
+            Subject: @Model.Subject
+        </p>
+        <p>
+            Content: @Model.Content
+        </p>
+        <p>
+            Sent on:<cite> @Model.SentOn</cite>
+        </p>
+    <a href="/administration/messages/all" class="btn btn-outline-primary">Back</a>
+</div>

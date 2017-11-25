@@ -125,6 +125,40 @@ namespace BeerShop.Data.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("BeerShop.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(3000);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(25);
+
+                    b.Property<DateTime>("SentOn");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("BeerShop.Models.Order", b =>
                 {
                     b.Property<int>("Id")

@@ -1,0 +1,33 @@
+﻿@model MessagePageListingModel
+@{
+    ViewData["Title"] = "All Messages";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr class="table-info">
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Sent On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var message in Model.Messages)
+        {
+            
+            <tr class="@(message.IsRead ? string.Empty : "font-weight-bold")">
+                <td>@message.Name</td>
+                <td>@message.Subject</td>
+                <td>@message.SentOn</td>
+                <td>
+                    <a href="/administration/messages/details/@message.Id" class="btn btn-outline-info">Details</a>
+                    <a href="/administration/messages/delete/@message.Id" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

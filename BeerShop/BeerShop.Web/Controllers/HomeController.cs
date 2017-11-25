@@ -1,11 +1,20 @@
 ﻿namespace BeerShop.Web.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-    using BeerShop.Web.Models;
+    using Models;
+    using Models.Messages;
+    using Services;
+    using System.Diagnostics;
 
     public class HomeController : Controller
     {
+        private readonly IMessageService messages;
+
+        public HomeController(IMessageService messages)
+        {
+            this.messages = messages;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -14,6 +23,25 @@
         public IActionResult Contacts()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacts(MessageFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            this.messages.Create(model.Name, 
+                model.Email, 
+                model.Phone, 
+                model.Subject, 
+                model.Content);
+
+            TempData["SuccessMessage"] = "Thank You for your message!";
+
+            return RedirectToAction(nameof(Contacts));
         }
 
         public IActionResult Error()

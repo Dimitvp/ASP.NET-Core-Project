@@ -17,6 +17,8 @@
 
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Style> Styles { get; set; }

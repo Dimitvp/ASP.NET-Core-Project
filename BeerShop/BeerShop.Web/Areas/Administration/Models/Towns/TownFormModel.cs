@@ -1,6 +1,4 @@
-﻿using BeerShop.Models;
-
-namespace BeerShop.Web.Areas.Administration.Models.Towns
+﻿namespace BeerShop.Web.Areas.Administration.Models.Towns
 {
     using BeerShop.Common.Mapping;
     using BeerShop.Services.Administration.Models.Towns;
@@ -8,7 +6,7 @@ namespace BeerShop.Web.Areas.Administration.Models.Towns
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static ModelConstants;
+    using static BeerShop.Models.ModelConstants;
 
     public class TownFormModel : IMapFrom<TownEditModel>
     {

@@ -1,10 +1,10 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using BeerShop.Models.Enums;
-    using BeerShop.Services.Administration;
-    using BeerShop.Web.Infrastructure.Filters;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Models.Countries;
+    using Services.Administration;
 
     public class CountriesController : AdminBaseController
     {

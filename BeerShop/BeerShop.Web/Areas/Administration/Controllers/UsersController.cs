@@ -1,11 +1,11 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using BeerShop.Models;
-    using BeerShop.Services.Administration;
-    using Models.Users;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Users;
+    using Services.Administration;
     using System.Linq;
     using System.Threading.Tasks;
 

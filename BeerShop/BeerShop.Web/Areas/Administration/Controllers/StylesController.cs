@@ -1,11 +1,11 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
-    using BeerShop.Models.Enums;
-    using BeerShop.Services.Administration;
-    using Models.Styles;
-    using BeerShop.Web.Infrastructure.Filters;
-    using Microsoft.AspNetCore.Mvc;
     using AutoMapper;
+    using BeerShop.Models.Enums;
+    using Infrastructure.Filters;
+    using Microsoft.AspNetCore.Mvc;
+    using Models.Styles;
+    using Services.Administration;
 
     public class StylesController : AdminBaseController
     {

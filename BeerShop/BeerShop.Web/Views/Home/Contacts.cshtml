@@ -37,7 +37,6 @@
                     <textarea asp-for="Content" class="form-control" rows="5"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
-
                 <div class="form-group mt-4 mb-2">
                     <button type="submit" class="btn btn-outline-success text-uppercase">
                         Send Your Message
@@ -96,3 +95,7 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFf6lEs1_IeY4SCrcLdSPrSAMud22pBIA&callback=myMap"></script>
 
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -2,11 +2,11 @@
 {
     using AutoMapper;
     using BeerShop.Models.Enums;
-    using BeerShop.Services.Administration;
-    using BeerShop.Web.Areas.Administration.Models.Beers;
-    using BeerShop.Web.Infrastructure.Filters;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Beers;
+    using Services.Administration;
     using System;
     using System.Collections.Generic;
     using System.Linq;

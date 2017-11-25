@@ -1,11 +1,10 @@
-﻿using BeerShop.Models;
-
-namespace BeerShop.Web.Areas.Administration.Models.Styles
+﻿namespace BeerShop.Web.Areas.Administration.Models.Styles
 {
     using BeerShop.Common.Mapping;
     using BeerShop.Services.Administration.Models.Styles;
     using System.ComponentModel.DataAnnotations;
-    using static ModelConstants;
+
+    using static BeerShop.Models.ModelConstants;
 
     public class StyleFormModel : IMapFrom<StyleEditModel>
     {

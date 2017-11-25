@@ -2,29 +2,35 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static BeerShop.Models.ModelConstants;
+
     public class MessageFormModel
     {
         [Required]
-        [MaxLength(50)]
+        [MinLength(MessageNameMinLength)]
+        [MaxLength(MessageNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
         [EmailAddress]
-        [MaxLength(50)]
+        [MaxLength(MessageEmailMaxLength)]
         public string Email { get; set; }
 
         [Required]
         [Display(Name="Phone Number")]
-        [MaxLength(50)]
+        [MinLength(MessagePhoneMinLength)]
+        [MaxLength(MessagePhoneMaxLength)]
         public string Phone { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MinLength(MessageSubjectMinLength)]
+        [MaxLength(MessageSubjectMaxLength)]
         public string Subject { get; set; }
 
         [Required]
         [Display(Name="Message")]
-        [MaxLength(3000)]
+        [MinLength(MessageSubjectMinLength)]
+        [MaxLength(MessageContentMaxLength)]
         public string Content { get; set; }
     }
 }

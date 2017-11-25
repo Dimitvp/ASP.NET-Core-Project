@@ -28,9 +28,9 @@
             }
 
             return beers
+                .OrderByDescending(b => b.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .OrderByDescending(b => b.Id)
                 .ProjectTo<BeerListingModel>()
                 .ToList();
         }

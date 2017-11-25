@@ -1,6 +1,4 @@
-﻿using BeerShop.Models;
-
-namespace BeerShop.Web.Areas.Administration.Models.Beers 
+﻿namespace BeerShop.Web.Areas.Administration.Models.Beers 
 {
     using BeerShop.Common.Mapping;
     using BeerShop.Services.Administration.Models.Beers;
@@ -9,7 +7,7 @@ namespace BeerShop.Web.Areas.Administration.Models.Beers
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static ModelConstants;
+    using static BeerShop.Models.ModelConstants;
 
     public class BeerFormModel : IMapFrom<BeerEditModel>
     {

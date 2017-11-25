@@ -1,6 +1,6 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
-    using BeerShop.Services.Administration;
+    using Services.Administration;
     using Microsoft.AspNetCore.Mvc;
 
     public class LogsController : AdminBaseController

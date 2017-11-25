@@ -1,14 +1,14 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
+    using AutoMapper;
     using BeerShop.Models.Enums;
-    using BeerShop.Services.Administration;
-    using Models.Towns;
-    using BeerShop.Web.Infrastructure.Filters;
+    using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Models.Towns;
+    using Services.Administration;
     using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
 
     public class TownsController : AdminBaseController
     {

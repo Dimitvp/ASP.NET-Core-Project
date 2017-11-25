@@ -54,6 +54,7 @@
                             <a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a>
                             <a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a>
                             <a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a>
+                            <a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a>
                         </div>
                     </li>
                 </ul>
@@ -72,20 +73,20 @@
     @{
         if (TempData.ContainsKey("SuccessMessage"))
         {
-            <div class="alert alert-success text-center" role="alert">
-                <p><strong>@TempData["SuccessMessage"]</strong></p>
+            <div class="alert alert-success text-center fade show" role="alert">
+                    <strong>@TempData["SuccessMessage"]</strong>
             </div>
         }
         else if (TempData.ContainsKey("WarningMessage"))
         {
-            <div class="alert alert-warning text-center" role="alert">
-                <p><strong>@TempData["WarningMessage"]</strong></p>
+            <div class="alert alert-warning text-center fade show" role="alert">
+                <strong>@TempData["WarningMessage"]</strong>
             </div>
         }
         else if (TempData.ContainsKey("DangerMessage"))
         {
-            <div class="alert alert-danger text-center" role="alert">
-                <p><strong>@TempData["DangerMessage"]</strong></p>
+            <div class="alert alert-danger text-center fade show" role="alert">
+                <strong>@TempData["DangerMessage"]</strong>
             </div>
         }
     }
@@ -133,9 +134,10 @@
                 </div>
             </div>
         </div>
-        <p class="text-center text-uppercase">&copy; @DateTime.UtcNow.Year - Beer Academy</p>
+        <div class="text-center">
+            <span class=" text-uppercase">&copy; @DateTime.UtcNow.Year - Beer Academy</span>
+        </div>
     </footer>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
