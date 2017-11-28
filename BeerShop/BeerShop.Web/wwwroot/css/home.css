@@ -1,0 +1,14 @@
+﻿body {
+    background: url(../images/Carousel/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+    text-align:center;
+}
+
+#my-buttons {
+    display: inline-block;
+    margin-top: 10%;
+}
+
+#my-buttons a{
+    margin:10px;
+}

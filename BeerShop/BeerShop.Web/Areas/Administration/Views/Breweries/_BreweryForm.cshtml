@@ -1,5 +1,23 @@
-﻿
-@{
-    ViewData["Title"] = "_BreweryForm";
-}
-<h2>_BreweryForm</h2>
+﻿@model BreweryFormModel
+
+<form method="post">
+    <hr />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adress"></label>
+        <input asp-for="Adress" class="form-control" />
+        <span asp-validation-for="Adress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TownId"></label>
+        <select asp-for="TownId" asp-items="Model.Towns" selected="TownId" class="form-control">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <a href="/administration/breweries/all" class="btn btn-outline-info">Back</a>
+    <button type="submit" class="btn btn-outline-success">Save Brewery</button>
+</form>

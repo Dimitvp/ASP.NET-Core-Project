@@ -26,4 +26,11 @@
     <ProjectReference Include="..\BeerShop.Services\BeerShop.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Shop\Controllers\" />
+    <Folder Include="Areas\Shop\Data\" />
+    <Folder Include="Areas\Shop\Models\" />
+    <Folder Include="Areas\Shop\Views\" />
+  </ItemGroup>
+
 </Project>

@@ -14,5 +14,7 @@
         void Edit(int id, string name, string zipCode, int countryId);
 
         void Delete(int id);
+
+        IEnumerable<TownSelectModel> AllForSelect();
     }
 }

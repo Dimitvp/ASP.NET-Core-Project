@@ -1,6 +1,7 @@
 ﻿body {
-    background-color: #FDF5E4;
+    background-color: #F6DF77;
 }
+
 
 .container .jumbotron {
     margin-top: 40px;
@@ -9,7 +10,8 @@
 .row-map-contact {
     margin: 0 !important;
 }
-.no-padding{
+
+.no-padding {
     padding: 0 !important;
 }
 

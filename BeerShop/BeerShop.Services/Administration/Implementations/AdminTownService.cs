@@ -69,5 +69,11 @@
             this.db.Towns.Remove(town);
             this.db.SaveChanges();
         }
+
+        public IEnumerable<TownSelectModel> AllForSelect()
+            => this.db.Towns
+            .OrderBy(t => t.Name)
+            .ProjectTo<TownSelectModel>()
+            .ToList();
     }
 }
