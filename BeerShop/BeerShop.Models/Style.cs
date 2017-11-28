@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Models
 {
+    using Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -13,10 +14,6 @@
         [MaxLength(StyleNameMaxLength)]
         [MinLength(StyleNameMinLength)]
         public string Name { get; set; }
-
-        [Required]
-        [MaxLength(ServingTempMaxLength)]
-        public string ServingTemp { get; set; }
 
         public ICollection<Beer> Beers { get; set; } = new HashSet<Beer>();
     }

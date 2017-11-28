@@ -12,10 +12,5 @@
         [MinLength(StyleNameMinLength)]
         [MaxLength(StyleNameMaxLength)]
         public string Name { get; set; }
-
-        [Required]
-        [MaxLength(ServingTempMaxLength)]
-        [Display(Name = "Serving Temperature")]
-        public string ServingTemp { get; set; }
     }
 }

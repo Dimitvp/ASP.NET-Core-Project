@@ -1,6 +1,7 @@
 ﻿namespace BeerShop.Data
 {
-    using BeerShop.Models;
+    using Models;
+    using Models.Products;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +12,17 @@
         {
         }
 
+        public DbSet<Accessory> Accessories { get; set; }
+
         public DbSet<Beer> Beers { get; set; }
 
         public DbSet<Brewery> Breweries { get; set; }
 
         public DbSet<Country> Countries { get; set; }
+        
+        public DbSet<GiftSet> GiftSets { get; set; }
+
+        public DbSet<Glass> Glasses { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 
@@ -29,6 +36,45 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<GlassOrder>()
+                .HasKey(go => new { go.GlassId, go.OrderId });
+
+            builder.Entity<Glass>()
+                .HasMany(g => g.Orders)
+                .WithOne(o => o.Glass)
+                .HasForeignKey(o => o.GlassId);
+
+            builder.Entity<Order>()
+                .HasMany(o => o.Glasses)
+                .WithOne(g => g.Order)
+                .HasForeignKey(g => g.OrderId);
+
+            builder.Entity<AccessoryOrder>()
+                .HasKey(ao => new { ao.AccessoryId, ao.OrderId });
+
+            builder.Entity<Accessory>()
+                .HasMany(a => a.Orders)
+                .WithOne(o => o.Accessory)
+                .HasForeignKey(o => o.AccessoryId);
+
+            builder.Entity<Order>()
+                .HasMany(o => o.Accessories)
+                .WithOne(a => a.Order)
+                .HasForeignKey(a => a.OrderId);
+
+            builder.Entity<GiftSetOrder>()
+                .HasKey(gso => new { gso.GiftSetId, gso.OrderId });
+
+            builder.Entity<GiftSet>()
+                .HasMany(gs => gs.Orders)
+                .WithOne(o => o.GiftSet)
+                .HasForeignKey(o => o.GiftSetId);
+
+            builder.Entity<Order>()
+                .HasMany(o => o.GiftSets)
+                .WithOne(gs => gs.Order)
+                .HasForeignKey(gs => gs.OrderId);
+
             builder.Entity<BeerOrder>()
                 .HasKey(bs => new { bs.BeerId, bs.OrderId });
 

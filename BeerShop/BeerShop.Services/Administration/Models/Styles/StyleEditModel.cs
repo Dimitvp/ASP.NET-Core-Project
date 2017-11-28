@@ -6,7 +6,5 @@
     public class StyleEditModel : IMapFrom<Style>
     {
         public string Name { get; set; }
-
-        public string ServingTemp { get; set; }
     }
 }

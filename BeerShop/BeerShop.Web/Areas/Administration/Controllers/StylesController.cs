@@ -37,7 +37,7 @@
                 return View(model);
             }
 
-            this.styles.Create(model.Name, model.ServingTemp);
+            this.styles.Create(model.Name);
             TempData["SuccessMessage"] = $"Succesfully added style \"{model.Name}\".";
 
             return RedirectToAction(nameof(All));
@@ -66,8 +66,7 @@
 
             this.styles.Edit(
                     id,
-                    model.Name,
-                    model.ServingTemp);
+                    model.Name);
             TempData["WarningMessage"] = $"Successfully editted {model.Name}";
 
             return RedirectToAction(nameof(All));

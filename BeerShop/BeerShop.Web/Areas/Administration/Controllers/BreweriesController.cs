@@ -87,6 +87,29 @@
             return RedirectToAction(nameof(All));
         }
 
+        public IActionResult Delete(int id)
+        {
+            var brewery = this.breweries.ById(id);
+            if (brewery == null)
+            {
+                return NotFound();
+            }
+
+            var beerFormModel = this.mapper.Map<BreweryFormModel>(brewery);
+            beerFormModel.Towns = this.GetTownsListItems();
+
+            return View(beerFormModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id, string empty)
+        {
+            this.breweries.Delete(id);
+
+            TempData["WarningMessage"] = "Successfully deleted a brewery";
+            return RedirectToAction(nameof(All));
+        }
+
         private IEnumerable<SelectListItem> GetTownsListItems()
             => this.towns.AllForSelect()
             .Select(t => new SelectListItem
@@ -95,6 +118,5 @@
                 Value = t.Id.ToString()
             })
             .ToList();
-
     }
 }

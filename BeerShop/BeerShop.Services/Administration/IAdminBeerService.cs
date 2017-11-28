@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Services.Administration
 {
+    using BeerShop.Models.Enums;
     using Microsoft.AspNetCore.Http;
     using Models.Beers;
     using System.Collections.Generic;
@@ -14,21 +15,34 @@
             string name, 
             decimal price, 
             int quantity, 
-            string description, 
+            string description,
+            double alcohol,
+            string servingTemp,
+            BeerColor color,
+            int bitterness,
+            int density,
+            int sweetness,
+            int gasification,
             int styleId, 
-            int breweryId,
-            IFormFile image);
+            int breweryId);
 
         BeerEditModel ById(int id);
 
         void Edit(
-            int id, 
-            string name, 
-            decimal price, 
+            int id,
+            string name,
+            decimal price,
             int quantity,
-            int styleId, 
-            int breweryId,
-            IFormFile image);
+            string description,
+            double alcohol,
+            string servingTemp,
+            BeerColor color,
+            int bitterness,
+            int density,
+            int sweetness,
+            int gasification,
+            int styleId,
+            int breweryId);
 
         void Delete(int id);
     }

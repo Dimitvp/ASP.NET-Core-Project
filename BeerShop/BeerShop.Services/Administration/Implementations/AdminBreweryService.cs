@@ -35,7 +35,7 @@
             var brewery = new Brewery
             {
                 Name = name,
-                Adress = address,
+                Address = address,
                 TownId = townId
             };
 
@@ -62,9 +62,22 @@
             }
 
             brewery.Name = name;
-            brewery.Adress = adress;
+            brewery.Address = adress;
             brewery.TownId = townId;
 
+            this.db.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var brewery = this.db.Breweries.Find(id);
+
+            if (brewery == null)
+            {
+                return;
+            }
+
+            this.db.Breweries.Remove(brewery);
             this.db.SaveChanges();
         }
     }

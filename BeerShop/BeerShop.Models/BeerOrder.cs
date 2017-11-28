@@ -1,8 +1,9 @@
 ﻿namespace BeerShop.Models
 {
+    using Products;
     using System.ComponentModel.DataAnnotations.Schema;
     
-    [Table("BeerSales")]
+    [Table("BeerOrders")]
     public class BeerOrder
     {
         public int BeerId { get; set; }

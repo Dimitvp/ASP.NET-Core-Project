@@ -1,6 +1,6 @@
 ﻿namespace BeerShop.Models
 {
-    using BeerShop.Models.Enums;
+    using Enums;
     using System;
 
     public class Log

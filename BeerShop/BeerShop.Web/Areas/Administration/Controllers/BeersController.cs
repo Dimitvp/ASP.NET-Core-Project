@@ -68,9 +68,15 @@
                 model.Price,
                 model.Quantity,
                 model.Description,
+                model.Alcohol,
+                model.ServingTemp,
+                model.Color,
+                model.Bitterness,
+                model.Density,
+                model.Sweetness,
+                model.Gasification,
                 model.StyleId,
-                model.BreweryId,
-                model.Image);
+                model.BreweryId);
 
             TempData["SuccessMessage"] = $"Succesfully added beer {model.Name}.";
 
@@ -109,9 +115,16 @@
                     model.Name,
                     model.Price,
                     model.Quantity,
+                    model.Description,
+                    model.Alcohol,
+                    model.ServingTemp,
+                    model.Color,
+                    model.Bitterness,
+                    model.Density,
+                    model.Sweetness,
+                    model.Gasification,
                     model.StyleId,
-                    model.BreweryId,
-                    model.Image);
+                    model.BreweryId);
 
             TempData["WarningMessage"] = $"Successfully editted beer {model.Name}";
 

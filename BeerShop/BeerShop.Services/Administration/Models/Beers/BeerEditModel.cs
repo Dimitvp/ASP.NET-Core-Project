@@ -1,7 +1,8 @@
 ﻿namespace BeerShop.Services.Administration.Models.Beers
 {
     using BeerShop.Common.Mapping;
-    using BeerShop.Models;
+    using BeerShop.Models.Enums;
+    using BeerShop.Models.Products;
 
     public class BeerEditModel : IMapFrom<Beer>
     {
@@ -16,5 +17,19 @@
         public int BreweryId { get; set; }
 
         public string Description { get; set; }
+
+        public double Alcohol { get; set; }
+
+        public string ServingTemp { get; set; }
+
+        public BeerColor Color { get; set; }
+
+        public int Bitterness { get; set; }
+
+        public int Density { get; set; }
+
+        public int Sweetness { get; set; }
+
+        public int Gasification { get; set; }
     }
 }

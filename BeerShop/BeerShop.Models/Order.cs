@@ -18,5 +18,11 @@
         public User User { get; set; }
 
         public ICollection<BeerOrder> Beers { get; set; } = new HashSet<BeerOrder>();
+
+        public ICollection<GiftSetOrder> GiftSets { get; set; } = new HashSet<GiftSetOrder>();
+
+        public ICollection<AccessoryOrder> Accessories { get; set; } = new HashSet<AccessoryOrder>();
+
+        public ICollection<GlassOrder> Glasses { get; set; } = new HashSet<GlassOrder>();
     }
 }

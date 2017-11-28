@@ -20,6 +20,11 @@
             return View();
         }
 
+        public IActionResult All()
+        {
+            return View(this.countries.All());
+        }
+
         [HttpPost]
         [Log(LogType.Create)]
         public IActionResult Create(CountryFormModel model)
@@ -32,12 +37,7 @@
 
             TempData["SuccessMessage"] = $"Succesfully added {model.Name}.";
 
-            return RedirectToAction(nameof(Create));
-        }
-
-        public IActionResult All()
-        {
-            return View(this.countries.All());
+            return RedirectToAction(nameof(All));
         }
     }
 }

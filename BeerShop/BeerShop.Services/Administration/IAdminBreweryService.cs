@@ -17,5 +17,7 @@
         BreweryEditModel ById(int id);
 
         void Edit(int id, string name, string adress, int townId);
+
+        void Delete(int id);
     }
 }

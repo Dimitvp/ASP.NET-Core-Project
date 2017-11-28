@@ -2,11 +2,17 @@
 {
     public class ModelConstants
     {
-        public const int BeerNameMaxLength = 100;
-        public const int BeerNameMinLength = 2;
-        public const int BeerDescriptionMinLength = 5;
-        public const int BeerDescriptionMaxLength = 6000;
-        public const int BeerImageMaxLength = 2097152;
+        public const int ProductDescriptionMinLength = 5;
+        public const int ProductDescriptionMaxLength = 6000;
+        public const int ProductNameMaxLength = 100;
+        public const int ProductNameMinLength = 2;
+
+        public const int BeerCharacteristicsMinValue = 0;
+        public const int BeerCharacteristicsMaxValue = 5;
+        public const int BeerAlcoholMaxValue = 100;
+
+        public const int GlassVolumeMaxValue = 5000;
+        public const int GlassVolumeMinValue = 0;
 
         public const int BreweryNameMaxLength = 100;
         public const int BreweryNameMinLength = 2;

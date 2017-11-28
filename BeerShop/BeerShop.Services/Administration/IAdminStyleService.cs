@@ -9,11 +9,11 @@
 
         IEnumerable<StyleSelectModel> AllForSelect();
 
-        void Create(string name, string servingTemp);
+        void Create(string name);
 
         StyleEditModel ById(int id);
 
-        void Edit(int id, string name, string servingTemp);
+        void Edit(int id, string name);
 
         void Delete(int id);
     }

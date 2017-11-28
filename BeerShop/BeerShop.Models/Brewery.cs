@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Models
 {
+    using Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -17,7 +18,7 @@
         [Required]
         [MaxLength(BreweryAddressMaxLength)]
         [MinLength(BreweryAddressMinLength)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
 
         public int TownId { get; set; }
 

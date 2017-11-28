@@ -28,12 +28,11 @@
                 .ProjectTo<StyleSelectModel>()
                 .ToList();
 
-        public void Create(string name, string servingTemp)
+        public void Create(string name)
         {
             var style = new Style
             {
                 Name = name,
-                ServingTemp = servingTemp
             };
 
             this.db.Styles.Add(style);
@@ -46,7 +45,7 @@
                 .ProjectTo<StyleEditModel>()
                 .FirstOrDefault();
 
-        public void Edit(int id, string name, string servingTemp)
+        public void Edit(int id, string name)
         {
             var style = this.db.Styles.Find(id);
 
@@ -56,7 +55,6 @@
             }
 
             style.Name = name;
-            style.ServingTemp = servingTemp;
 
             this.db.SaveChanges();
         }

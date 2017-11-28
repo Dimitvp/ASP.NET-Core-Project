@@ -1,11 +1,25 @@
 ﻿namespace BeerShop.Services.Administration.Models.Beers
 {
-    public class BeerListingModel : BeerEditModel
+    using AutoMapper;
+    using BeerShop.Common.Mapping;
+    using BeerShop.Models.Products;
+
+    public class BeerListingModel : IMapFrom<Beer>, IHaveCustomMapping
     {
         public int Id { get; set; }
 
-        public string Style { get; set; }
+        public string Name { get; set; }
+
+        public int Quantity { get; set; }
+
+        public decimal Price { get; set; }
 
         public string Brewery { get; set; }
+
+        public void ConfigureMapping(Profile mapper)
+        {
+            mapper.CreateMap<Beer, BeerListingModel>()
+                .ForMember(b => b.Brewery, cfg => cfg.MapFrom(b => b.Brewery.Name));
+        }
     }
 }

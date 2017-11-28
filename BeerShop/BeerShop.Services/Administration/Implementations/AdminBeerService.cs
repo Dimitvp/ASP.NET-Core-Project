@@ -2,11 +2,10 @@
 {
     using AutoMapper.QueryableExtensions;
     using BeerShop.Data;
-    using BeerShop.Models;
-    using Microsoft.AspNetCore.Http;
+    using BeerShop.Models.Enums;
+    using BeerShop.Models.Products;
     using Models.Beers;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     public class AdminBeerService : IAdminBeerService
@@ -52,25 +51,31 @@
             decimal price,
             int quantity,
             string description,
+            double alcohol,
+            string servingTemp,
+            BeerColor color,
+            int bitterness,
+            int density,
+            int sweetness,
+            int gasification,
             int styleId,
-            int breweryId,
-            IFormFile image)
+            int breweryId)
         {
-            var memoryStream = new MemoryStream();
-            using (memoryStream)
-            {
-                image.CopyTo(memoryStream);
-            }
-
             var beer = new Beer
             {
                 Name = name,
                 Price = price,
                 Quantity = quantity,
                 Description = description,
+                Alcohol = alcohol,
+                ServingTemp = servingTemp,
+                Color = color,
+                Bitterness = bitterness,
+                Density = density,
+                Sweetness = sweetness,
+                Gasification = gasification,
                 StyleId = styleId,
-                BreweryId = breweryId,
-                Image = memoryStream.ToArray()
+                BreweryId = breweryId
             };
 
             this.db.Beers.Add(beer);
@@ -88,9 +93,16 @@
             string name,
             decimal price,
             int quantity,
+            string description,
+            double alcohol,
+            string servingTemp,
+            BeerColor color,
+            int bitterness,
+            int density,
+            int sweetness,
+            int gasification,
             int styleId,
-            int breweryId,
-            IFormFile image)
+            int breweryId)
         {
             var beer = this.db.Beers.Find(id);
 
@@ -99,18 +111,19 @@
                 return;
             }
 
-            var memoryStream = new MemoryStream();
-            using (memoryStream)
-            {
-                image.CopyTo(memoryStream);
-            }
-
             beer.Name = name;
             beer.Price = price;
             beer.Quantity = quantity;
+            beer.Description = description;
+            beer.Alcohol = alcohol;
+            beer.ServingTemp = servingTemp;
+            beer.Color = color;
+            beer.Bitterness = bitterness;
+            beer.Density = density;
+            beer.Sweetness = sweetness;
+            beer.Gasification = gasification;
             beer.StyleId = styleId;
             beer.BreweryId = breweryId;
-            beer.Image = memoryStream.ToArray();
 
             this.db.SaveChanges();
         }
