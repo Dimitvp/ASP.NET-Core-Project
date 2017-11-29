@@ -1,4 +1,4 @@
-﻿@model BeerFormModel
+﻿@model BeerFormViewModel
 
 <form method="post" enctype="multipart/form-data">
     <hr />
@@ -76,3 +76,7 @@
     <a href="/administration/beers/all" class="btn btn-outline-info">Back</a>
     <button type="submit" class="btn btn-outline-success">Save Beer</button>
 </form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,10 +1,10 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
-    using System.Collections.Generic;
-    using Models.Messages;
-    using BeerShop.Data;
-    using System.Linq;
     using AutoMapper.QueryableExtensions;
+    using Data;
+    using Models.Messages;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class AdminMessageService : IAdminMessageService
     {
@@ -15,32 +15,29 @@
             this.db = db;
         }
 
-        public IEnumerable<MessageListingModel> AllListing(int page = 1, int pageSize = 5)
+        public IEnumerable<MessageListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize)
             => this.db
-            .Messages
-            .OrderByDescending(m => m.Id)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ProjectTo<MessageListingModel>()
-            .ToList();
+                .Messages
+                .OrderByDescending(m => m.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<MessageListingServiceModel>()
+                .ToList();
 
         public int Total()
             => this.db
-            .Messages
-            .Count();
+                .Messages
+                .Count();
 
-        public MessageDetailsModel ById(int id)
+        public MessageDetailsServiceModel ById(int id)
             => this.db.Messages
-            .Where(m => m.Id == id)
-            .ProjectTo<MessageDetailsModel>()
-            .FirstOrDefault();
+                .Where(m => m.Id == id)
+                .ProjectTo<MessageDetailsServiceModel>()
+                .FirstOrDefault();
 
         public void MarkAsRead(int id)
         {
-            var message = this.db
-                .Messages
-                .Where(m => m.Id == id)
-                .FirstOrDefault();
+            var message = this.db.Messages.Find(id);
 
             if (message == null)
             {
@@ -51,19 +48,19 @@
             this.db.SaveChanges();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            var message = this.db.Messages
-                .Where(m=> m.Id == id)
-                .FirstOrDefault();
+            var message = this.db.Messages.Find(id);
 
             if (message == null)
             {
-                return;
+                return false;
             }
 
             this.db.Messages.Remove(message);
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

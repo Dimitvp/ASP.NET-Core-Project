@@ -7,14 +7,14 @@
     {
         void Create(string name, string zipcode, int countryId);
 
-        IEnumerable<TownListingModel> AllListing();
+        IEnumerable<TownListingServiceModel> AllListing();
 
-        TownEditModel ById(int id);
+        TownEditServiceModel ById(int id);
 
-        void Edit(int id, string name, string zipCode, int countryId);
+        bool Edit(int id, string name, string zipCode, int countryId);
 
-        void Delete(int id);
+        bool Delete(int id);
 
-        IEnumerable<TownSelectModel> AllForSelect();
+        IEnumerable<TownSelectServiceModel> AllForSelect();
     }
 }

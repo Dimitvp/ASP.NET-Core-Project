@@ -30,7 +30,7 @@
 
         [HttpPost]
         [Log(LogType.Create)]
-        public IActionResult Create(StyleFormModel model)
+        public IActionResult Create(StyleFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -52,21 +52,25 @@
                 return NotFound();
             }
 
-            return View(this.mapper.Map<StyleFormModel>(currentStyle));
+            return View(this.mapper.Map<StyleFormViewModel>(currentStyle));
         }
 
         [HttpPost]
         [Log(LogType.Edit)]
-        public IActionResult Edit(int id, StyleFormModel model)
+        public IActionResult Edit(int id, StyleFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            this.styles.Edit(
-                    id,
-                    model.Name);
+            var success = this.styles.Edit(id,model.Name);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
             TempData["WarningMessage"] = $"Successfully editted {model.Name}";
 
             return RedirectToAction(nameof(All));
@@ -82,14 +86,19 @@
                 return NotFound();
             }
 
-            return View(this.mapper.Map<StyleFormModel>(currentStyle));
+            return View(this.mapper.Map<StyleFormViewModel>(currentStyle));
         }
 
         [HttpPost]
         [Log(LogType.Delete)]
         public IActionResult Delete(int id)
         {
-            this.styles.Delete(id);
+            var success = this.styles.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
             TempData["DangerMessage"] = "Delete was successfull.";
 
             return RedirectToAction(nameof(All));

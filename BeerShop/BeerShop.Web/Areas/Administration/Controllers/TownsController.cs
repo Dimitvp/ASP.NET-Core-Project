@@ -32,7 +32,7 @@
 
         public IActionResult Create()
         {
-            return View(new TownFormModel
+            return View(new TownFormViewModel
             {
                 Countries = this.GetAllCountriesItems()
             });
@@ -40,7 +40,7 @@
 
         [HttpPost]
         [Log(LogType.Create)]
-        public IActionResult Create(TownFormModel model)
+        public IActionResult Create(TownFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@
                 return NotFound();
             }
 
-            var townFormMolde = this.mapper.Map<TownFormModel>(town);
+            var townFormMolde = this.mapper.Map<TownFormViewModel>(town);
             townFormMolde.Countries = this.GetAllCountriesItems();
 
             return View(townFormMolde);
@@ -71,7 +71,7 @@
 
         [HttpPost]
         [Log(LogType.Edit)]
-        public IActionResult Edit(int id, TownFormModel model)
+        public IActionResult Edit(int id, TownFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -79,7 +79,13 @@
                 return View(model);
             }
 
-            this.towns.Edit(id, model.Name, model.ZipCode, model.CountryId);
+            var success = this.towns.Edit(id, model.Name, model.ZipCode, model.CountryId);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
             TempData["WarningMessage"] = $"Successfully editted town {model.Name}";
 
             return RedirectToAction(nameof(All));
@@ -89,7 +95,7 @@
         {
             var town = this.towns.ById(id);
 
-            var townFormMolde = this.mapper.Map<TownFormModel>(town);
+            var townFormMolde = this.mapper.Map<TownFormViewModel>(town);
             townFormMolde.Countries = this.GetAllCountriesItems();
 
             return View(townFormMolde);
@@ -99,7 +105,12 @@
         [Log(LogType.Delete)]
         public IActionResult Delete(int id)
         {
-            this.towns.Delete(id);
+            var success = this.towns.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
             TempData["DangerMessage"] = "Delete was successfull.";
 
             return RedirectToAction(nameof(All));

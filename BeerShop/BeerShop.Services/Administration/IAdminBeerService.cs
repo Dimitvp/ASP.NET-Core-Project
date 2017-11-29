@@ -1,13 +1,12 @@
 ﻿namespace BeerShop.Services.Administration
 {
     using BeerShop.Models.Enums;
-    using Microsoft.AspNetCore.Http;
     using Models.Beers;
     using System.Collections.Generic;
 
     public interface IAdminBeerService
     {
-        IEnumerable<BeerListingModel> AllListing(string searchTerm, int page = 1, int pageSize = 10);
+        IEnumerable<BeerListingServiceModel> AllListing(string searchTerm, int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
 
         int Total(string searchTerm);
 
@@ -26,9 +25,9 @@
             int styleId, 
             int breweryId);
 
-        BeerEditModel ById(int id);
+        BeerEditServiceModel ById(int id);
 
-        void Edit(
+        bool Edit(
             int id,
             string name,
             decimal price,
@@ -44,6 +43,6 @@
             int styleId,
             int breweryId);
 
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

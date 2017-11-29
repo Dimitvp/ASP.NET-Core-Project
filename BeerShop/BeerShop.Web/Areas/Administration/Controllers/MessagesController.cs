@@ -18,7 +18,7 @@
         {
             var messsages = this.messages.AllListing(page, WebConstants.PageSize);
 
-            return View(new MessagePageListingModel
+            return View(new MessagePageListingViewModel
             {
                 Messages = messsages,
                 CurrentPage = page,
@@ -42,7 +42,12 @@
 
         public IActionResult Delete(int id)
         {
-            this.messages.Delete(id);
+            var success = this.messages.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
 
             TempData["DangerMessage"] = "Successfully deleted a message.";
 

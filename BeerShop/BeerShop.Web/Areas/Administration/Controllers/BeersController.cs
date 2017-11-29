@@ -30,11 +30,11 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(string searchTerm, int page = 1)
+        public IActionResult All(string searchTerm, int page = WebConstants.DefaultPage)
         {
             var beers = this.beers.AllListing(searchTerm, page, WebConstants.PageSize);
 
-            return View(new BeerPageListingModel
+            return View(new BeerPageListingViewModel
             {
                 Beers = beers,
                 CurrentPage = page,
@@ -45,7 +45,7 @@
 
         public IActionResult Create()
         {
-            return View(new BeerFormModel
+            return View(new BeerFormViewModel
             {
                 Styles = this.GetStylesListItems(),
                 Breweries = this.GetBreweriesListItems()
@@ -54,7 +54,7 @@
 
         [HttpPost]
         [Log(LogType.Create)]
-        public IActionResult Create(BeerFormModel model)
+        public IActionResult Create(BeerFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -92,7 +92,7 @@
                 return NotFound();
             }
 
-            var beerFormModel = this.mapper.Map<BeerFormModel>(beer);
+            var beerFormModel = this.mapper.Map<BeerFormViewModel>(beer);
             beerFormModel.Breweries = this.GetBreweriesListItems();
             beerFormModel.Styles = this.GetStylesListItems();
 
@@ -101,7 +101,7 @@
 
         [HttpPost]
         [Log(LogType.Edit)]
-        public IActionResult Edit(int id, BeerFormModel model)
+        public IActionResult Edit(int id, BeerFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -110,21 +110,26 @@
                 return View(model);
             }
 
-            this.beers.Edit(
-                    id,
-                    model.Name,
-                    model.Price,
-                    model.Quantity,
-                    model.Description,
-                    model.Alcohol,
-                    model.ServingTemp,
-                    model.Color,
-                    model.Bitterness,
-                    model.Density,
-                    model.Sweetness,
-                    model.Gasification,
-                    model.StyleId,
-                    model.BreweryId);
+            var success = this.beers.Edit(
+                                        id,
+                                        model.Name,
+                                        model.Price,
+                                        model.Quantity,
+                                        model.Description,
+                                        model.Alcohol,
+                                        model.ServingTemp,
+                                        model.Color,
+                                        model.Bitterness,
+                                        model.Density,
+                                        model.Sweetness,
+                                        model.Gasification,
+                                        model.StyleId,
+                                        model.BreweryId);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
 
             TempData["WarningMessage"] = $"Successfully editted beer {model.Name}";
 
@@ -135,7 +140,12 @@
         {
             var beer = this.beers.ById(id);
 
-            var beerFormModel = this.mapper.Map<BeerFormModel>(beer);
+            if (beer == null)
+            {
+                return NotFound();
+            }
+
+            var beerFormModel = this.mapper.Map<BeerFormViewModel>(beer);
             beerFormModel.Breweries = this.GetBreweriesListItems();
             beerFormModel.Styles = this.GetStylesListItems();
 
@@ -146,7 +156,13 @@
         [Log(LogType.Delete)]
         public IActionResult Delete(int id)
         {
-            this.beers.Delete(id);
+            var success = this.beers.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
             TempData["DangerMessage"] = "Delete was successfull.";
 
             return RedirectToAction(nameof(All));

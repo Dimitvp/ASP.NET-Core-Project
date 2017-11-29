@@ -6,18 +6,18 @@
 
     public interface IAdminBreweryService
     {
-        IEnumerable<BreweryListingModel> AllListing(int page = 1, int pageSize = 10);
+        IEnumerable<BreweryListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
 
-        IEnumerable<BrewerySelectModel> AllForSelect();
+        IEnumerable<BrewerySelectServiceModel> AllForSelect();
 
         void Create(string name, string address, int townId);
 
         int Total();
 
-        BreweryEditModel ById(int id);
+        BreweryEditServiceModel ById(int id);
 
-        void Edit(int id, string name, string adress, int townId);
+        bool Edit(int id, string name, string adress, int townId);
 
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

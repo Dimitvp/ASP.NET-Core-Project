@@ -1,8 +1,8 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
     using BeerShop.Models;
+    using Data;
     using Models.Breweries;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,18 +16,18 @@
             this.db = db;
         }
 
-        public IEnumerable<BreweryListingModel> AllListing(int page = 1, int pageSize = 10)
+        public IEnumerable<BreweryListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize)
             => this.db.Breweries
             .OrderBy(b => b.Name)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .ProjectTo<BreweryListingModel>()
+            .ProjectTo<BreweryListingServiceModel>()
             .ToList();
 
-        public IEnumerable<BrewerySelectModel> AllForSelect()
+        public IEnumerable<BrewerySelectServiceModel> AllForSelect()
             => this.db.Breweries
                 .OrderBy(b => b.Name)
-                .ProjectTo<BrewerySelectModel>()
+                .ProjectTo<BrewerySelectServiceModel>()
                 .ToList();
 
         public void Create(string name, string address, int townId)
@@ -46,19 +46,19 @@
         public int Total()
             => this.db.Breweries.Count();
 
-        public BreweryEditModel ById(int id)
+        public BreweryEditServiceModel ById(int id)
             => this.db.Breweries
             .Where(b => b.Id == id)
-            .ProjectTo<BreweryEditModel>()
+            .ProjectTo<BreweryEditServiceModel>()
             .FirstOrDefault();
 
-        public void Edit(int id, string name, string adress, int townId)
+        public bool Edit(int id, string name, string adress, int townId)
         {
             var brewery = this.db.Breweries.Find(id);
 
             if (brewery == null)
             {
-                return;
+                return false;
             }
 
             brewery.Name = name;
@@ -66,19 +66,23 @@
             brewery.TownId = townId;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var brewery = this.db.Breweries.Find(id);
 
             if (brewery == null)
             {
-                return;
+                return false;
             }
 
             this.db.Breweries.Remove(brewery);
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

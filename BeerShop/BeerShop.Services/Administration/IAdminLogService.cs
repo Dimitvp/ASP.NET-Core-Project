@@ -5,7 +5,7 @@
 
     public interface IAdminLogService
     {
-        IEnumerable<LogListingModel> AllListing();
+        IEnumerable<LogListingServiceModel> AllListing();
 
         void Clear();
     }

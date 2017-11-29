@@ -47,24 +47,49 @@
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                             Admin
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All">Beers</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Towns" asp-action="All">Towns</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a>
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a>
-                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item" tabindex="-1" href="#">Products</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All" tabindex="-1">Beers</a></li>
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Glasses" asp-action="All" tabindex="-1">Glasses</a></li>
+                                </ul>
+                                <div class="dropdown-divider"></div>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Towns" asp-action="All">Towns</a>          </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a>  </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a>        </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a>            </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a>          </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a>    </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a>  </li>
+                        </ul>
+                    </li>
+                    @*MAKE SEARCH PARTIAL VIEW !!*@
+                    <li>
+                        <form class="form-inline">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Filter by
+                                        <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu text-center">
+                                        <input class="dropdown-item" type="checkbox" />
+                                        <label>lalalal</label>
+                                        <input input class="dropdown-item" type="checkbox" />
+                                        <label>lalalalsdakd</label>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-outline-warning" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
                     </li>
                 </ul>
-                <div class="float-right">
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search Beer..">
-                        <button class="btn btn-outline-warning" type="submit">Search</button>
-                    </form>
-                </div>
                 <span class="ml-auto">
                     @await Html.PartialAsync("_LoginPartial")
                 </span>
@@ -75,7 +100,7 @@
         if (TempData.ContainsKey("SuccessMessage"))
         {
             <div class="alert alert-success text-center fade show" role="alert">
-                    <strong>@TempData["SuccessMessage"]</strong>
+                <strong>@TempData["SuccessMessage"]</strong>
             </div>
         }
         else if (TempData.ContainsKey("WarningMessage"))

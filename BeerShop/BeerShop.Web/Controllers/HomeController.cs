@@ -26,7 +26,7 @@
         }
 
         [HttpPost]
-        public IActionResult Contacts(MessageFormModel model)
+        public IActionResult Contacts(MessageFormViewModel model)
         {
             if (!ModelState.IsValid)
             {

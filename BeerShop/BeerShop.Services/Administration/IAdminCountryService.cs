@@ -6,7 +6,7 @@
 
     public interface IAdminCountryService
     {
-        IEnumerable<CountryListingModel> All();
+        IEnumerable<CountryListingServiceModel> All();
 
         void Create(string name, Continent continent);
     }

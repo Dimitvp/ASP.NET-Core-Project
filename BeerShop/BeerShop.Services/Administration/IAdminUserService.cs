@@ -5,8 +5,10 @@
 
     public interface IAdminUserService
     {
-        IEnumerable<UserListingModel> AllUsers();
+        IEnumerable<UserListingServiceModel> AllUsers(string searchTerm, int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
 
-        UserDetailsModel UserById(string id);
+        int Total(string searchTerm);
+
+        UserDetailsServiceModel UserById(string id);
     }
 }

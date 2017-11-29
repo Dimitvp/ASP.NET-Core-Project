@@ -1,7 +1,7 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
+    using Data;
     using Models.Logs;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,9 +15,9 @@
             this.db = db;
         }
 
-        public IEnumerable<LogListingModel> AllListing()
+        public IEnumerable<LogListingServiceModel> AllListing()
             => this.db.Logs
-                .ProjectTo<LogListingModel>()
+                .ProjectTo<LogListingServiceModel>()
                 .ToList();
 
         public void Clear()

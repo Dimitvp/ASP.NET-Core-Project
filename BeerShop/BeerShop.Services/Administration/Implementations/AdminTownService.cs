@@ -1,8 +1,8 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
     using BeerShop.Models;
+    using Data;
     using Models.Towns;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,10 +16,10 @@
             this.db = db;
         }
 
-        public IEnumerable<TownListingModel> AllListing()
+        public IEnumerable<TownListingServiceModel> AllListing()
             => this.db.Towns
                 .OrderBy(t => t.Name)
-                .ProjectTo<TownListingModel>()
+                .ProjectTo<TownListingServiceModel>()
                 .ToList();
 
         public void Create(string name, string zipcode, int countryId)
@@ -35,19 +35,19 @@
             this.db.SaveChanges();
         }
 
-        public TownEditModel ById(int id)
+        public TownEditServiceModel ById(int id)
             => this.db.Towns
                 .Where(t => t.Id == id)
-                .ProjectTo<TownEditModel>()
+                .ProjectTo<TownEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Edit(int id, string name, string zipCode, int countryId)
+        public bool Edit(int id, string name, string zipCode, int countryId)
         {
             var town = this.db.Towns.Find(id);
 
             if (town == null)
             {
-                return;
+                return false;
             }
 
             town.Name = name;
@@ -55,25 +55,29 @@
             town.CountryId = countryId;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var town = this.db.Towns.Find(id);
 
             if (town == null)
             {
-                return;
+                return false;
             }
 
             this.db.Towns.Remove(town);
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public IEnumerable<TownSelectModel> AllForSelect()
+        public IEnumerable<TownSelectServiceModel> AllForSelect()
             => this.db.Towns
             .OrderBy(t => t.Name)
-            .ProjectTo<TownSelectModel>()
+            .ProjectTo<TownSelectServiceModel>()
             .ToList();
     }
 }

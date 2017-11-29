@@ -25,11 +25,11 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(int page = 1)
+        public IActionResult All(int page = WebConstants.DefaultPage)
         {
             var breweries = this.breweries.AllListing(page, WebConstants.PageSize);
 
-            return View(new BreweryPageListingModel
+            return View(new BreweryPageListingViewModel
             {
                 Breweries = breweries,
                 CurrentPage = page,
@@ -38,14 +38,14 @@
         }
 
         public IActionResult Create()
-            => View(new BreweryFormModel
+            => View(new BreweryFormViewModel
             {
                 Towns = this.GetTownsListItems()
             });
 
 
         [HttpPost]
-        public IActionResult Create(BreweryFormModel model)
+        public IActionResult Create(BreweryFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -67,14 +67,14 @@
                 return NotFound();
             }
 
-            var beerFormModel = this.mapper.Map<BreweryFormModel>(brewery);
+            var beerFormModel = this.mapper.Map<BreweryFormViewModel>(brewery);
             beerFormModel.Towns = this.GetTownsListItems();
 
             return View(beerFormModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, BreweryFormModel model)
+        public IActionResult Edit(int id, BreweryFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,12 @@
                 return View(model);
             }
 
-            this.breweries.Edit(id, model.Name, model.Adress, model.TownId);
+            var success = this.breweries.Edit(id, model.Name, model.Adress, model.TownId);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
 
             return RedirectToAction(nameof(All));
         }
@@ -95,7 +100,7 @@
                 return NotFound();
             }
 
-            var beerFormModel = this.mapper.Map<BreweryFormModel>(brewery);
+            var beerFormModel = this.mapper.Map<BreweryFormViewModel>(brewery);
             beerFormModel.Towns = this.GetTownsListItems();
 
             return View(beerFormModel);
@@ -104,7 +109,12 @@
         [HttpPost]
         public IActionResult Delete(int id, string empty)
         {
-            this.breweries.Delete(id);
+            var success = this.breweries.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
 
             TempData["WarningMessage"] = "Successfully deleted a brewery";
             return RedirectToAction(nameof(All));

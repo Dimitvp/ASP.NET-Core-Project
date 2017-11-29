@@ -1,9 +1,9 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
     using BeerShop.Models;
     using BeerShop.Models.Enums;
+    using Data;
     using Models.Countries;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,10 +17,10 @@
             this.db = db;
         }
 
-        public IEnumerable<CountryListingModel> All()
+        public IEnumerable<CountryListingServiceModel> All()
             => this.db.Countries
                 .OrderBy(c => c.Name)
-                .ProjectTo<CountryListingModel>()
+                .ProjectTo<CountryListingServiceModel>()
                 .ToList();
 
         public void Create(string name, Continent continent)

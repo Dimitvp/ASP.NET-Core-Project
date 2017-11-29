@@ -27,7 +27,7 @@
 
         [HttpPost]
         [Log(LogType.Create)]
-        public IActionResult Create(CountryFormModel model)
+        public IActionResult Create(CountryFormViewModel model)
         {
             if (!ModelState.IsValid)
             {

@@ -1,8 +1,8 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
     using BeerShop.Models;
+    using Data;
     using Models.Styles;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,16 +16,16 @@
             this.db = db;
         }
 
-        public IEnumerable<StyleListingModel> AllListing()
+        public IEnumerable<StyleListingServiceModel> AllListing()
             => this.db.Styles
                 .OrderBy(s => s.Name)
-                .ProjectTo<StyleListingModel>()
+                .ProjectTo<StyleListingServiceModel>()
                 .ToList();
 
-        public IEnumerable<StyleSelectModel> AllForSelect()
+        public IEnumerable<StyleSelectServiceModel> AllForSelect()
             => this.db.Styles
                 .OrderBy(s => s.Name)
-                .ProjectTo<StyleSelectModel>()
+                .ProjectTo<StyleSelectServiceModel>()
                 .ToList();
 
         public void Create(string name)
@@ -39,37 +39,41 @@
             this.db.SaveChanges();
         }
 
-        public StyleEditModel ById(int id)
+        public StyleEditServiceModel ById(int id)
             => this.db.Styles
                 .Where(s => s.Id == id)
-                .ProjectTo<StyleEditModel>()
+                .ProjectTo<StyleEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Edit(int id, string name)
+        public bool Edit(int id, string name)
         {
             var style = this.db.Styles.Find(id);
 
             if (style == null)
             {
-                return;
+                return false;
             }
 
             style.Name = name;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var style = this.db.Styles.Find(id);
 
             if (style == null)
             {
-                return;
+                return false;
             }
 
             this.db.Styles.Remove(style);
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

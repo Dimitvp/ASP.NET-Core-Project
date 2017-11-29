@@ -1,9 +1,9 @@
 ﻿namespace BeerShop.Services.Administration.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
     using BeerShop.Models.Enums;
     using BeerShop.Models.Products;
+    using Data;
     using Models.Beers;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,7 +17,7 @@
             this.db = db;
         }
 
-        public IEnumerable<BeerListingModel> AllListing(string searchTerm, int page = 1, int pageSize = 10)
+        public IEnumerable<BeerListingServiceModel> AllListing(string searchTerm, int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize)
         {
             var beers = this.db.Beers.AsQueryable();
 
@@ -30,7 +30,7 @@
                 .OrderByDescending(b => b.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .ProjectTo<BeerListingModel>()
+                .ProjectTo<BeerListingServiceModel>()
                 .ToList();
         }
 
@@ -82,13 +82,13 @@
             this.db.SaveChanges();
         }
 
-        public BeerEditModel ById(int id)
+        public BeerEditServiceModel ById(int id)
             => this.db.Beers
                 .Where(b => b.Id == id)
-                .ProjectTo<BeerEditModel>()
+                .ProjectTo<BeerEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Edit(
+        public bool Edit(
             int id,
             string name,
             decimal price,
@@ -108,7 +108,7 @@
 
             if (beer == null)
             {
-                return;
+                return false;
             }
 
             beer.Name = name;
@@ -126,19 +126,23 @@
             beer.BreweryId = breweryId;
 
             this.db.SaveChanges();
+
+            return true;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var beer = this.db.Beers.Find(id);
 
             if (beer == null)
             {
-                return;
+                return false;
             }
 
             this.db.Beers.Remove(beer);
             this.db.SaveChanges();
+
+            return true;
         }
     }
 }

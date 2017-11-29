@@ -5,14 +5,14 @@
 
     public interface IAdminMessageService
     {
-        IEnumerable<MessageListingModel> AllListing(int page = 1, int pageSize = 5);
+        IEnumerable<MessageListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
 
         int Total();
 
-        MessageDetailsModel ById(int id);
+        MessageDetailsServiceModel ById(int id);
 
         void MarkAsRead(int id);
 
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

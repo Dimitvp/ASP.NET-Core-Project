@@ -5,16 +5,16 @@
 
     public interface IAdminStyleService
     {
-        IEnumerable<StyleListingModel> AllListing();
+        IEnumerable<StyleListingServiceModel> AllListing();
 
-        IEnumerable<StyleSelectModel> AllForSelect();
+        IEnumerable<StyleSelectServiceModel> AllForSelect();
 
         void Create(string name);
 
-        StyleEditModel ById(int id);
+        StyleEditServiceModel ById(int id);
 
-        void Edit(int id, string name);
+        bool Edit(int id, string name);
 
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

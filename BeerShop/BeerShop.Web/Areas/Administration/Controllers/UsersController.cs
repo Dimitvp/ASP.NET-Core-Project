@@ -6,12 +6,13 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Users;
     using Services.Administration;
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     public class UsersController : AdminBaseController
     {
-        private readonly IAdminUserService admins;
+        private readonly IAdminUserService users;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
@@ -20,17 +21,27 @@
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager)
         {
-            this.admins = admins;
+            this.users = admins;
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
 
-        public IActionResult All() => View(this.admins.AllUsers());
+        public IActionResult All(string searchTerm, int page = 1)
+        {
+            var users = this.users.AllUsers(searchTerm, page, WebConstants.PageSize);
 
+            return View(new UserPageListingViewModel
+            {
+                Users = users,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.users.Total(searchTerm) / (double)WebConstants.PageSize),
+                SearchTerm = searchTerm
+            });
+        }
         public async Task<IActionResult> Details(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
-            var currentUser = this.admins.UserById(id);
+            var currentUser = this.users.UserById(id);
             if (user == null)
             {
                 return NotFound();

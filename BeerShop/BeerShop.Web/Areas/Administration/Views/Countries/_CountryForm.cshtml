@@ -1,4 +1,4 @@
-﻿@model CountryFormModel
+﻿@model CountryFormViewModel
 
 <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
     <hr />
@@ -17,3 +17,6 @@
     <a href="/administration/countries/all" class="btn btn-outline-info">Back</a>
     <button type="submit" class="btn btn-outline-success">Save Country</button>
 </form>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
