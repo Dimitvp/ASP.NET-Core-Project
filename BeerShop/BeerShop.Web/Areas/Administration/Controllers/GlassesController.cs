@@ -1,7 +1,6 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
-    using BeerShop.Services.Administration.Models.Glasses;
     using Microsoft.AspNetCore.Mvc;
     using Models.Glasses;
     using Services.Administration;

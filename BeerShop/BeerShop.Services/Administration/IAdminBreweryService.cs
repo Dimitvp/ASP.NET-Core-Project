@@ -10,13 +10,13 @@
 
         IEnumerable<BrewerySelectServiceModel> AllForSelect();
 
-        void Create(string name, string address, int townId);
+        void Create(string name, string description, int countryId);
 
         int Total();
 
         BreweryEditServiceModel ById(int id);
 
-        bool Edit(int id, string name, string adress, int townId);
+        bool Edit(int id, string name, string description, int countryId);
 
         bool Delete(int id);
     }

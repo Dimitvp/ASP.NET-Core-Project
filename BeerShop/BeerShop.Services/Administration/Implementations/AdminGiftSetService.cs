@@ -16,11 +16,21 @@
             this.db = db;
         }
 
-        public IEnumerable<GiftSetListingServiceModel> AllListing()
+        public IEnumerable<GiftSetListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize)
             => this.db.GiftSets
                 .OrderByDescending(gs => gs.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ProjectTo<GiftSetListingServiceModel>()
                 .ToList();
+
+        public int Total() => this.db.GiftSets.Count();
+
+        public GiftSetEditServiceModel ById(int id)
+            => this.db.GiftSets
+                .Where(gs => gs.Id == id)
+                .ProjectTo<GiftSetEditServiceModel>()
+                .FirstOrDefault();
 
         public void Create(string name, string description, int quantity, decimal price)
         {

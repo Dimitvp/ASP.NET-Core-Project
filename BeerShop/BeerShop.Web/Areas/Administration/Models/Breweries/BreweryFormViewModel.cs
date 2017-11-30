@@ -17,13 +17,11 @@
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(BreweryAddressMaxLength)]
-        [MinLength(BreweryAddressMinLength)]
-        public string Adress { get; set; }
+        public string Description { get; set; }
 
-        [Display(Name = "Town")]
-        public int TownId { get; set; }
+        [Display(Name = "Country")]
+        public int CountryId { get; set; }
 
-        public IEnumerable<SelectListItem> Towns { get; set; }
+        public IEnumerable<SelectListItem> Countries { get; set; }
     }
 }

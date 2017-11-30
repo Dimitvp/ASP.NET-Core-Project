@@ -30,8 +30,6 @@
 
         public DbSet<Style> Styles { get; set; }
 
-        public DbSet<Town> Towns { get; set; }
-
         public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -101,15 +99,10 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Brewery>()
-                .HasOne(b => b.Town)
+                .HasOne(b => b.Country)
                 .WithMany(t => t.Breweries)
-                .HasForeignKey(b => b.TownId);
-
-            builder.Entity<Country>()
-                .HasMany(c => c.Towns)
-                .WithOne(t => t.Country)
-                .HasForeignKey(t => t.CountryId);
-
+                .HasForeignKey(b => b.CountryId);
+            
             builder.Entity<User>()
                 .HasMany(c => c.Orders)
                 .WithOne(s => s.User)

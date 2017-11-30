@@ -27,7 +27,7 @@
 </head>
 <body>
     <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse ">
-        <div class="container">
+        <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,10 +35,16 @@
                 <a href="/" class="navbar-brand">Beer Shop</a>
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a asp-area="Shopping" asp-controller="Home" asp-action="Index" class="nav-link">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Shop</a>
+                        <a class="nav-link" href="/">By Country</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">By Style</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">By Color</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/home/contacts/">Contacts</a>
@@ -51,46 +57,22 @@
                             <li class="dropdown-submenu">
                                 <a class="dropdown-item" tabindex="-1" href="#">Products</a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Accessories" asp-action="All" tabindex="-1">Accessories</a></li>
                                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All" tabindex="-1">Beers</a></li>
+                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="GiftSets" asp-action="All" tabindex="-1">Gift Sets</a></li>
                                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Glasses" asp-action="All" tabindex="-1">Glasses</a></li>
                                 </ul>
                                 <div class="dropdown-divider"></div>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Towns" asp-action="All">Towns</a>          </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a>  </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a>        </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a>            </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a>          </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a>    </li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a>  </li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a></li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a></li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a></li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a></li>
+                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a></li>
                         </ul>
                     </li>
-                    @*MAKE SEARCH PARTIAL VIEW !!*@
-                    <li>
-                        <form class="form-inline">
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Filter by
-                                        <span class="caret"></span>
-                                    </button>
-                                    <div class="dropdown-menu text-center">
-                                        <input class="dropdown-item" type="checkbox" />
-                                        <label>lalalal</label>
-                                        <input input class="dropdown-item" type="checkbox" />
-                                        <label>lalalalsdakd</label>
-                                    </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-outline-warning" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                    </li>
                 </ul>
-                <span class="ml-auto">
+                <span class="ml-auto nav-item">
                     @await Html.PartialAsync("_LoginPartial")
                 </span>
             </div>

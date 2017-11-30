@@ -23,6 +23,12 @@
                 .ProjectTo<CountryListingServiceModel>()
                 .ToList();
 
+        public IEnumerable<CountrySelectServiceModel> AllForSelect()
+            => this.db.Countries
+                .OrderBy(c => c.Name)
+                .ProjectTo<CountrySelectServiceModel>()
+                .ToList();
+        
         public void Create(string name, Continent continent)
         {
             var country = new Country

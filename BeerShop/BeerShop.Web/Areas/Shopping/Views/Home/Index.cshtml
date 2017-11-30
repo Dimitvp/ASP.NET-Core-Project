@@ -1,0 +1,131 @@
+﻿@model ProductsListingViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <div id="my-carousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#my-carousel" data-slide-to="1"></li>
+            <li data-target="#my-carousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img class="d-block img-fluid" src="~/images/Carousel/1.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block img-fluid" src="~/images/Carousel/2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block img-fluid" src="~/images/Carousel/3.jpg" alt="Third slide">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<br />
+
+<div class="container">
+    <h1>Latest</h1>
+<hr />
+</div>
+<div class="container">
+    <h2 class="text-uppercase">Beers</h2>
+    <div class="row">
+        @foreach (var beer in Model.Beers)
+        {
+            <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                <div class="card text-center">
+                   <a asp-area="Shopping" asp-controller="Beer" asp-action="Detais" asp-route-id="@beer.Id"><img class="card-img-top" src="https://image.freepik.com/free-vector/vector-illustration-with-fresh-lager-beer-in-a-beer-mug-on-transparent-background_1314-523.jpg"></a> 
+                    <div class="card-block">
+                        <h5 class="text-bold">@beer.Name</h5>
+                    </div>
+                    <div class="card-text">
+                        @beer.Price $
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-warning btn">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Accessories</h2>
+    <div class="row">
+        @foreach (var accessory in Model.Accessories)
+        {
+            <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                <div class="card text-center">
+                    <a asp-area="Shopping" asp-controller="Accessories" asp-action="Detais" asp-route-id="@accessory.Id"><img class="card-img-top" src="https://www.uncommongoods.com/images/items/47100/47192_1_360px.jpg"></a>
+                    <div class="card-block">
+                        <h5 class="text-bold">@accessory.Name</h5>
+                    </div>
+                    <div class="card-text">
+                        Price @accessory.Price
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-warning btn">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Gift Sets</h2>
+    <div class="row">
+        @foreach (var giftSet in Model.GiftSets)
+        {
+            <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                <div class="card text-center">
+                    <a asp-area="Shopping" asp-controller="GiftSets" asp-action="Detais" asp-route-id="@giftSet.Id"><img class="card-img-top" src="https://cdn.notonthehighstreet.com/fs/fa/fb/b362-a68e-42d0-9404-45f06b3f32b9/original_craft-beer-gift-set.jpg"></a>
+                    <div class="card-block">
+                        <h5 class="text-bold">@giftSet.Name</h5>
+                    </div>
+                    <div class="card-text">
+                        Price @giftSet.Price
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-warning btn">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Glasses</h2>
+    <div class="row">
+        @foreach (var glass in Model.Glasses)
+        {
+            <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                <div class="card text-center">
+                    <a asp-area="Shopping" asp-controller="Glasses" asp-action="Detais" asp-route-id="@glass.Id"><img class="card-img-top" src="https://image.freepik.com/free-vector/vector-realistic-illustration-of-two-transparent-glass-mugs-one-full-of-beer-with-foam-the-other-is-empty_1441-552.jpg"></a>
+                    <div class="card-block">
+                        <h5 class="text-bold">@glass.Name</h5>
+                    </div>
+                    <div class="card-text">
+                        Price @glass.Price
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-outline-warning btn">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

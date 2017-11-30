@@ -75,20 +75,20 @@
 
             app.UseMvc(routes =>
             {
+
                 routes.MapRoute(
                     name: "blog",
                     template: "blog/articles/{id}/{title}",
-                    defaults: new { area = "Blog", controller = "Blog", action = "Details" }
-                    );
+                    defaults: new { area = "Blog", controller = "Blog", action = "Details" });
 
                 routes.MapRoute(
                   name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                name: "default",
-                template: "{controller=Home}/{action=Index}/{id?}");
+                   name: "default",
+                   template: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }

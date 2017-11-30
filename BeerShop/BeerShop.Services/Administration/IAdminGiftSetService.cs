@@ -5,7 +5,11 @@
 
     public interface IAdminGiftSetService
     {
-        IEnumerable<GiftSetListingServiceModel> AllListing();
+        IEnumerable<GiftSetListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
+
+        int Total();
+
+        GiftSetEditServiceModel ById(int id);
 
         void Create(string name, string description, int quantity, decimal price);
 

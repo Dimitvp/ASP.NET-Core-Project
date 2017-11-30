@@ -1,0 +1,29 @@
+﻿@model GiftSetFormViewModel
+
+@{
+    ViewData["Title"] = "Delete Gift Set";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <hr />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" disabled/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control" rows="5" disabled></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" min="0" disabled/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" class="form-control" min="0" disabled/>
+    </div>
+    <a href="/administration/giftsets/all" class="btn btn-outline-info">Back</a>
+    <button type="submit" class="btn btn-outline-danger">Delete Gift Set</button>
+</form>

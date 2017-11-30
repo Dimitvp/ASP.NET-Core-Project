@@ -16,11 +16,21 @@
             this.db = db;
         }
 
-        public IEnumerable<AccessoryListingServiceModel> AllListing()
+        public IEnumerable<AccessoryListingServiceModel> AllListing(int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize)
             => this.db.Accessories
                 .OrderByDescending(a => a.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ProjectTo<AccessoryListingServiceModel>()
                 .ToList();
+
+        public int Total() => this.db.Accessories.Count();
+
+        public AccessoryEditServiceModel ById(int id)
+            => this.db.Accessories
+                .Where(a => a.Id == id)
+                .ProjectTo<AccessoryEditServiceModel>()
+                .FirstOrDefault();
 
         public void Create(string name, string description, int quantity, decimal price)
         {

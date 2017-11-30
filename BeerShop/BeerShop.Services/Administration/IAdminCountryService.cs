@@ -8,6 +8,8 @@
     {
         IEnumerable<CountryListingServiceModel> All();
 
+        IEnumerable<CountrySelectServiceModel> AllForSelect();
+
         void Create(string name, Continent continent);
     }
 }

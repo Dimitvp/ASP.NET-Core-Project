@@ -18,6 +18,6 @@
         [Required]
         public Continent Continent { get; set; }
 
-        public ICollection<Town> Towns { get; set; } = new HashSet<Town>();
+        public ICollection<Brewery> Breweries { get; set; } = new HashSet<Brewery>();
     }
 }

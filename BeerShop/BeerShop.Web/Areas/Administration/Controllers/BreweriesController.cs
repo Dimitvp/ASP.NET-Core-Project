@@ -12,16 +12,16 @@
     public class BreweriesController : AdminBaseController
     {
         private readonly IAdminBreweryService breweries;
-        private readonly IAdminTownService towns;
+        private readonly IAdminCountryService countries;
         private readonly IMapper mapper;
 
         public BreweriesController(
             IAdminBreweryService breweries,
-            IAdminTownService towns,
+            IAdminCountryService countries,
             IMapper mapper)
         {
             this.breweries = breweries;
-            this.towns = towns;
+            this.countries = countries;
             this.mapper = mapper;
         }
 
@@ -40,7 +40,7 @@
         public IActionResult Create()
             => View(new BreweryFormViewModel
             {
-                Towns = this.GetTownsListItems()
+                Countries = this.GetCountrySelectItems()
             });
 
 
@@ -49,11 +49,11 @@
         {
             if (!ModelState.IsValid)
             {
-                model.Towns = this.GetTownsListItems();
+                model.Countries = this.GetCountrySelectItems();
                 return View(model);
             }
 
-            this.breweries.Create(model.Name, model.Adress, model.TownId);
+            this.breweries.Create(model.Name, model.Description, model.CountryId);
 
             return RedirectToAction(nameof(All));
         }
@@ -68,7 +68,7 @@
             }
 
             var beerFormModel = this.mapper.Map<BreweryFormViewModel>(brewery);
-            beerFormModel.Towns = this.GetTownsListItems();
+            beerFormModel.Countries = this.GetCountrySelectItems();
 
             return View(beerFormModel);
         }
@@ -78,11 +78,11 @@
         {
             if (!ModelState.IsValid)
             {
-                model.Towns = this.GetTownsListItems();
+                model.Countries = this.GetCountrySelectItems();
                 return View(model);
             }
 
-            var success = this.breweries.Edit(id, model.Name, model.Adress, model.TownId);
+            var success = this.breweries.Edit(id, model.Name, model.Description, model.CountryId);
 
             if (!success)
             {
@@ -101,7 +101,7 @@
             }
 
             var beerFormModel = this.mapper.Map<BreweryFormViewModel>(brewery);
-            beerFormModel.Towns = this.GetTownsListItems();
+            beerFormModel.Countries = this.GetCountrySelectItems();
 
             return View(beerFormModel);
         }
@@ -120,8 +120,8 @@
             return RedirectToAction(nameof(All));
         }
 
-        private IEnumerable<SelectListItem> GetTownsListItems()
-            => this.towns.AllForSelect()
+        private IEnumerable<SelectListItem> GetCountrySelectItems()
+            => this.countries.AllForSelect()
             .Select(t => new SelectListItem
             {
                 Text = t.Name,

@@ -30,13 +30,13 @@
                 .ProjectTo<BrewerySelectServiceModel>()
                 .ToList();
 
-        public void Create(string name, string address, int townId)
+        public void Create(string name, string description, int countryId)
         {
             var brewery = new Brewery
             {
                 Name = name,
-                Address = address,
-                TownId = townId
+                Description = description,
+                CountryId = countryId
             };
 
             this.db.Breweries.Add(brewery);
@@ -52,7 +52,7 @@
             .ProjectTo<BreweryEditServiceModel>()
             .FirstOrDefault();
 
-        public bool Edit(int id, string name, string adress, int townId)
+        public bool Edit(int id, string name, string description, int countryId)
         {
             var brewery = this.db.Breweries.Find(id);
 
@@ -62,8 +62,8 @@
             }
 
             brewery.Name = name;
-            brewery.Address = adress;
-            brewery.TownId = townId;
+            brewery.Description = description;
+            brewery.CountryId = countryId;
 
             this.db.SaveChanges();
 
