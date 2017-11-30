@@ -7,6 +7,8 @@
 
     public class CountryWithBeersServiceModel : IMapFrom<Country>, IHaveCustomMapping
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int Beers { get; set; }

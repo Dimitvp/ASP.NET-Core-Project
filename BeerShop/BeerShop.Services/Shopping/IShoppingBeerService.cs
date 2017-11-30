@@ -6,5 +6,7 @@
     public interface IShoppingBeerService
     {
         IEnumerable<LatestBeerListingServiceModel> LatestListing();
+
+        IEnumerable<BeerByCountryServiceModel> BeersByCountry(int countryId);
     }
 }

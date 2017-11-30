@@ -39,10 +39,5 @@
                 Glasses = this.glasses.LatestListing()
             });
         }
-
-        public IActionResult ByCountry(int id)
-        {
-            return View();
-        }
     }
 }

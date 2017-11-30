@@ -21,5 +21,12 @@
                 .Take(ServiceConstants.ListingNumber)
                 .ProjectTo<LatestBeerListingServiceModel>()
                 .ToList();
+
+        public IEnumerable<BeerByCountryServiceModel> BeersByCountry(int countryId)
+            => this.db.Beers
+                .Where(b => b.Brewery.CountryId == countryId)
+                .OrderBy(b => b.Name)
+                .ProjectTo<BeerByCountryServiceModel>()
+                .ToList();
     }
 }
