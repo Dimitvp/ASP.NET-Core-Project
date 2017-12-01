@@ -3,9 +3,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Home;
     using Services.Shopping;
-
-    [Area("Shopping")]
-    public class HomeController : Controller
+    
+    public class HomeController : BaseController
     {
         private readonly IShoppingBeerService beers;
         private readonly IShoppingAccessoriesService accessories;

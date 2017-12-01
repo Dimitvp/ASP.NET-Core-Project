@@ -37,15 +37,7 @@
                     <li class="nav-item active">
                         <a asp-area="Shopping" asp-controller="Home" asp-action="Index" class="nav-link">Shop</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        @Html.Partial("_ByCountryMenu")
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">By Style</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">By Color</a>
-                    </li>
+                        @Html.Partial("_MenuItems")
                     <li class="nav-item">
                         <a class="nav-link" href="/home/contacts/">Contacts</a>
                     </li>
@@ -105,23 +97,23 @@
                 <div class="col-md-3">
                     <h3>Beer Academy</h3>
                     <p>
-                        Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum
+                       The place where You will find high quality beer from all over the world, good moode and draft beer
                     </p>
                 </div>
                 <div class="col-md-3">
-                    <h3 class="text-uppercase">Contact into</h3>
+                    <h3 class="text-uppercase">Contact info</h3>
                     <h5>Address</h5>
-                    <p>loremlorem lorem lorem lorem</p>
-                    <p>loremlorem lorem</p>
+                    <p>8000 Burgas, Bulgaria</p>
+                    <p>Ulitsa Uilyam Gladston 61</p>
                     <h5>Phone Number</h5>
-                    <p>+32423423 3232</p>
+                    <p>+359 883 31 29 20</p>
                     <h5>Email Address</h5>
-                    <p>mail@mail.bg</p>
+                    <p>thebeers.burgas@gmail.com</p>
                 </div>
                 <div class="col-md-3">
                     <h3 class="text-uppercase">Pages</h3>
-                    <ul>
-                        <li>Home</li>
+                    <ul class="footer-list">
+                        <li><a>Home</a></li>
                         <li>Shop</li>
                         <li>Profile</li>
                         <li>Contacts</li>
@@ -129,13 +121,12 @@
                 </div>
                 <div class="col-md-3">
                     <h3 class="text-uppercase">Follow us</h3>
-                    <i class="fa fa-facebook-square"></i>
-                    <i class="fa fa-twitter-square"></i>
-                    <i class="fa fa-linkedin-square"></i>
-                    <i class="fa fa-youtube-square"></i>
+                    <a target="_blank" href="https://www.facebook.com/TheBEERSburgas/" class="my-fb-link">
+                        <i class="fa fa-facebook-square fa-3x"></i>
+                    </a>
                     <hr />
                     <h3 class="text-uppercase">Mailing list</h3>
-                    <p>Sign up for newlester</p>
+                    <p>Sign up for newsletter</p>
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Your E-mail" />
                     </div>

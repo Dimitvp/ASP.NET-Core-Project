@@ -10,7 +10,7 @@
     {
         public IEnumerable<LatestAccessoryListingServiceModel> Accessories { get; set; }
 
-        public IEnumerable<LatestBeerListingServiceModel> Beers { get; set; }
+        public IEnumerable<BeerListingServiceModel> Beers { get; set; }
 
         public IEnumerable<LatestGiftSetListingServiceModel> GiftSets { get; set; }
 

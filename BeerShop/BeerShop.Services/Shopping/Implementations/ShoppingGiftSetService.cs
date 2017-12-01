@@ -1,7 +1,7 @@
 ﻿namespace BeerShop.Services.Shopping.Implementations
 {
     using AutoMapper.QueryableExtensions;
-    using BeerShop.Data;
+    using Data;
     using Models.GiftSets;
     using System.Collections.Generic;
     using System.Linq;

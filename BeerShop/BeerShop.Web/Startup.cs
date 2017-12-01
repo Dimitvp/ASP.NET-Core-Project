@@ -77,9 +77,9 @@
             {
 
                 routes.MapRoute(
-                    name: "blog",
-                    template: "blog/articles/{id}/{title}",
-                    defaults: new { area = "Blog", controller = "Blog", action = "Details" });
+                    name: "shop",
+                    template: "shopping/beers/{action}/{id}/{title}",
+                    defaults: new { area = "Shopping", controller = "Beers" });
 
                 routes.MapRoute(
                   name: "areas",

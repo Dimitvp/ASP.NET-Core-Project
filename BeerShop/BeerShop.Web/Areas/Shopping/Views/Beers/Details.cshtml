@@ -1,0 +1,136 @@
+﻿@model BeerDetailsServiceModel
+@{
+    ViewData["Title"] = $"{Model.Name}";
+}
+<section>
+    <div class="container">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active">
+                            <img class="card-img-top" src="http://www.tom-wood.com/wp-content/uploads/Bomber-County-Bottle-no-background.png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <div class="card-title"><h3>@Model.Name</h3></div>
+                        <hr>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Brewery: @Model.Brewery</div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Country: @Model.Country</div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Volume: </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Alcohol: @Model.Alcohol %</div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Style: @Model.Style</div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">Color: @Model.Color.ToString()</div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">
+                                Bitterness:
+                                @{
+                                    for (int i = 0; i < Model.Bitterness; i++)
+                                    {
+                                        <i class="fa fa-lemon-o "></i>
+                                    }
+                                }
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">
+                                Density:
+                                @{
+                                    for (int i = 0; i < Model.Density; i++)
+                                    {
+                                        <i class="fa fa-cloud"></i>
+                                    }
+                                }
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">
+                                Sweetness:
+                                @{
+                                    for (int i = 0; i < Model.Sweetness; i++)
+                                    {
+                                        <i class="fa fa-cube"></i>
+                                    }
+                                }
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <div class="card-title">
+                                Gasification:
+                                @{
+                                    for (int i = 0; i < Model.Gasification; i++)
+                                    {
+                                        <i class="fa fa-beer"></i>
+                                    }
+                                }
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="card-title">Description</div>
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="card-footer"><h4>Price</h4></div>
+                        <p>
+                            @Model.Price $
+                        </p>
+
+                        <a href="$" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</section>

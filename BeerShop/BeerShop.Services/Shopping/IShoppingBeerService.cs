@@ -1,12 +1,29 @@
 ﻿namespace BeerShop.Services.Shopping
 {
+    using BeerShop.Models.Enums;
     using Models.Beers;
     using System.Collections.Generic;
 
+    using static ServiceConstants;
+
     public interface IShoppingBeerService
     {
-        IEnumerable<LatestBeerListingServiceModel> LatestListing();
+        IEnumerable<BeerListingServiceModel> LatestListing();
 
-        IEnumerable<BeerByCountryServiceModel> BeersByCountry(int countryId);
+        IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize);
+
+        IEnumerable<BeerListingServiceModel> BeersByStyle(int styleId, int page = DefaultPage, int pageSize = DefaultPageSize);
+
+        IEnumerable<BeerListingServiceModel> BeersByColor(BeerColor color, int page = DefaultPage, int pageSize = DefaultPageSize);
+
+        IDictionary<BeerColor, int> ColorsWithBeersCount();
+
+        BeerDetailsServiceModel ById(int id);
+
+        int TotalByCountry(int countryId);
+
+        int TotalByStyle(int styleId);
+
+        int TotalByColor(BeerColor color);
     }
 }

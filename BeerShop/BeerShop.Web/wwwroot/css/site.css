@@ -2,7 +2,13 @@
     background-color: #F6DF77;
 }
 
+/*footer a.my-fb-link {
+    font-size: 30px;
+}*/
 
+.footer-list{
+    list-style-type:none;
+}
 
 .container .jumbotron {
     margin-top: 40px;
@@ -118,7 +124,7 @@
 .card-text {
     clear: both;
     margin-top: .5em;
-    color: rgba(0, 0, 0, .68);
+    color: RGBA(0, 0, 0, .68);
 }
 
 .card-footer {

@@ -1,0 +1,52 @@
+﻿@inject IShoppingCountryService countries
+@inject IShoppingStyleService styles
+@inject IShoppingBeerService beers
+@{
+    var countriesWithBeers = this.countries.CountriesWithBeersCount();
+    var stylesWithBeers = this.styles.StylesWithBeersCount();
+    var colorsWithBeers = this.beers.ColorsWithBeersCount();
+}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+        By Country
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var country in countriesWithBeers)
+        {
+            @if (country.Beers > 0)
+            {
+                <li><a class="dropdown-item" asp-area="Shopping" asp-controller="Beers" asp-action="ByCountry" asp-route-id="@country.Id" asp-route-title="@country.Name.ToFriendlyUrl()">@country.Name (@country.Beers)</a></li>
+                <li class="dropdown-divider"></li>
+            }
+        }
+    </ul>
+</li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+        By Style
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var style in stylesWithBeers)
+        {
+            @if (style.Beers > 0)
+            {
+                <li><a class="dropdown-item" asp-area="Shopping" asp-controller="Beers" asp-action="ByStyle" asp-route-id="@style.Id" asp-route-title="@style.Name.ToFriendlyUrl()">@style.Name (@style.Beers)</a></li>
+                <li class="dropdown-divider"></li>
+            }
+        }
+    </ul>
+</li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+        By Color
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var color in colorsWithBeers)
+        {
+            <li><a class="dropdown-item" asp-area="Shopping" asp-controller="Beers" asp-action="ByColor" asp-route-id="@color.Key">@color.Key (@color.Value)</a></li>
+            <li class="dropdown-divider"></li>
+        }
+    </ul>
+</li>
