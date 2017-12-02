@@ -3,7 +3,7 @@
     using BeerShop.Models.Products;
     using Common.Mapping;
 
-    public class LatestGiftSetListingServiceModel : IMapFrom<GiftSet>
+    public class GiftSetListingServiceModel : IMapFrom<GiftSet>
     {
         public int Id { get; set; }
 

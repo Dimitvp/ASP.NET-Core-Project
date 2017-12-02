@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using static ServiceConstants;
+
     public class ShoppingGiftSetService : IShoppingGiftSetService
     {
         private readonly BeerShopDbContext db;
@@ -15,11 +17,29 @@
             this.db = db;
         }
 
-        public IEnumerable<LatestGiftSetListingServiceModel> LatestListing()
+        public IEnumerable<GiftSetListingServiceModel> LatestListing()
             => this.db.GiftSets
                 .OrderByDescending(gs => gs.Id)
-                .Take(ServiceConstants.ListingNumber)
-                .ProjectTo<LatestGiftSetListingServiceModel>()
+                .Take(ListingNumber)
+                .ProjectTo<GiftSetListingServiceModel>()
                 .ToList();
+
+        public IEnumerable<GiftSetListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize)
+            => this.db.GiftSets
+                .OrderBy(gs => gs.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<GiftSetListingServiceModel>()
+                .ToList();
+
+        public GiftSetDetailsServiceModel ById(int id)
+            => this.db.GiftSets
+                .Where(gs => gs.Id == id)
+                .ProjectTo<GiftSetDetailsServiceModel>()
+                .FirstOrDefault();
+
+        public int Total()
+            => this.db.GiftSets.Count();
+
     }
 }

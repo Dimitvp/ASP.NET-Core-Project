@@ -7,14 +7,14 @@
     public class HomeController : BaseController
     {
         private readonly IShoppingBeerService beers;
-        private readonly IShoppingAccessoriesService accessories;
+        private readonly IShoppingAccessoryService accessories;
         private readonly IShoppingGiftSetService giftSets;
         private readonly IShoppingGlassService glasses;
         private readonly IShoppingCountryService countries;
             
         public HomeController(
             IShoppingBeerService beers,
-            IShoppingAccessoriesService accessories,
+            IShoppingAccessoryService accessories,
             IShoppingGiftSetService giftSets,
             IShoppingGlassService glasses,
             IShoppingCountryService countries)
@@ -28,8 +28,6 @@
 
         public IActionResult Index()
         {
-            var countriesModel = this.countries.CountriesWithBeersCount();
-
             return View(new ProductsListingViewModel
             {
                 Beers = this.beers.LatestListing(),

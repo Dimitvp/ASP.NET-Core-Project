@@ -6,20 +6,39 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ShoppingAccessoriesService : IShoppingAccessoriesService
+    using static ServiceConstants;
+
+    public class ShoppingAccessoryService : IShoppingAccessoryService
     {
         private readonly BeerShopDbContext db;
 
-        public ShoppingAccessoriesService(BeerShopDbContext db)
+        public ShoppingAccessoryService(BeerShopDbContext db)
         {
             this.db = db;
         }
 
-        public IEnumerable<LatestAccessoryListingServiceModel> LatestListing()
+        public IEnumerable<AccessoryListingServiceModel> LatestListing()
             => this.db.Accessories
             .OrderByDescending(a => a.Id)
-            .Take(ServiceConstants.ListingNumber)
-            .ProjectTo<LatestAccessoryListingServiceModel>()
+            .Take(ListingNumber)
+            .ProjectTo<AccessoryListingServiceModel>()
             .ToList();
+
+        public IEnumerable<AccessoryListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize)
+            => this.db.Accessories
+                .OrderBy(a => a.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<AccessoryListingServiceModel>()
+                .ToList();
+
+        public AccessoryDetailsServiceModel ById(int id)
+            => this.db.Accessories
+                .Where(a => a.Id == id)
+                .ProjectTo<AccessoryDetailsServiceModel>()
+                .FirstOrDefault();
+
+        public int Total()
+            => this.db.Accessories.Count();
     }
 }

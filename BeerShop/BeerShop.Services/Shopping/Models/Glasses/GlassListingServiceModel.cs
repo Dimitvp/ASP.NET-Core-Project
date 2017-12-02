@@ -1,9 +1,9 @@
-﻿namespace BeerShop.Services.Shopping.Models.Accessories
+﻿namespace BeerShop.Services.Shopping.Models.Glasses
 {
     using BeerShop.Models.Products;
     using Common.Mapping;
 
-    public class LatestAccessoryListingServiceModel : IMapFrom<Accessory>
+    public class GlassListingServiceModel : IMapFrom<Glass>
     {
         public int Id { get; set; }
 

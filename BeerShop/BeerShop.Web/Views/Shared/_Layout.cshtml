@@ -37,31 +37,47 @@
                     <li class="nav-item active">
                         <a asp-area="Shopping" asp-controller="Home" asp-action="Index" class="nav-link">Shop</a>
                     </li>
-                        @Html.Partial("_MenuItems")
+                    @Html.Partial("_MenuItems")
                     <li class="nav-item">
-                        <a class="nav-link" href="/home/contacts/">Contacts</a>
+                        <a class="nav-link" asp-area="Shopping" asp-controller="GiftSets" asp-action="All">Gift Sets</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                            Admin
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li class="dropdown-submenu">
-                                <a class="dropdown-item" tabindex="-1" href="#">Products</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Accessories" asp-action="All" tabindex="-1">Accessories</a></li>
-                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All" tabindex="-1">Beers</a></li>
-                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="GiftSets" asp-action="All" tabindex="-1">Gift Sets</a></li>
-                                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Glasses" asp-action="All" tabindex="-1">Glasses</a></li>
-                                </ul>
-                                <div class="dropdown-divider"></div>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a></li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a></li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a></li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a></li>
-                            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Shopping" asp-controller="Glasses" asp-action="All">Glasses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="Shopping" asp-controller="Accessories" asp-action="All">Accessories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a>
+                    </li>
+
+                    @if (User.IsInRole(WebConstants.AdminRole))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                Admin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item" tabindex="-1" href="#">Products</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Accessories" asp-action="All" tabindex="-1">Accessories</a></li>
+                                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All" tabindex="-1">Beers</a></li>
+                                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="GiftSets" asp-action="All" tabindex="-1">Gift Sets</a></li>
+                                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Glasses" asp-action="All" tabindex="-1">Glasses</a></li>
+                                    </ul>
+                                    <div class="dropdown-divider"></div>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a></li>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a></li>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a></li>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages</a></li>
+                                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a></li>
+                            </ul>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        @Html.Partial("_SearchForm")
                     </li>
                 </ul>
                 <span class="ml-auto nav-item">
@@ -97,7 +113,7 @@
                 <div class="col-md-3">
                     <h3>Beer Academy</h3>
                     <p>
-                       The place where You will find high quality beer from all over the world, good moode and draft beer
+                        The place where You will find high quality beer from all over the world, good moode and draft beer
                     </p>
                 </div>
                 <div class="col-md-3">

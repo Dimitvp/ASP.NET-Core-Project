@@ -3,7 +3,7 @@
     using AutoMapper;
     using BeerShop.Data;
     using BeerShop.Models;
-    using BeerShop.Web.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -11,6 +11,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore.Authentication.OAuth;
 
     public class Startup
     {
@@ -35,11 +36,13 @@
             })
                 .AddEntityFrameworkStores<BeerShopDbContext>()
                 .AddDefaultTokenProviders();
+            
 
             services.AddAuthentication().AddFacebook(options =>
             {
                 options.AppId = Configuration["Authentication:Facebook:AppId"];
                 options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                
             });
 
             services.AddDomainServices();
@@ -75,11 +78,10 @@
 
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                     name: "shop",
-                    template: "shopping/beers/{action}/{id}/{title}",
-                    defaults: new { area = "Shopping", controller = "Beers" });
+                    template: "shopping/{controller}/{action}/{id}/{title}",
+                    defaults: new { area = "Shopping" });
 
                 routes.MapRoute(
                   name: "areas",
@@ -88,7 +90,6 @@
                 routes.MapRoute(
                    name: "default",
                    template: "{controller=Home}/{action=Index}/{id?}");
-
             });
         }
     }

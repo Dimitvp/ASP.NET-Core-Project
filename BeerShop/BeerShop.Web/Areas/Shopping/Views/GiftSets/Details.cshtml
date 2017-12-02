@@ -1,0 +1,45 @@
+﻿@model GiftSetDetailsServiceModel
+@{
+    ViewData["Title"] = "Details";
+}
+<h2>Details</h2>
+<section>
+    <div class="container">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active">
+                            <img class="card-img-top" src="https://cdn.notonthehighstreet.com/fs/fa/fb/b362-a68e-42d0-9404-45f06b3f32b9/original_craft-beer-gift-set.jpg" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <div class="card-title"><h3>@Model.Name</h3></div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <div class="card-title">Description</div>
+                                <p>@Model.Description</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="card-footer"><h4>Price</h4></div>
+                                <p>
+                                    @Model.Price $
+                                </p>
+
+                                <a href="$" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</section>

@@ -8,12 +8,12 @@
 
     public class ProductsListingViewModel
     {
-        public IEnumerable<LatestAccessoryListingServiceModel> Accessories { get; set; }
+        public IEnumerable<AccessoryListingServiceModel> Accessories { get; set; }
 
         public IEnumerable<BeerListingServiceModel> Beers { get; set; }
 
-        public IEnumerable<LatestGiftSetListingServiceModel> GiftSets { get; set; }
+        public IEnumerable<GiftSetListingServiceModel> GiftSets { get; set; }
 
-        public IEnumerable<LatestGlassListingServiceModel> Glasses { get; set; }
+        public IEnumerable<GlassListingServiceModel> Glasses { get; set; }
     }
 }

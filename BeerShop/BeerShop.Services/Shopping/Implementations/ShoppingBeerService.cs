@@ -43,7 +43,7 @@
                 .ProjectTo<BeerListingServiceModel>()
                 .ToList();
 
-        public IEnumerable<BeerListingServiceModel> BeersByColor(BeerColor color, int page = 1, int pageSize = 10)
+        public IEnumerable<BeerListingServiceModel> BeersByColor(BeerColor color, int page = DefaultPage, int pageSize = DefaultPageSize)
             => this.db.Beers
                 .Where(b => b.Color == color)
                 .OrderBy(b => b.Name)

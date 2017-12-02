@@ -10,6 +10,9 @@
     list-style-type:none;
 }
 
+.my-validation-summary,ul{
+    list-style-type: none;
+}
 .container .jumbotron {
     margin-top: 40px;
 }

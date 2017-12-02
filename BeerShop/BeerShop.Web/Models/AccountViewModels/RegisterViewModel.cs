@@ -2,11 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static BeerShop.Models.ModelConstants;
+
     public class RegisterViewModel
     {
         [Required]
-        [MinLength(3)]
-        [MaxLength(50)]
+        [StringLength(50, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 2)]
         public string Username { get; set; }
 
         [Required]
@@ -15,15 +16,15 @@
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(UserFirstNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = UserFirstNameMinLength)]
         public string FirstName { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [StringLength(UserLastNameMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = UserLastNameMinLength)]
         public string LastName { get; set; }
 
         [Required]
-        [MaxLength(1000)]
+        [StringLength(UserAddressMaxLength, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = UserAddressMinLength)]
         public string Address { get; set; }
 
         [Required]
