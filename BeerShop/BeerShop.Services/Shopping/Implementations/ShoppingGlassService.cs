@@ -32,6 +32,15 @@
                 .ProjectTo<GlassListingServiceModel>()
                 .ToList();
 
+        public IEnumerable<GlassListingServiceModel> Search(string searchTerm)
+        {
+            searchTerm = searchTerm ?? string.Empty;
+            return this.db.Glasses
+                   .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
+                   .ProjectTo<GlassListingServiceModel>()
+                   .ToList();
+        }
+
         public GlassDetailsServiceModel ById(int id)
             => this.db.Glasses
                 .Where(g => g.Id == id)

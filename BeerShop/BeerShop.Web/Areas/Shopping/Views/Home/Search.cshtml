@@ -1,0 +1,17 @@
+﻿@model SearchListingViewModel
+@{
+    ViewData["Title"] = $"Searching for {Model.SearchTerm}";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+</div>
+
+@Html.Partial("_ListProducts", new ProductsListingViewModel
+{
+    Accessories = Model.Accessories,
+    Beers = Model.Beers,
+    GiftSets = Model.GiftSets,
+    Glasses = Model.Glasses
+})

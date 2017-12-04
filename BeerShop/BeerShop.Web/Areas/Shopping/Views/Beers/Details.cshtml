@@ -15,97 +15,69 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-center">
-                        <div class="card-title"><h3>@Model.Name</h3></div>
+                        <div class="card-title text-uppercase"><h2>@Model.Name</h2></div>
                         <hr>
                     </div>
-                    <div class="card-title">
+                    <div class="card-text">
                         <div>
-                            <div class="card-title">Brewery: @Model.Brewery</div>
+                            <div class="card-text"><h3>Brewery: @Model.Brewery</h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">Country: @Model.Country</div>
+                            <div class="card-text"><h3>Country: @Model.Country</h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">Volume: </div>
+                            <div class="card-text"><h3>Volume: </h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">Alcohol: @Model.Alcohol %</div>
+                            <div class="card-text"><h3>Alcohol: @Model.Alcohol %</h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">Style: @Model.Style</div>
+                            <div class="card-text"><h3>Style: @Model.Style</h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">Color: @Model.Color.ToString()</div>
+                            <div class="card-text"><h3>Color: @Model.Color.ToString()</h3></div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">
-                                Bitterness:
-                                @{
-                                    for (int i = 0; i < Model.Bitterness; i++)
-                                    {
-                                        <i class="fa fa-lemon-o "></i>
+                            <div class="card-text">
+                                <h3>
+                                    Bitterness: 
+                                    @{
+                                        for (int i = 0; i < Model.Bitterness; i++)
+                                        {
+                                            <i class="fa fa-lemon-o "></i>
+                                        }
                                     }
-                                }
+                                </h3>
                             </div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">
-                                Density:
-                                @{
-                                    for (int i = 0; i < Model.Density; i++)
-                                    {
-                                        <i class="fa fa-cloud"></i>
+                            <div class="card-text">
+                                <h3>
+                                    Density: 
+                                    @{
+                                        for (int i = 0; i < Model.Density; i++)
+                                        {
+                                            <i class="fa fa-cloud"></i>
+                                        }
                                     }
-                                }
+                                </h3>
                             </div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">
-                                Sweetness:
-                                @{
-                                    for (int i = 0; i < Model.Sweetness; i++)
-                                    {
-                                        <i class="fa fa-cube"></i>
+                            <div class="card-text">
+                                <h3>
+                                    Sweetness: 
+                                    @{
+                                        for (int i = 0; i < Model.Sweetness; i++)
+                                        {
+                                            <i class="fa fa-cube"></i>
+                                        }
                                     }
-                                }
+                                </h3>
                             </div>
                             <hr>
-                        </div>
-                    </div>
-                    <div class="card-title">
-                        <div>
-                            <div class="card-title">
-                                Gasification:
-                                @{
-                                    for (int i = 0; i < Model.Gasification; i++)
-                                    {
-                                        <i class="fa fa-beer"></i>
+                            <div class="card-text">
+                                <h3>
+                                    Gasification: 
+                                    @{
+                                        for (int i = 0; i < Model.Gasification; i++)
+                                        {
+                                            <i class="fa fa-beer"></i>
+                                        }
                                     }
-                                }
+                                </h3>
                             </div>
                             <hr>
                         </div>
@@ -123,7 +95,6 @@
                         <p>
                             @Model.Price $
                         </p>
-
                         <a href="$" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
                         <hr>
                     </div>

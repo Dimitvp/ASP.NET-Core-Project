@@ -11,6 +11,8 @@
 
         IEnumerable<GlassListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize);
 
+        IEnumerable<GlassListingServiceModel> Search(string searchTerm);
+
         GlassDetailsServiceModel ById(int id);
 
         int Total();

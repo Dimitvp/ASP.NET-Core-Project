@@ -1,5 +1,6 @@
-﻿
-<form class="form-inline">
+﻿@model SearchFormModel
+
+<form class="form-inline" asp-area="Shopping" asp-controller="Home" asp-action="Search">
     <div class="input-group">
         <div class="input-group-btn">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -7,13 +8,25 @@
                 <span class="caret"></span>
             </button>
             <div class="dropdown-menu text-center">
-                <input class="dropdown-item" type="checkbox" />
-                <label>lalalal</label>
-                <input input class="dropdown-item" type="checkbox" />
-                <label>lalalalsdakd</label>
+                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label" asp-for="SearchInAccessories"></label>
+                    <input class="dropdown-item form-check-input" asp-for="SearchInAccessories" type="checkbox" />
+                </div>
+                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label" asp-for="SearchInBeers"></label>
+                    <input class="dropdown-item form-check-input" asp-for="SearchInBeers" type="checkbox" />
+                </div>
+                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label" asp-for="SearchInGiftSets"></label>
+                    <input class="dropdown-item form-check-input" asp-for="SearchInGiftSets" type="checkbox" />
+                </div>
+                <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                    <label class="form-check-label" asp-for="SearchInGlasses"></label>
+                    <input class="dropdown-item form-check-input" asp-for="SearchInGlasses" type="checkbox" />
+                </div>
             </div>
         </div>
-        <input type="text" class="form-control" placeholder="Search...">
+        <input type="text" class="form-control" asp-for="SearchTerm" placeholder="Search..." value="@Model.SearchTerm">
         <span class="input-group-btn">
             <button class="btn btn-outline-warning" type="submit">
                 <i class="fa fa-search"></i>

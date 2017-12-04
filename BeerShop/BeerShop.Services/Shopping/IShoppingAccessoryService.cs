@@ -11,6 +11,8 @@
 
         IEnumerable<AccessoryListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize);
 
+        IEnumerable<AccessoryListingServiceModel> Search(string searchTerm);
+
         AccessoryDetailsServiceModel ById(int id);
 
         int Total();

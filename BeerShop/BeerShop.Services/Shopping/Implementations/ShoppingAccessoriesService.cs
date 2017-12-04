@@ -32,6 +32,15 @@
                 .ProjectTo<AccessoryListingServiceModel>()
                 .ToList();
 
+        public IEnumerable<AccessoryListingServiceModel> Search(string searchTerm)
+        {
+            searchTerm = searchTerm ?? string.Empty;
+            return this.db.Accessories
+                   .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
+                   .ProjectTo<AccessoryListingServiceModel>()
+                   .ToList();
+        }
+
         public AccessoryDetailsServiceModel ById(int id)
             => this.db.Accessories
                 .Where(a => a.Id == id)

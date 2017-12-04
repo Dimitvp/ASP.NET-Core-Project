@@ -1,0 +1,116 @@
+﻿@model ProductsListingViewModel
+
+@if (Model.Beers.Any())
+{
+    <div class="container">
+        <h2 class="text-uppercase">Beers</h2>
+        <div class="row">
+            @foreach (var beer in Model.Beers)
+            {
+                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                    <div class="card text-center">
+                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="http://www.tom-wood.com/wp-content/uploads/Bomber-County-Bottle-no-background.png"></a>
+                        <div class="card-block">
+                            <h5 class="text-bold">@beer.Name</h5>
+                        </div>
+                        <div class="card-text">
+                            @beer.Price $
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i> Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if (Model.GiftSets.Any())
+{
+    <div class="container">
+        <hr />
+        <h2 class="text-uppercase">Gift Sets</h2>
+        <div class="row">
+            @foreach (var giftSet in Model.GiftSets)
+            {
+                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                    <div class="card text-center">
+                        <a asp-area="Shopping" asp-controller="GiftSets" asp-action="Detais" asp-route-id="@giftSet.Id"><img class="card-img-top" src="https://cdn.notonthehighstreet.com/fs/fa/fb/b362-a68e-42d0-9404-45f06b3f32b9/original_craft-beer-gift-set.jpg"></a>
+                        <div class="card-block">
+                            <h5 class="text-bold">@giftSet.Name</h5>
+                        </div>
+                        <div class="card-text">
+                            Price @giftSet.Price
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-warning btn">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if (Model.Accessories.Any())
+{
+    <div class="container">
+        <hr />
+        <h2 class="text-uppercase">Accessories</h2>
+        <div class="row">
+            @foreach (var accessory in Model.Accessories)
+            {
+                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                    <div class="card text-center">
+                        <a asp-area="Shopping" asp-controller="Accessories" asp-action="Detais" asp-route-id="@accessory.Id"><img class="card-img-top" src="https://www.uncommongoods.com/images/items/47100/47192_1_360px.jpg"></a>
+                        <div class="card-block">
+                            <h5 class="text-bold">@accessory.Name</h5>
+                        </div>
+                        <div class="card-text">
+                            Price @accessory.Price
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-warning btn">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+
+@if (Model.Glasses.Any())
+{
+    <div class="container">
+        <hr />
+        <h2 class="text-uppercase">Glasses</h2>
+        <div class="row">
+            @foreach (var glass in Model.Glasses)
+            {
+                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                    <div class="card text-center">
+                        <a asp-area="Shopping" asp-controller="Glasses" asp-action="Detais" asp-route-id="@glass.Id"><img class="card-img-top" src="https://image.freepik.com/free-vector/vector-realistic-illustration-of-two-transparent-glass-mugs-one-full-of-beer-with-foam-the-other-is-empty_1441-552.jpg"></a>
+                        <div class="card-block">
+                            <h5 class="text-bold">@glass.Name</h5>
+                        </div>
+                        <div class="card-text">
+                            Price @glass.Price
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-warning btn">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@if (!Model.Beers.Any() && !Model.Accessories.Any() && !Model.GiftSets.Any() && !Model.Glasses.Any())
+{
+    <div class="container">
+        <h2><i class="fa fa-search"></i> Sorry no results found :/</h2>
+    </div>
+}

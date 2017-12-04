@@ -16,6 +16,8 @@
 
         IEnumerable<BeerListingServiceModel> BeersByColor(BeerColor color, int page = DefaultPage, int pageSize = DefaultPageSize);
 
+        IEnumerable<BeerListingServiceModel> Search(string searchTerm);
+
         IDictionary<BeerColor, int> ColorsWithBeersCount();
 
         BeerDetailsServiceModel ById(int id);

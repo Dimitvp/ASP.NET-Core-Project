@@ -32,6 +32,15 @@
                 .ProjectTo<GiftSetListingServiceModel>()
                 .ToList();
 
+        public IEnumerable<GiftSetListingServiceModel> Search(string searchTerm)
+        {
+            searchTerm = searchTerm ?? string.Empty;
+            return this.db.GiftSets
+                   .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
+                   .ProjectTo<GiftSetListingServiceModel>()
+                   .ToList();
+        }
+
         public GiftSetDetailsServiceModel ById(int id)
             => this.db.GiftSets
                 .Where(gs => gs.Id == id)

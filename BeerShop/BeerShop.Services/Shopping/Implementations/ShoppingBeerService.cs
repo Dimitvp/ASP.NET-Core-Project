@@ -52,6 +52,15 @@
                 .ProjectTo<BeerListingServiceModel>()
                 .ToList();
 
+        public IEnumerable<BeerListingServiceModel> Search(string searchTerm)
+        {
+            searchTerm = searchTerm ?? string.Empty;
+            return this.db.Beers
+                   .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
+                   .ProjectTo<BeerListingServiceModel>()
+                   .ToList();
+        }
+
         public IDictionary<BeerColor, int> ColorsWithBeersCount()
             => this.db.Beers
                 .GroupBy(b => b.Color)
