@@ -11,6 +11,8 @@
 
         public double Alcohol { get; set; }
 
+        public int Volume { get; set; }
+
         public string ServingTemp { get; set; }
 
         public BeerColor Color { get; set; }

@@ -6,6 +6,7 @@
     using Data;
     using Models.Beers;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class AdminBeerService : IAdminBeerService
@@ -52,6 +53,7 @@
             int quantity,
             string description,
             double alcohol,
+            int volume,
             string servingTemp,
             BeerColor color,
             int bitterness,
@@ -59,7 +61,8 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId)
+            int breweryId,
+            string image)
         {
             var beer = new Beer
             {
@@ -68,6 +71,7 @@
                 Quantity = quantity,
                 Description = description,
                 Alcohol = alcohol,
+                Volume = volume,
                 ServingTemp = servingTemp,
                 Color = color,
                 Bitterness = bitterness,
@@ -75,7 +79,8 @@
                 Sweetness = sweetness,
                 Gasification = gasification,
                 StyleId = styleId,
-                BreweryId = breweryId
+                BreweryId = breweryId,
+                Image = image
             };
 
             this.db.Beers.Add(beer);
@@ -95,6 +100,7 @@
             int quantity,
             string description,
             double alcohol,
+            int volume,
             string servingTemp,
             BeerColor color,
             int bitterness,
@@ -102,7 +108,8 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId)
+            int breweryId,
+            string image)
         {
             var beer = this.db.Beers.Find(id);
 
@@ -116,6 +123,7 @@
             beer.Quantity = quantity;
             beer.Description = description;
             beer.Alcohol = alcohol;
+            beer.Volume = volume;
             beer.ServingTemp = servingTemp;
             beer.Color = color;
             beer.Bitterness = bitterness;
@@ -124,6 +132,11 @@
             beer.Gasification = gasification;
             beer.StyleId = styleId;
             beer.BreweryId = breweryId;
+
+            if (!string.IsNullOrWhiteSpace(image))
+            {
+                beer.Image = image;
+            }
 
             this.db.SaveChanges();
 
@@ -137,6 +150,18 @@
             if (beer == null)
             {
                 return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(beer.Image))
+            {
+                var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "Beers",
+                beer.Image);
+
+                File.Delete(filePath);
+
             }
 
             this.db.Beers.Remove(beer);

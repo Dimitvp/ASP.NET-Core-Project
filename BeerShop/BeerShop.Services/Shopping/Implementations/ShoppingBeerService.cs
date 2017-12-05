@@ -18,6 +18,14 @@
             this.db = db;
         }
 
+        public IEnumerable<BeerListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize)
+            => this.db.Beers
+                .OrderBy(b => b.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<BeerListingServiceModel>()
+                .ToList();
+
         public IEnumerable<BeerListingServiceModel> LatestListing()
             => this.db.Beers
                 .OrderByDescending(b => b.Id)
@@ -71,6 +79,9 @@
                 .Where(b => b.Id == id)
                 .ProjectTo<BeerDetailsServiceModel>()
                 .FirstOrDefault();
+
+        public int Total()
+            => this.db.Beers.Count();
 
         public int TotalByCountry(int countryId)
             => this.db.Beers

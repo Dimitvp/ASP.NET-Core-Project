@@ -6,13 +6,13 @@
 
     public interface IAdminGlassService
     {
-        IEnumerable<GlassListingServiceModel> AllListing(string searchTerm,int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
+        IEnumerable<GlassListingServiceModel> AllListing(string searchTerm, int page = ServiceConstants.DefaultPage, int pageSize = ServiceConstants.DefaultPageSize);
 
         int Total(string searchTerm);
 
-        void Create(string name, string description, int volume, Material material, int quantity, decimal price);
+        void Create(string name, string description, int volume, Material material, int quantity, decimal price, string image);
 
-        bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price);
+        bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price, string image);
 
         bool Delete(int id);
 

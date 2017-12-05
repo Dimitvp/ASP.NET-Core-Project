@@ -16,6 +16,7 @@
             int quantity, 
             string description,
             double alcohol,
+            int volume,
             string servingTemp,
             BeerColor color,
             int bitterness,
@@ -23,7 +24,8 @@
             int sweetness,
             int gasification,
             int styleId, 
-            int breweryId);
+            int breweryId,
+            string image);
 
         BeerEditServiceModel ById(int id);
 
@@ -34,6 +36,7 @@
             int quantity,
             string description,
             double alcohol,
+            int volume,
             string servingTemp,
             BeerColor color,
             int bitterness,
@@ -41,7 +44,8 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId);
+            int breweryId,
+            string imageName);
 
         bool Delete(int id);
     }

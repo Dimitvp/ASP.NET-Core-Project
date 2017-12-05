@@ -6,6 +6,7 @@
     using Data;
     using Models.Glasses;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class AdminGlassService : IAdminGlassService
@@ -46,7 +47,7 @@
             return glasses.Count();
         }
 
-        public void Create(string name, string description, int volume, Material material, int quantity, decimal price)
+        public void Create(string name, string description, int volume, Material material, int quantity, decimal price, string image)
         {
             var glass = new Glass
             {
@@ -55,14 +56,15 @@
                 Volume = volume,
                 Material = material,
                 Quantity = quantity,
-                Price = price
+                Price = price,
+                Image = image
             };
 
             this.db.Glasses.Add(glass);
             this.db.SaveChanges();
         }
 
-        public bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price)
+        public bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price, string image)
         {
             var glass = this.db.Glasses.Find(id);
 
@@ -78,6 +80,11 @@
             glass.Quantity = quantity;
             glass.Price = price;
 
+            if (!string.IsNullOrWhiteSpace(image))
+            {
+                glass.Image = image;
+            }
+
             this.db.SaveChanges();
 
             return true;
@@ -90,6 +97,17 @@
             if (glass == null)
             {
                 return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(glass.Image))
+            {
+                var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "Glasses",
+                glass.Image);
+
+                File.Delete(filePath);
             }
 
             this.db.Remove(glass);

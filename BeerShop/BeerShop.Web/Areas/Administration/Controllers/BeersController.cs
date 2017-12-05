@@ -2,13 +2,16 @@
 {
     using AutoMapper;
     using BeerShop.Models.Enums;
+    using BeerShop.Web.Infrastructure.Extensions;
     using Infrastructure.Filters;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Beers;
     using Services.Administration;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class BeersController : AdminBaseController
@@ -63,12 +66,22 @@
                 return View(model);
             }
 
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
+
             this.beers.Create(
                 model.Name,
                 model.Price,
                 model.Quantity,
                 model.Description,
                 model.Alcohol,
+                model.Volume,
                 model.ServingTemp,
                 model.Color,
                 model.Bitterness,
@@ -76,7 +89,8 @@
                 model.Sweetness,
                 model.Gasification,
                 model.StyleId,
-                model.BreweryId);
+                model.BreweryId,
+                imageName);
 
             TempData["SuccessMessage"] = $"Succesfully added beer {model.Name}.";
 
@@ -110,6 +124,14 @@
                 return View(model);
             }
 
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
             var success = this.beers.Edit(
                                         id,
                                         model.Name,
@@ -117,6 +139,7 @@
                                         model.Quantity,
                                         model.Description,
                                         model.Alcohol,
+                                        model.Volume,
                                         model.ServingTemp,
                                         model.Color,
                                         model.Bitterness,
@@ -124,7 +147,8 @@
                                         model.Sweetness,
                                         model.Gasification,
                                         model.StyleId,
-                                        model.BreweryId);
+                                        model.BreweryId,
+                                        imageName);
 
             if (!success)
             {
@@ -183,5 +207,27 @@
                     Text = s.Name,
                     Value = s.Id.ToString()
                 });
+
+        private string SaveImage(string beerName, IFormFile file)
+        {
+            var indexOfDot = file.FileName.LastIndexOf('.');
+            var imageName = file.FileName
+                .Substring(indexOfDot)
+                .Insert(0, beerName)
+                .ToDashedString();
+
+            var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "Beers",
+                imageName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return imageName;
+        }
     }
 }

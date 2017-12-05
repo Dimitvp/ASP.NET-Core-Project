@@ -8,5 +8,10 @@
         {
             return Regex.Replace(text, @"[^A-Za-z0-9_\.~]+", "-").ToLower();
         }
+
+        public static string ToDashedString(this string text)
+        {
+            return Regex.Replace(text, @"\s+", "-").ToLower();
+        }
     }
 }

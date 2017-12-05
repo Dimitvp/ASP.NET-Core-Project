@@ -25,6 +25,8 @@
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
+        public string Image { get; set; }
+
         public ICollection<AccessoryOrder> Orders { get; set; } = new HashSet<AccessoryOrder>();
     }
 }

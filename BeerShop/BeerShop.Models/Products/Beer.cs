@@ -31,6 +31,10 @@
         public double Alcohol { get; set; }
 
         [Required]
+        [Range(VolumeMinValue,VolumeMaxValue)]
+        public int Volume { get; set; }
+
+        [Required]
         [MaxLength(ServingTempMaxLength)]
         public string ServingTemp { get; set; }
 
@@ -51,6 +55,8 @@
         [Required]
         [Range(BeerCharacteristicsMinValue, BeerCharacteristicsMaxValue)]
         public int Gasification { get; set; }
+
+        public string Image { get; set; }
 
         public int StyleId { get; set; }
 

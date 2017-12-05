@@ -11,8 +11,8 @@
         public const int BeerCharacteristicsMaxValue = 5;
         public const int BeerAlcoholMaxValue = 100;
 
-        public const int GlassVolumeMaxValue = 5000;
-        public const int GlassVolumeMinValue = 0;
+        public const int VolumeMaxValue = 5000;
+        public const int VolumeMinValue = 0;
 
         public const int BreweryNameMaxLength = 100;
         public const int BreweryNameMinLength = 2;

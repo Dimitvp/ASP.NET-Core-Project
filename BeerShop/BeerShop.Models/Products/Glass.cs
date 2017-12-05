@@ -21,7 +21,7 @@
         public string Description { get; set; }
 
         [Required]
-        [Range(GlassVolumeMinValue, GlassVolumeMaxValue)]
+        [Range(VolumeMinValue, VolumeMaxValue)]
         public int Volume { get; set; }
 
         [Required]
@@ -32,6 +32,8 @@
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+
+        public string Image { get; set; }
 
         public ICollection<GlassOrder> Orders { get; set; } = new HashSet<GlassOrder>();
     }

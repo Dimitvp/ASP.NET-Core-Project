@@ -2,6 +2,7 @@
 {
     using BeerShop.Models.Enums;
     using Common.Mapping;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Services.Administration.Models.Beers;
     using System.Collections.Generic;
@@ -30,6 +31,10 @@
         [Required]
         [Range(BeerCharacteristicsMinValue, BeerAlcoholMaxValue)]
         public double Alcohol { get; set; }
+
+        [Required]
+        [Range(VolumeMinValue, VolumeMaxValue)]
+        public int Volume { get; set; }
 
         [Required]
         [Display(Name="Serving Temperature")]
@@ -63,6 +68,8 @@
         public int BreweryId { get; set; }
 
         public IEnumerable<SelectListItem> Breweries { get; set; }
+
+        public IFormFile Image { get; set; }
 
     }
 }

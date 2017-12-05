@@ -1,10 +1,13 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
+    using BeerShop.Web.Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.GiftSets;
     using Services.Administration;
     using System;
+    using System.IO;
 
     public class GiftSetsController : AdminBaseController
     {
@@ -17,7 +20,7 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All (int page = WebConstants.DefaultPage)
+        public IActionResult All(int page = WebConstants.DefaultPage)
         {
             var giftSets = this.giftSets.AllListing(page, WebConstants.PageSize);
 
@@ -39,7 +42,15 @@
                 return View(model);
             }
 
-            this.giftSets.Create(model.Name, model.Description, model.Quantity, model.Price);
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
+            this.giftSets.Create(model.Name, model.Description, model.Quantity, model.Price, imageName);
 
             return RedirectToAction(nameof(All));
         }
@@ -66,7 +77,15 @@
                 return View(model);
             }
 
-            var success = this.giftSets.Edit(id, model.Name, model.Description, model.Quantity, model.Price);
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
+            var success = this.giftSets.Edit(id, model.Name, model.Description, model.Quantity, model.Price, imageName);
 
             if (!success)
             {
@@ -100,6 +119,28 @@
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        private string SaveImage(string giftSetName, IFormFile file)
+        {
+            var indexOfDot = file.FileName.LastIndexOf('.');
+            var imageName = file.FileName
+                .Substring(indexOfDot)
+                .Insert(0, giftSetName)
+                .ToDashedString();
+
+            var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "GiftSets",
+                imageName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return imageName;
         }
     }
 }

@@ -6,7 +6,7 @@
 
         public const string ModeratorRole = "Moderator";
 
-        public const int PageSize = 2;
+        public const int PageSize = 15;
 
         public const int DefaultPage = 1;
 
@@ -15,5 +15,7 @@
         public const string AdminArea = "Administration";
 
         public const string ShopArea = "Shopping";
+
+        public const long ImageSize = 2 * 1024 * 1024;
     }
 }

@@ -1,10 +1,13 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
+    using BeerShop.Web.Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Glasses;
     using Services.Administration;
     using System;
+    using System.IO;
 
     public class GlassesController : AdminBaseController
     {
@@ -40,13 +43,22 @@
                 return View(model);
             }
 
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
             this.glasses.Create(
                 model.Name,
                 model.Description,
                 model.Volume,
                 model.Material,
                 model.Quantity,
-                model.Price);
+                model.Price,
+                imageName);
 
             return RedirectToAction(nameof(All));
         }
@@ -73,6 +85,14 @@
                 return View(model);
             }
 
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
             var success = this.glasses.Edit(
                             id,
                             model.Name,
@@ -80,7 +100,8 @@
                             model.Volume,
                             model.Material,
                             model.Quantity,
-                            model.Price);
+                            model.Price,
+                            imageName);
 
             if (!success)
             {
@@ -115,6 +136,28 @@
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        private string SaveImage(string glassName, IFormFile file)
+        {
+            var indexOfDot = file.FileName.LastIndexOf('.');
+            var imageName = file.FileName
+                .Substring(indexOfDot)
+                .Insert(0, glassName)
+                .ToDashedString();
+
+            var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "Glasses",
+                imageName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return imageName;
         }
     }
 }

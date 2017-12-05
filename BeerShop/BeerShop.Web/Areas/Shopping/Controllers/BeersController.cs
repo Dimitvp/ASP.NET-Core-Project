@@ -17,16 +17,16 @@
             this.beers = beers;
         }
 
-        public IActionResult Details(int id)
+        public IActionResult All(int page = DefaultPage)
         {
-            var beer = this.beers.ById(id);
+            var beers = this.beers.All(page, PageSize);
 
-            if (beer == null)
+            return View(new BeerListingViewModel
             {
-                return NotFound();
-            }
-
-            return View(beer);
+                Beers = beers,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.beers.Total() / (double)PageSize)
+            });
         }
 
         public IActionResult ByCountry(int id, string title, int page = DefaultPage)
@@ -68,6 +68,18 @@
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(this.beers.TotalByColor(id) / (double)PageSize)
             });
+        }
+
+        public IActionResult Details(int id)
+        {
+            var beer = this.beers.ById(id);
+
+            if (beer == null)
+            {
+                return NotFound();
+            }
+
+            return View(beer);
         }
     }
 }

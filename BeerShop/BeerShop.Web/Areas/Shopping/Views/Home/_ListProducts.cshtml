@@ -9,7 +9,7 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="http://www.tom-wood.com/wp-content/uploads/Bomber-County-Bottle-no-background.png"></a>
+                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
                         <div class="card-block">
                             <h5 class="text-bold">@beer.Name</h5>
                         </div>
@@ -36,7 +36,7 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="GiftSets" asp-action="Detais" asp-route-id="@giftSet.Id"><img class="card-img-top" src="https://cdn.notonthehighstreet.com/fs/fa/fb/b362-a68e-42d0-9404-45f06b3f32b9/original_craft-beer-gift-set.jpg"></a>
+                        <a asp-area="Shopping" asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id"><img class="card-img-top" src="~/images/GiftSets/@giftSet.Image"></a>
                         <div class="card-block">
                             <h5 class="text-bold">@giftSet.Name</h5>
                         </div>
@@ -63,7 +63,7 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Accessories" asp-action="Detais" asp-route-id="@accessory.Id"><img class="card-img-top" src="https://www.uncommongoods.com/images/items/47100/47192_1_360px.jpg"></a>
+                        <a asp-area="Shopping" asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id"><img class="card-img-top" src="~/images/Accessories/@accessory.Image"></a>
                         <div class="card-block">
                             <h5 class="text-bold">@accessory.Name</h5>
                         </div>
@@ -91,7 +91,7 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Glasses" asp-action="Detais" asp-route-id="@glass.Id"><img class="card-img-top" src="https://image.freepik.com/free-vector/vector-realistic-illustration-of-two-transparent-glass-mugs-one-full-of-beer-with-foam-the-other-is-empty_1441-552.jpg"></a>
+                        <a asp-area="Shopping" asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
                         <div class="card-block">
                             <h5 class="text-bold">@glass.Name</h5>
                         </div>

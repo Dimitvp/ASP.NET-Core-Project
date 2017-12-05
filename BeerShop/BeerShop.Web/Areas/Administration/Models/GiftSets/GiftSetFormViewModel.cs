@@ -1,6 +1,7 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Models.GiftSets
 {
     using Common.Mapping;
+    using Microsoft.AspNetCore.Http;
     using Services.Administration.Models.GiftSets;
     using System.ComponentModel.DataAnnotations;
 
@@ -23,5 +24,7 @@
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+
+        public IFormFile Image { get; set; }
     }
 }

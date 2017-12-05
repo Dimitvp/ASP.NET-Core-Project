@@ -1,10 +1,13 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
+    using Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Accessories;
     using Services.Administration;
     using System;
+    using System.IO;
 
     public class AccessoriesController : AdminBaseController
     {
@@ -39,7 +42,15 @@
                 return View(model);
             }
 
-            this.accessories.Create(model.Name, model.Description, model.Quantity, model.Price);
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
+            this.accessories.Create(model.Name, model.Description, model.Quantity, model.Price, imageName);
 
             return RedirectToAction(nameof(All));
         }
@@ -66,7 +77,15 @@
                 return View(model);
             }
 
-            var success = this.accessories.Edit(id, model.Name, model.Description, model.Quantity, model.Price);
+            var imageName = string.Empty;
+
+            if (model.Image != null
+                && model.Image.Length < WebConstants.ImageSize)
+            {
+                imageName = this.SaveImage(model.Name, model.Image);
+            }
+
+            var success = this.accessories.Edit(id, model.Name, model.Description, model.Quantity, model.Price, imageName);
 
             if (!success)
             {
@@ -101,6 +120,28 @@
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        private string SaveImage(string accessoryName, IFormFile file)
+        {
+            var indexOfDot = file.FileName.LastIndexOf('.');
+            var imageName = file.FileName
+                .Substring(indexOfDot)
+                .Insert(0, accessoryName)
+                .ToDashedString();
+
+            var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "Accessories",
+                imageName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return imageName;
         }
     }
 }

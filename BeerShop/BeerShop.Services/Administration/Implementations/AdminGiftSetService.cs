@@ -5,6 +5,7 @@
     using Data;
     using Models.GiftSets;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     public class AdminGiftSetService : IAdminGiftSetService
@@ -32,36 +33,22 @@
                 .ProjectTo<GiftSetEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Create(string name, string description, int quantity, decimal price)
+        public void Create(string name, string description, int quantity, decimal price, string image)
         {
             var giftSet = new GiftSet
             {
                 Name = name,
                 Description = description,
                 Quantity = quantity,
-                Price = price
+                Price = price,
+                Image = image
             };
 
             this.db.GiftSets.Add(giftSet);
             this.db.SaveChanges();
         }
 
-        public bool Delete(int id)
-        {
-            var giftSet = this.db.GiftSets.Find(id);
-
-            if (giftSet == null)
-            {
-                return false;    
-            }
-
-            this.db.Remove(giftSet);
-            this.db.SaveChanges();
-
-            return true;
-        }
-
-        public bool Edit(int id, string name, string description, int quantity, decimal price)
+        public bool Edit(int id, string name, string description, int quantity, decimal price, string image)
         {
             var giftSet = this.db.GiftSets.Find(id);
 
@@ -75,6 +62,37 @@
             giftSet.Quantity = quantity;
             giftSet.Price = price;
 
+            if (!string.IsNullOrWhiteSpace(image))
+            {
+                giftSet.Image = image;
+            }
+
+            this.db.SaveChanges();
+
+            return true;
+        }
+
+        public bool Delete(int id)
+        {
+            var giftSet = this.db.GiftSets.Find(id);
+
+            if (giftSet == null)
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(giftSet.Image))
+            {
+                var filePath = Path
+                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                "Images",
+                "GiftSets",
+                giftSet.Image);
+
+                File.Delete(filePath);
+            }
+
+            this.db.Remove(giftSet);
             this.db.SaveChanges();
 
             return true;

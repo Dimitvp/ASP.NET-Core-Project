@@ -15,7 +15,7 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="https://image.freepik.com/free-vector/vector-illustration-with-fresh-lager-beer-in-a-beer-mug-on-transparent-background_1314-523.jpg"></a>
+                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
                         <div class="card-block">
                             <h5 class="text-bold">@beer.Name</h5>
                         </div>

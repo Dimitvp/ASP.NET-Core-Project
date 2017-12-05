@@ -8,6 +8,8 @@
 
     public interface IShoppingBeerService
     {
+        IEnumerable<BeerListingServiceModel> All(int page = DefaultPage, int pageSize = DefaultPageSize);
+
         IEnumerable<BeerListingServiceModel> LatestListing();
 
         IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize);
@@ -21,6 +23,8 @@
         IDictionary<BeerColor, int> ColorsWithBeersCount();
 
         BeerDetailsServiceModel ById(int id);
+
+        int Total();
 
         int TotalByCountry(int countryId);
 

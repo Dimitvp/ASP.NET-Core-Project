@@ -11,9 +11,9 @@
 
         GiftSetEditServiceModel ById(int id);
 
-        void Create(string name, string description, int quantity, decimal price);
+        void Create(string name, string description, int quantity, decimal price, string image);
 
-        bool Edit(int id, string name, string description, int quantity, decimal price);
+        bool Edit(int id, string name, string description, int quantity, decimal price, string image);
 
         bool Delete(int id);
     }

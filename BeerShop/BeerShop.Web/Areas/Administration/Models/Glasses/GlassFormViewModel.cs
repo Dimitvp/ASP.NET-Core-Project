@@ -2,6 +2,7 @@
 {
     using BeerShop.Common.Mapping;
     using BeerShop.Models.Enums;
+    using Microsoft.AspNetCore.Http;
     using Services.Administration.Models.Glasses;
     using System.ComponentModel.DataAnnotations;
 
@@ -20,7 +21,7 @@
         public string Description { get; set; }
 
         [Required]
-        [Range(GlassVolumeMinValue, GlassVolumeMaxValue)]
+        [Range(VolumeMinValue, VolumeMaxValue)]
         public int Volume { get; set; }
 
         [Required]
@@ -31,5 +32,8 @@
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+
+        public IFormFile Image { get; set; }
+
     }
 }
