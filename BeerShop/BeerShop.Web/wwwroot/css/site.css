@@ -6,13 +6,20 @@
     font-size: 30px;
 }*/
 
-.footer-list{
-    list-style-type:none;
+.footer-list {
+    list-style-type: none;
+    font-size: 17px;
+    padding:0;
 }
 
-.my-validation-summary,ul{
+    .footer-list a {
+        color: inherit;
+    }
+
+.my-validation-summary, ul {
     list-style-type: none;
 }
+
 .container .jumbotron {
     margin-top: 40px;
 }
@@ -40,6 +47,7 @@
         background-color: #30487b;
         border-color: rgba(0,0,0,0.2)
     }
+
 .dropdown-submenu {
     position: relative;
 }

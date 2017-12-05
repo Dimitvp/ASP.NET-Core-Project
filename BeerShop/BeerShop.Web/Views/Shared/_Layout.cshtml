@@ -115,6 +115,7 @@
                     <p>
                         The place where You will find high quality beer from all over the world, good moode and draft beer
                     </p>
+                    <span class="text-center"><img src="~/images/Logo/logo.png" width="130"/></span>
                 </div>
                 <div class="col-md-3">
                     <h3 class="text-uppercase">Contact info</h3>
@@ -129,10 +130,10 @@
                 <div class="col-md-3">
                     <h3 class="text-uppercase">Pages</h3>
                     <ul class="footer-list">
-                        <li><a>Home</a></li>
-                        <li>Shop</li>
-                        <li>Profile</li>
-                        <li>Contacts</li>
+                        <li><a asp-area="Shopping" asp-controller="Home" asp-action="Index">Home</a><hr /></li>
+                        <li><a asp-area="Shopping" asp-controller="Beers" asp-action="All">Beers</a><hr /></li>
+                        <li><a asp-area="" asp-controller="Manage" asp-action="Index">Profile</a><hr /></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
