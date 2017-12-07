@@ -31,7 +31,7 @@
                                     @Model.Price $
                                 </p>
 
-                                <a href="$" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
+                                <a  asp-area="Shopping" asp-controller="Orders" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-product="giftset" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
                                 <hr>
                             </div>
                         </div>

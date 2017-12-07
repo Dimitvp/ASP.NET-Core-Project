@@ -12,7 +12,7 @@
 
         IEnumerable<BeerListingServiceModel> LatestListing();
 
-        IEnumerable<BeerOrderServiceModel> ByIds(IEnumerable<int> ids);
+        IEnumerable<BeerOrderServiceModel> ByIds(IDictionary<int, int> ids);
 
         IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize);
 

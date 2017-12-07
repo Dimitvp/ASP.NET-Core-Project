@@ -13,7 +13,7 @@
 
         IEnumerable<AccessoryListingServiceModel> Search(string searchTerm);
 
-        IEnumerable<AccessoryListingServiceModel> ByIds(IEnumerable<int> ids);
+        IEnumerable<AccessoryOrderServiceModel> ByIds(IDictionary<int, int> ids);
 
         AccessoryDetailsServiceModel ById(int id);
 

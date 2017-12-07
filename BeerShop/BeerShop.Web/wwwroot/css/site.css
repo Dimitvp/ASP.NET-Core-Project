@@ -16,6 +16,9 @@
         color: inherit;
     }
 
+.row div.cart-fields {
+    display: inline-block;
+}
 .my-validation-summary, ul {
     list-style-type: none;
 }

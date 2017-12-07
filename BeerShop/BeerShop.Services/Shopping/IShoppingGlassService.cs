@@ -13,7 +13,7 @@
 
         IEnumerable<GlassListingServiceModel> Search(string searchTerm);
 
-        IEnumerable<GlassListingServiceModel> ByIds(IEnumerable<int> ids);
+        IEnumerable<GlassOrderServiceModel> ByIds(IDictionary<int, int> ids);
 
         GlassDetailsServiceModel ById(int id);
 

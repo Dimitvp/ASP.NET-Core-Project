@@ -13,7 +13,7 @@
 
         IEnumerable<GiftSetListingServiceModel> Search(string searchTerm);
 
-        IEnumerable<GiftSetListingServiceModel> ByIds(IEnumerable<int> ids);
+        IEnumerable<GiftSetOrderServiceModel> ByIds(IDictionary<int, int> ids);
 
         GiftSetDetailsServiceModel ById(int id);
 

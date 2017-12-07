@@ -26,7 +26,7 @@
                             @giftSet.Price $
                         </div>
                         <div class="card-footer">
-                            <a class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i> Add to cart</a>
+                            <a asp-area="Shopping" asp-controller="Orders" asp-action="AddToCart" asp-route-id="@giftSet.Id" asp-route-product="giftset" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i> Add to cart</a>
                         </div>
                     </div>
                 </div>

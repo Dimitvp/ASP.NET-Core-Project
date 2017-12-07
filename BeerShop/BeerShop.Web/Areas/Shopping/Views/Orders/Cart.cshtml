@@ -1,0 +1,171 @@
+﻿@model ProductListingViewModel
+@{
+    ViewData["Title"] = "Your Cart";
+}
+<h2>@ViewData["Title"]</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/shopping/Home/Index" class="btn btn-outline-primary btn-sm btn-block">
+                                    <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Beers.Any()
+        || Model.Accessories.Any()
+        || Model.GiftSets.Any()
+        || Model.Glasses.Any())
+                {
+                    <div class="card-title">
+                        @if (Model.Beers.Any())
+                        {
+                            <h3>Beers</h3>
+
+                            @foreach (var beer in Model.Beers)
+                            {
+                                <div class="row text-center">
+                                    <div class="col-md-2">
+                                        <img width="100" src="~/images/Beers/@beer.Image">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="product-name"><strong>@beer.Name</strong></h4><h4><small>@(beer.Description.Length > 100 ? beer.Description.Substring(0, 97) + "..." : beer.Description)</small></h4>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-2 cart-fields">
+                                            <h6><strong>@beer.Price<span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-md-2 cart-fields">
+                                            <input type="text" class="form-control input-sm" value="@beer.Quantity">
+                                        </div>
+                                        <div class="col-md-1 cart-fields">
+                                            <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+                        @if (Model.Accessories.Any())
+                        {
+                            <h3>Accessories</h3>
+                            @foreach (var accessory in Model.Accessories)
+                            {
+                                <div class="row text-center">
+                                    <div class="col-md-2 text-center">
+                                        <img width="100" src="~/images/Accessories/@accessory.Image">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="product-name"><strong>@accessory.Name</strong></h4><h4><small>@(accessory.Description.Length > 100 ? accessory.Description.Substring(0, 97) + "..." : accessory.Description)</small></h4>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-2 cart-fields">
+                                            <h6><strong>@accessory.Price<span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-md-2 cart-fields">
+                                            <input type="text" class="form-control input-sm" value="@accessory.Quantity">
+                                        </div>
+                                        <div class="col-md-1 cart-fields">
+                                            <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+                        @if (Model.GiftSets.Any())
+                        {
+                            <h3>Gift Sets</h3>
+                            @foreach (var giftSet in Model.GiftSets)
+                            {
+                                <div class="row text-center">
+                                    <div class="col-md-2 ">
+                                        <img width="100" src="~/images/GiftSets/@giftSet.Image">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="product-name"><strong>@giftSet.Name</strong></h4><h4><small>@(giftSet.Description.Length > 100 ? giftSet.Description.Substring(0, 97) + "..." : giftSet.Description)</small></h4>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-2 cart-fields">
+                                            <h6><strong>@giftSet.Price<span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-md-2 cart-fields">
+                                            <input type="text" class="form-control input-sm" value="@giftSet.Quantity">
+                                        </div>
+                                        <div class="col-md-1 cart-fields">
+                                            <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+                        @if (Model.Glasses.Any())
+                        {
+                            <h3>Glasses</h3>
+                            @foreach (var glass in Model.Glasses)
+                            {
+                                <div class="row text-center">
+                                    <div class="col-md-2">
+                                        <img width="100" src="~/images/Glasses/@glass.Image">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="product-name"><strong>@glass.Name</strong></h4><h4><small>@(glass.Description.Length > 100 ? glass.Description.Substring(0, 97) + "..." : glass.Description)</small></h4>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-2 cart-fields">
+                                            <h6><strong>@glass.Price<span class="text-muted">x</span></strong></h6>
+                                        </div>
+                                        <div class="col-md-2 cart-fields">
+                                            <input type="text" class="form-control input-sm" value="@glass.Quantity">
+                                        </div>
+                                        <div class="col-md-1 cart-fields">
+                                            <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            }
+                        }
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-9">
+                                    <span class="text-right">Added items?</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="#" class="btn btn-outline-info btn-block">Update cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h4 class="text-right">Total <strong>@Model.Total</strong></h4>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="#" class="btn btn-outline-success btn-block">
+                                    Checkout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h3>Your cart is empty</h3>
+                }
+            </div>
+        </div>
+    </div>
+</div>

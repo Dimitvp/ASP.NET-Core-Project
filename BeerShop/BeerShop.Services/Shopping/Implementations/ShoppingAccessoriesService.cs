@@ -41,11 +41,20 @@
                    .ToList();
         }
 
-        public IEnumerable<AccessoryListingServiceModel> ByIds(IEnumerable<int> ids)
-            => this.db.Accessories
-                .Where(a => ids.Contains(a.Id))
-                .ProjectTo<AccessoryListingServiceModel>()
-                .ToList();
+        public IEnumerable<AccessoryOrderServiceModel> ByIds(IDictionary<int,int> ids)
+        {
+            var accessories = new List<AccessoryOrderServiceModel>();
+
+            foreach (var id in ids)
+            {
+                accessories.Add(this.db.Accessories
+                        .Where(a => a.Id == id.Key)
+                        .ProjectTo<AccessoryOrderServiceModel>(new { quantity = id.Value })
+                        .FirstOrDefault());
+            }
+
+            return accessories;
+        }
 
         public AccessoryDetailsServiceModel ById(int id)
             => this.db.Accessories

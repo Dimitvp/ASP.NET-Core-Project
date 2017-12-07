@@ -34,11 +34,20 @@
                 .ToList();
 
 
-        public IEnumerable<BeerOrderServiceModel> ByIds(IEnumerable<int> ids)
-            => this.db.Beers
-                .Where(b => ids.Contains(b.Id))
-                .ProjectTo<BeerOrderServiceModel>()
-                .ToList();
+        public IEnumerable<BeerOrderServiceModel> ByIds(IDictionary<int, int> ids)
+        {
+            var beers = new List<BeerOrderServiceModel>();
+
+            foreach (var id in ids)
+            {
+                beers.Add(this.db.Beers
+                      .Where(b => b.Id == id.Key)
+                      .ProjectTo<BeerOrderServiceModel>(new { quantity = id.Value })
+                      .FirstOrDefault());
+            }
+
+            return beers;
+        }
 
         public IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize)
             => this.db.Beers
