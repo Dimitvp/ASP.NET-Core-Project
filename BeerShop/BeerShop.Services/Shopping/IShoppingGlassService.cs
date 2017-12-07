@@ -13,6 +13,8 @@
 
         IEnumerable<GlassListingServiceModel> Search(string searchTerm);
 
+        IEnumerable<GlassListingServiceModel> ByIds(IEnumerable<int> ids);
+
         GlassDetailsServiceModel ById(int id);
 
         int Total();

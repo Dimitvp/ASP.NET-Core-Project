@@ -41,6 +41,12 @@
                    .ToList();
         }
 
+        public IEnumerable<GiftSetListingServiceModel> ByIds(IEnumerable<int> ids)
+            => this.db.GiftSets
+                .Where(gs => ids.Contains(gs.Id))
+                .ProjectTo<GiftSetDetailsServiceModel>()
+                .ToList();
+
         public GiftSetDetailsServiceModel ById(int id)
             => this.db.GiftSets
                 .Where(gs => gs.Id == id)

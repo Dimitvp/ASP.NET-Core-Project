@@ -33,6 +33,13 @@
                 .ProjectTo<BeerListingServiceModel>()
                 .ToList();
 
+
+        public IEnumerable<BeerOrderServiceModel> ByIds(IEnumerable<int> ids)
+            => this.db.Beers
+                .Where(b => ids.Contains(b.Id))
+                .ProjectTo<BeerOrderServiceModel>()
+                .ToList();
+
         public IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize)
             => this.db.Beers
                 .Where(b => b.Brewery.CountryId == countryId)
@@ -97,5 +104,8 @@
             => this.db.Beers
                 .Where(b => b.Color == color)
                 .Count();
+
+        public bool Exist(int id)
+            => this.db.Beers.Any(b => b.Id == id);
     }
 }

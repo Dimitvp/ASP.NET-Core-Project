@@ -41,6 +41,12 @@
                    .ToList();
         }
 
+        public IEnumerable<AccessoryListingServiceModel> ByIds(IEnumerable<int> ids)
+            => this.db.Accessories
+                .Where(a => ids.Contains(a.Id))
+                .ProjectTo<AccessoryListingServiceModel>()
+                .ToList();
+
         public AccessoryDetailsServiceModel ById(int id)
             => this.db.Accessories
                 .Where(a => a.Id == id)
@@ -49,5 +55,6 @@
 
         public int Total()
             => this.db.Accessories.Count();
+
     }
 }

@@ -12,6 +12,8 @@
 
         IEnumerable<BeerListingServiceModel> LatestListing();
 
+        IEnumerable<BeerOrderServiceModel> ByIds(IEnumerable<int> ids);
+
         IEnumerable<BeerListingServiceModel> BeersByCountry(int countryId, int page = DefaultPage, int pageSize = DefaultPageSize);
 
         IEnumerable<BeerListingServiceModel> BeersByStyle(int styleId, int page = DefaultPage, int pageSize = DefaultPageSize);
@@ -31,5 +33,7 @@
         int TotalByStyle(int styleId);
 
         int TotalByColor(BeerColor color);
+
+        bool Exist(int id);
     }
 }

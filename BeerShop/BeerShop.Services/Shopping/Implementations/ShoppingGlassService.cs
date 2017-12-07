@@ -41,6 +41,12 @@
                    .ToList();
         }
 
+        public IEnumerable<GlassListingServiceModel> ByIds(IEnumerable<int> ids)
+            => this.db.Glasses
+                .Where(g => ids.Contains(g.Id))
+                .ProjectTo<GlassListingServiceModel>()
+                .ToList();
+
         public GlassDetailsServiceModel ById(int id)
             => this.db.Glasses
                 .Where(g => g.Id == id)

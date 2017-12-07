@@ -17,5 +17,7 @@
         public const string ShopArea = "Shopping";
 
         public const long ImageSize = 2 * 1024 * 1024;
+
+        public const string ShoppingCart = "Cart";
     }
 }

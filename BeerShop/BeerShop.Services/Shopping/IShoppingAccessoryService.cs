@@ -13,6 +13,8 @@
 
         IEnumerable<AccessoryListingServiceModel> Search(string searchTerm);
 
+        IEnumerable<AccessoryListingServiceModel> ByIds(IEnumerable<int> ids);
+
         AccessoryDetailsServiceModel ById(int id);
 
         int Total();

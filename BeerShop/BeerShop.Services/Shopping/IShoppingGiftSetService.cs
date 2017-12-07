@@ -13,6 +13,8 @@
 
         IEnumerable<GiftSetListingServiceModel> Search(string searchTerm);
 
+        IEnumerable<GiftSetListingServiceModel> ByIds(IEnumerable<int> ids);
+
         GiftSetDetailsServiceModel ById(int id);
 
         int Total();
