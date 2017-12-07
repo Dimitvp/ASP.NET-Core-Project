@@ -72,7 +72,27 @@
                 default:
                     break;
             }
+        }
 
+        public void Update(string productType, int id, int quantity)
+        {
+            switch (productType.ToLower())
+            {
+                case "accessory":
+                    this.Accessories[id] = quantity;
+                    break;
+                case "beer":
+                    this.Beers[id] = quantity;
+                    break;
+                case "giftset":
+                    this.GiftSets[id] = quantity;
+                    break;
+                case "glass":
+                    this.Glasses[id] = quantity;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void RemoveAccessory(int id)

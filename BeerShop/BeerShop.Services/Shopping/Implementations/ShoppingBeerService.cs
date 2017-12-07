@@ -40,10 +40,15 @@
 
             foreach (var id in ids)
             {
-                beers.Add(this.db.Beers
-                      .Where(b => b.Id == id.Key)
+                var beer = this.db.Beers
+                      .Where(b => b.Id == id.Key && id.Value > 0)
                       .ProjectTo<BeerOrderServiceModel>(new { quantity = id.Value })
-                      .FirstOrDefault());
+                      .FirstOrDefault();
+
+                if (beer != null)
+                {
+                    beers.Add(beer);
+                }
             }
 
             return beers;

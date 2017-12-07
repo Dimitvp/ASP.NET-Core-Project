@@ -47,10 +47,15 @@
 
             foreach (var id in ids)
             {
-                giftSets.Add(this.db.GiftSets
-                        .Where(gs => gs.Id == id.Key)
+               var giftSet = this.db.GiftSets
+                        .Where(gs => gs.Id == id.Key && id.Value > 0)
                         .ProjectTo<GiftSetOrderServiceModel>(new { quantity = id.Value })
-                        .FirstOrDefault());
+                        .FirstOrDefault();
+
+                if (giftSet != null)
+                {
+                    giftSets.Add(giftSet);
+                }
             }
 
             return giftSets;

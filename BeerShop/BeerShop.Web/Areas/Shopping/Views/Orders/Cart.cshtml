@@ -22,9 +22,9 @@
                     </div>
                 </div>
                 @if (Model.Beers.Any()
-        || Model.Accessories.Any()
-        || Model.GiftSets.Any()
-        || Model.Glasses.Any())
+|| Model.Accessories.Any()
+|| Model.GiftSets.Any()
+|| Model.Glasses.Any())
                 {
                     <div class="card-title">
                         @if (Model.Beers.Any())
@@ -37,15 +37,19 @@
                                     <div class="col-md-2">
                                         <img width="100" src="~/images/Beers/@beer.Image">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <h4 class="product-name"><strong>@beer.Name</strong></h4><h4><small>@(beer.Description.Length > 100 ? beer.Description.Substring(0, 97) + "..." : beer.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="col-md-2 cart-fields">
                                             <h6><strong>@beer.Price<span class="text-muted">x</span></strong></h6>
                                         </div>
-                                        <div class="col-md-2 cart-fields">
-                                            <input type="text" class="form-control input-sm" value="@beer.Quantity">
+                                        <div class="col-md-3 cart-fields">
+                                            <div class="input-group">
+                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
+                                                <input type="text" class="form-control input-sm" value="@beer.Quantity">
+                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
+                                            </div>
                                         </div>
                                         <div class="col-md-1 cart-fields">
                                             <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
@@ -64,15 +68,19 @@
                                     <div class="col-md-2 text-center">
                                         <img width="100" src="~/images/Accessories/@accessory.Image">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <h4 class="product-name"><strong>@accessory.Name</strong></h4><h4><small>@(accessory.Description.Length > 100 ? accessory.Description.Substring(0, 97) + "..." : accessory.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="col-md-2 cart-fields">
                                             <h6><strong>@accessory.Price<span class="text-muted">x</span></strong></h6>
                                         </div>
-                                        <div class="col-md-2 cart-fields">
-                                            <input type="text" class="form-control input-sm" value="@accessory.Quantity">
+                                        <div class="col-md-3 cart-fields">
+                                            <div class="input-group">
+                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="accessory" asp-route-id="@accessory.Id" asp-route-quantity="@(accessory.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
+                                                <input type="text" class="form-control input-sm" value="@accessory.Quantity">
+                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="accessory" asp-route-id="@accessory.Id" asp-route-quantity="@(accessory.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
+                                            </div>
                                         </div>
                                         <div class="col-md-1 cart-fields">
                                             <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
@@ -91,15 +99,19 @@
                                     <div class="col-md-2 ">
                                         <img width="100" src="~/images/GiftSets/@giftSet.Image">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <h4 class="product-name"><strong>@giftSet.Name</strong></h4><h4><small>@(giftSet.Description.Length > 100 ? giftSet.Description.Substring(0, 97) + "..." : giftSet.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="col-md-2 cart-fields">
                                             <h6><strong>@giftSet.Price<span class="text-muted">x</span></strong></h6>
                                         </div>
-                                        <div class="col-md-2 cart-fields">
-                                            <input type="text" class="form-control input-sm" value="@giftSet.Quantity">
+                                        <div class="col-md-3 cart-fields">
+                                            <div class="input-group">
+                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="giftset" asp-route-id="@giftSet.Id" asp-route-quantity="@(giftSet.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
+                                                <input type="text" class="form-control input-sm" value="@giftSet.Quantity">
+                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="giftset" asp-route-id="@giftSet.Id" asp-route-quantity="@(giftSet.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
+                                            </div>
                                         </div>
                                         <div class="col-md-1 cart-fields">
                                             <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
@@ -118,15 +130,19 @@
                                     <div class="col-md-2">
                                         <img width="100" src="~/images/Glasses/@glass.Image">
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <h4 class="product-name"><strong>@glass.Name</strong></h4><h4><small>@(glass.Description.Length > 100 ? glass.Description.Substring(0, 97) + "..." : glass.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="col-md-2 cart-fields">
                                             <h6><strong>@glass.Price<span class="text-muted">x</span></strong></h6>
                                         </div>
-                                        <div class="col-md-2 cart-fields">
-                                            <input type="text" class="form-control input-sm" value="@glass.Quantity">
+                                        <div class="col-md-3 cart-fields">
+                                            <div class="input-group">
+                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="glass" asp-route-id="@glass.Id" asp-route-quantity="@(glass.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
+                                                <input type="text" class="form-control input-sm" value="@glass.Quantity">
+                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="glass" asp-route-id="@glass.Id" asp-route-quantity="@(glass.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
+                                            </div>
                                         </div>
                                         <div class="col-md-1 cart-fields">
                                             <span><a href="#"><i class="fa fa-trash fa-1x"></i></a> </span>
@@ -137,16 +153,6 @@
                             }
                         }
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-9">
-                                    <span class="text-right">Added items?</span>
-                                </div>
-                                <div class="col-md-2">
-                                    <a href="#" class="btn btn-outline-info btn-block">Update cart</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="panel-footer">
                         <div class="row">

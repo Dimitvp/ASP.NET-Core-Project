@@ -47,10 +47,15 @@
 
             foreach (var id in ids)
             {
-                glasses.Add(this.db.Glasses
-                        .Where(g => g.Id == id.Key)
+               var glass = this.db.Glasses
+                        .Where(g => g.Id == id.Key && id.Value > 0)
                         .ProjectTo<GlassOrderServiceModel>(new { quantity = id.Value })
-                        .FirstOrDefault());
+                        .FirstOrDefault();
+
+                if (glass != null)
+                {
+                    glasses.Add(glass);
+                }
             }
 
             return glasses;

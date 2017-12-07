@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Orders;
     using Services.Shopping;
-    using System.Collections.Generic;
     using System.Linq;
 
     public class OrdersController : BaseController
@@ -68,6 +67,16 @@
                     giftSetsToBuy.Sum(gs => gs.Price * gs.Quantity) +
                     glassesToBuy.Sum(g => g.Price * g.Quantity)
             });
+        }
+
+        public IActionResult Update(int id, int quantity, string product)
+        {
+            var shoppingCart = HttpContext.Session.GetShoppingCart();
+            shoppingCart.Update(product, id, quantity);
+
+            HttpContext.Session.Set(WebConstants.ShoppingCart, shoppingCart);
+
+            return RedirectToAction(nameof(Cart));
         }
     }
 }
