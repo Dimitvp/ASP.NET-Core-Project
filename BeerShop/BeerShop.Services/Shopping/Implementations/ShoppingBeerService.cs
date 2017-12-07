@@ -119,7 +119,7 @@
                 .Where(b => b.Color == color)
                 .Count();
 
-        public bool Exist(int id)
+        public bool Exists(int id)
             => this.db.Beers.Any(b => b.Id == id);
     }
 }

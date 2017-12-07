@@ -29,6 +29,11 @@
                 .Messages
                 .Count();
 
+        public int TotalToRead()
+            => this.db.Messages
+                .Where(m => m.IsRead == false)
+                .Count();
+
         public MessageDetailsServiceModel ById(int id)
             => this.db.Messages
                 .Where(m => m.Id == id)

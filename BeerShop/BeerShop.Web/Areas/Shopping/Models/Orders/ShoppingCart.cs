@@ -80,15 +80,31 @@
             {
                 case "accessory":
                     this.Accessories[id] = quantity;
+                    if (this.Accessories[id] <= 0)
+                    {
+                        this.Accessories.Remove(id);
+                    }
                     break;
                 case "beer":
                     this.Beers[id] = quantity;
+                    if (this.Beers[id] <= 0)
+                    {
+                        this.Beers.Remove(id);
+                    }
                     break;
                 case "giftset":
                     this.GiftSets[id] = quantity;
+                    if (this.GiftSets[id] <= 0)
+                    {
+                        this.GiftSets.Remove(id);
+                    }
                     break;
                 case "glass":
                     this.Glasses[id] = quantity;
+                    if (this.Glasses[id] <= 0)
+                    {
+                        this.Glasses.Remove(id);
+                    }
                     break;
                 default:
                     break;
@@ -125,6 +141,18 @@
             {
                 this.Glasses[id]--;
             }
+        }
+
+        public int TotalAdded()
+        {
+            var beers = this.Beers.Count;
+            var accessories = this.Accessories.Count;
+            var giftsets = this.GiftSets.Count;
+            var glasses = this.Glasses.Count;
+
+            var all = beers + accessories + giftsets + glasses;
+
+            return all;
         }
 
         public void Clear()

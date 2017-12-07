@@ -16,5 +16,6 @@
         bool Edit(int id, string name, string description, int quantity, decimal price, string image);
 
         bool Delete(int id);
+
     }
 }

@@ -9,6 +9,8 @@
 
         int Total();
 
+        int TotalToRead();
+
         MessageDetailsServiceModel ById(int id);
 
         void MarkAsRead(int id);

@@ -18,5 +18,8 @@
         AccessoryDetailsServiceModel ById(int id);
 
         int Total();
+
+        bool Exists(int id);
+
     }
 }

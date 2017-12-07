@@ -1,0 +1,30 @@
+﻿@inject IAdminMessageService messages
+@{ 
+    var messagesCount = this.messages.TotalToRead();
+}
+
+@if (User.IsInRole(WebConstants.AdminRole))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            Admin
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li class="dropdown-submenu">
+                <a class="dropdown-item" tabindex="-1" href="#">Products</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Accessories" asp-action="All" tabindex="-1">Accessories</a></li>
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Beers" asp-action="All" tabindex="-1">Beers</a></li>
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="GiftSets" asp-action="All" tabindex="-1">Gift Sets</a></li>
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Glasses" asp-action="All" tabindex="-1">Glasses</a></li>
+                </ul>
+                <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Countries" asp-action="All">Countries</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Styles" asp-action="All">Styles</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Logs" asp-action="All">Logs</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages (@messagesCount)</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a></li>
+        </ul>
+    </li>
+}

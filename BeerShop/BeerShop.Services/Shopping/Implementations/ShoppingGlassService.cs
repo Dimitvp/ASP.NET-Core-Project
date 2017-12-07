@@ -70,5 +70,7 @@
         public int Total()
             => this.db.Glasses.Count();
 
+        public bool Exists(int id)
+            => this.db.Glasses.Any(g => g.Id == id);
     }
 }

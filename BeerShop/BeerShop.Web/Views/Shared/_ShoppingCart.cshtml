@@ -1,4 +1,8 @@
-﻿<a asp-area="Shopping" asp-controller="Orders" asp-action="Cart">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+
+<a asp-area="Shopping" asp-controller="Orders" asp-action="Cart">
     <i class="fa fa-shopping-cart fa-2x"></i>
-    <span class="badge badge-pill badge-warning">12</span>  
+    <span class="badge badge-pill badge-warning">@httpContextAccessor.HttpContext.Session.GetShoppingCart().TotalAdded()</span>  
     </a>

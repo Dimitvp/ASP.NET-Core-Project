@@ -28,7 +28,11 @@
 
         public IActionResult AddToCart(int id, string product)
         {
-            if (!this.beers.Exist(id))
+            if (
+                   !this.beers.Exists(id) && product == "beer"
+                || !this.accessories.Exists(id) && product == "accessory"
+                || !this.giftSets.Exists(id) && product == "giftset"
+                || !this.glasses.Exists(id) && product == "glass")
             {
                 return NotFound();
             }

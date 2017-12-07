@@ -70,5 +70,7 @@
         public int Total()
             => this.db.Accessories.Count();
 
+        public bool Exists(int id)
+            => this.db.Accessories.Any(a => a.Id == id);
     }
 }

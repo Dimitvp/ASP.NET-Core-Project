@@ -34,6 +34,6 @@
 
         int TotalByColor(BeerColor color);
 
-        bool Exist(int id);
+        bool Exists(int id);
     }
 }

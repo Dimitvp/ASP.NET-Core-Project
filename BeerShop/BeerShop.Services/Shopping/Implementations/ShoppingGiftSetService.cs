@@ -70,5 +70,7 @@
         public int Total()
             => this.db.GiftSets.Count();
 
+        public bool Exists(int id)
+            => this.db.GiftSets.Any(gs => gs.Id == id);
     }
 }
