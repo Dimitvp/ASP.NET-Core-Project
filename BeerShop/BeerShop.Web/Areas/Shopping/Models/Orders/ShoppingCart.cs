@@ -17,10 +17,10 @@
             this.glassIds = Glasses;
         }
 
-        public IDictionary<int,int> Beers { get; set; } = new Dictionary<int,int>();
+        public IDictionary<int, int> Beers { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> Accessories { get; set; } = new Dictionary<int, int>();
-        
+
         public IDictionary<int, int> GiftSets { get; set; } = new Dictionary<int, int>();
 
         public IDictionary<int, int> Glasses { get; set; } = new Dictionary<int, int>();
@@ -111,35 +111,24 @@
             }
         }
 
-        public void RemoveAccessory(int id)
+        public void Remove(string productType, int id)
         {
-            if (!this.Accessories.ContainsKey(id))
+            switch (productType.ToLower())
             {
-                this.Accessories[id]--;
-            }
-        }
-
-        public void RemoveBeer(int id)
-        {
-            if (!this.beerIds.ContainsKey(id))
-            {
-                this.beerIds[id]--;
-            }
-        }
-
-        public void RemoveGiftSet(int id)
-        {
-            if (!this.GiftSets.ContainsKey(id))
-            {
-                this.GiftSets[id]--;
-            }
-        }
-
-        public void RemoveGlass(int id)
-        {
-            if (!this.Glasses.ContainsKey(id))
-            {
-                this.Glasses[id]--;
+                case "accessory":
+                    this.Accessories.Remove(id);
+                    break;
+                case "beer":
+                    this.Beers.Remove(id);
+                    break;
+                case "giftset":
+                    this.GiftSets.Remove(id);
+                    break;
+                case "glass":
+                    this.glassIds.Remove(id);
+                    break;
+                default:
+                    break;
             }
         }
 

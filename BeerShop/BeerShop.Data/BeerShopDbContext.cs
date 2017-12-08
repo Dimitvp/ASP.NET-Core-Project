@@ -14,12 +14,14 @@
 
         public DbSet<Accessory> Accessories { get; set; }
 
+        public DbSet<Address> Addresses { get; set; }
+
         public DbSet<Beer> Beers { get; set; }
 
         public DbSet<Brewery> Breweries { get; set; }
 
         public DbSet<Country> Countries { get; set; }
-        
+
         public DbSet<GiftSet> GiftSets { get; set; }
 
         public DbSet<Glass> Glasses { get; set; }
@@ -102,11 +104,21 @@
                 .HasOne(b => b.Country)
                 .WithMany(t => t.Breweries)
                 .HasForeignKey(b => b.CountryId);
-            
+
             builder.Entity<User>()
                 .HasMany(c => c.Orders)
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserId);
+
+            builder.Entity<Address>()
+                .HasMany(a => a.Users)
+                .WithOne(u => u.Address)
+                .HasForeignKey(u => u.AddressId);
+
+            builder.Entity<Address>()
+                .HasMany(a => a.Orders)
+                .WithOne(o => o.Address)
+                .HasForeignKey(u => u.AddressId);
 
             base.OnModelCreating(builder);
         }

@@ -19,10 +19,9 @@
         [MinLength(UserLastNameMinLength)]
         public string LastName { get; set; }
 
-        [Required]
-        [MaxLength(UserAddressMaxLength)]
-        [MinLength(UserAddressMinLength)]
-        public string Address { get; set; }
+        public int AddressId { get; set; }
+        
+        public Address Address { get; set; }
 
         public DateTime RegisteredOn { get; set; }
 

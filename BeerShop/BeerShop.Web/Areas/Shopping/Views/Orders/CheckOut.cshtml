@@ -1,31 +1,29 @@
-﻿@model ProductListingViewModel
+﻿@model ProductsWithAddressViewModel
 @{
-    ViewData["Title"] = "Your Cart";
+    ViewData["Title"] = @"Check Out";
 }
+
 <h2>@ViewData["Title"]</h2>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="/shopping/Home/Index" class="btn btn-outline-primary btn-sm btn-block">
-                                    <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-                                </a>
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="/shopping/Home/Index" class="btn btn-outline-primary btn-sm btn-block">
+                                        <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @if (Model.Beers.Any()
-|| Model.Accessories.Any()
-|| Model.GiftSets.Any()
-|| Model.Glasses.Any())
-                {
                     <div class="card-title">
                         @if (Model.Beers.Any())
                         {
@@ -160,18 +158,12 @@
                                 <h4 class="text-right">Total <strong>@Model.Total</strong></h4>
                             </div>
                             <div class="col-md-3">
-                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Checkout" class="btn btn-outline-success btn-block">
-                                    Checkout
-                                </a>
+                                <button type="submit" class="btn btn-outline-success btn-block" value="Order" />
                             </div>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <h3>Your cart is empty</h3>
-                }
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

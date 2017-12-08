@@ -34,7 +34,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = "/shopping/")
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -45,7 +45,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "/shopping/")
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -84,7 +84,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register(string returnUrl = "/shopping/")
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -93,19 +93,26 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = "/shopping/")
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                var address = new Address
+                {
+                    Town = model.Town,
+                    Street = model.Street,
+                    ZipCode = model.ZipCode
+                };
+
                 var user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
-                    Address = model.Address,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    RegisteredOn = DateTime.UtcNow
+                    RegisteredOn = DateTime.UtcNow,
+                    Address = address
                 };
 
                 var result = await this.userManager.CreateAsync(user, model.Password);
@@ -146,7 +153,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/shopping/", string remoteError = null)
         {
             if (remoteError != null)
             {
@@ -174,6 +181,7 @@
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
                 return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
             }
         }
@@ -195,8 +203,7 @@
                     UserName = model.Username,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Address = model.Address
+                    LastName = model.LastName
                 };
                 var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)

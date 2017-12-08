@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Models
 {
+    using Models.Enums;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -10,12 +11,18 @@
 
         [Range(0, 100)]
         public double Discount { get; set; }
-
+        
         public DateTime Date { get; set; }
+
+        public OrderStatus Status { get; set; }
 
         public string UserId { get; set; }
 
         public User User { get; set; }
+
+        public int AddressId { get; set; }
+
+        public Address Address { get; set; }
 
         public ICollection<BeerOrder> Beers { get; set; } = new HashSet<BeerOrder>();
 

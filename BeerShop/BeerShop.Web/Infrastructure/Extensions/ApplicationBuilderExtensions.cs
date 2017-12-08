@@ -53,13 +53,20 @@
 
                     if (adminUser == null)
                     {
+                        var address = new Address
+                        {
+                            Town = adminName,
+                            Street = adminName,
+                            ZipCode = adminName
+                        };
+
                         adminUser = new User
                         {
                             UserName = adminName,
                             FirstName = adminName,
                             LastName = adminName,
                             Email = "admin@admin.admin",
-                            Address = "admin"
+                            Address = address
                         };
 
                         await userManager.CreateAsync(adminUser, "admin123");
