@@ -5,6 +5,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Countries;
     using Services.Administration;
+    using System;
+
+    using static WebConstants;
 
     public class CountriesController : AdminBaseController
     {
@@ -20,9 +23,16 @@
             return View();
         }
 
-        public IActionResult All()
+        public IActionResult All(int page = DefaultPage)
         {
-            return View(this.countries.All());
+            var countries = this.countries.AllListing(page, PageSize);
+
+            return View(new CountryPageListingViewModel
+            {
+                Countries = countries,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.countries.Total() / (double)PageSize)
+            });
         }
 
         [HttpPost]
@@ -36,6 +46,31 @@
             this.countries.Create(model.Name, (Continent)model.Continent);
 
             TempData["SuccessMessage"] = $"Succesfully added {model.Name}.";
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var country = this.countries.ById(id);
+
+            if (countries == null)
+            {
+                return NotFound();
+            }
+
+            return View(country);
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmDelete(int id)
+        {
+            var success = this.countries.Delete(id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
 
             return RedirectToAction(nameof(All));
         }

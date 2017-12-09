@@ -28,8 +28,8 @@
                 <td>@message.Subject</td>
                 <td>@message.SentOn</td>
                 <td>
-                    <a href="/administration/messages/details/@message.Id" class="btn btn-outline-info">Details</a>
-                    <a href="/administration/messages/delete/@message.Id" class="btn btn-outline-danger">Delete</a>
+                    <a asp-controller="Messages" asp-action="Edit" asp-route-id="@message.Id" class="btn btn-outline-info">Details</a>
+                    <a asp-controller="Messages" asp-action="Delete" asp-route-id="@message.Id" class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }

@@ -9,6 +9,8 @@
     using System;
     using System.IO;
 
+    using static WebConstants;
+
     public class GiftSetsController : AdminBaseController
     {
         private readonly IAdminGiftSetService giftSets;
@@ -20,15 +22,15 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(int page = WebConstants.DefaultPage)
+        public IActionResult All(int page = DefaultPage)
         {
-            var giftSets = this.giftSets.AllListing(page, WebConstants.PageSize);
+            var giftSets = this.giftSets.AllListing(page, PageSize);
 
             return View(new GiftSetPageListingViewModel
             {
                 GiftSets = giftSets,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.giftSets.Total() / (double)WebConstants.PageSize)
+                TotalPages = (int)Math.Ceiling(this.giftSets.Total() / (double)PageSize)
             });
         }
 
@@ -45,7 +47,7 @@
             var imageName = string.Empty;
 
             if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+                && model.Image.Length < ImageSize)
             {
                 imageName = this.SaveImage(model.Name, model.Image);
             }
@@ -80,7 +82,7 @@
             var imageName = string.Empty;
 
             if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+                && model.Image.Length < ImageSize)
             {
                 imageName = this.SaveImage(model.Name, model.Image);
             }

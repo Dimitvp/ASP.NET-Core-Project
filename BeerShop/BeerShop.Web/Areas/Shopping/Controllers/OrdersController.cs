@@ -53,7 +53,7 @@
             shoppingCart.Add(product, id);
             HttpContext.Session.Set(WebConstants.ShoppingCart, shoppingCart);
 
-            return RedirectToAction(nameof(Cart));
+            return PartialView("_ShoppingCart");
         }
 
         public IActionResult Cart()

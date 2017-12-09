@@ -6,7 +6,7 @@
 
         public const string ModeratorRole = "Moderator";
 
-        public const int PageSize = 15;
+        public const int PageSize = 1;
 
         public const int DefaultPage = 1;
 

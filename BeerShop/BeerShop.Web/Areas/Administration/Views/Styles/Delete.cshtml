@@ -11,7 +11,7 @@
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" disabled />
             </div>
-            <a href="/administration/styles/all" class="btn btn-outline-info">Back</a>
+            <a asp-controller="Styles" asp-action="All" class="btn btn-outline-info">Back</a>
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>

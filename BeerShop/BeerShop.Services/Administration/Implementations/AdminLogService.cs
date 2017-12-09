@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using static ServiceConstants;
+
     public class AdminLogService : IAdminLogService
     {
         private readonly BeerShopDbContext db;
@@ -15,10 +17,16 @@
             this.db = db;
         }
 
-        public IEnumerable<LogListingServiceModel> AllListing()
+        public IEnumerable<LogListingServiceModel> AllListing(int page = DefaultPage, int pageSize = DefaultPageSize)
             => this.db.Logs
+                .OrderByDescending(l=> l.Date)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ProjectTo<LogListingServiceModel>()
                 .ToList();
+
+        public int Total()
+            => this.db.Logs.Count();
 
         public void Clear()
         {

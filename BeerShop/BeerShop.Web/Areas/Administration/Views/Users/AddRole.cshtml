@@ -14,7 +14,7 @@
                     <option>Please Select One</option>
                 </select>
             </div>
-            <a href="/administration/users/details/@Model.UserId" class="btn btn-outline-info">Cancel</a>
+            <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId" class="btn btn-outline-info">Cancel</a>
             <button type="submit" class="btn btn-outline-success">Add Role</button>
         </form>
     </div>

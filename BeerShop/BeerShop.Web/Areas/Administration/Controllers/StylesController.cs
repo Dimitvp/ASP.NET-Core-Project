@@ -6,6 +6,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Models.Styles;
     using Services.Administration;
+    using System;
+
+    using static WebConstants;
 
     public class StylesController : AdminBaseController
     {
@@ -18,9 +21,16 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All()
+        public IActionResult All(int page = DefaultPage)
         {
-            return View(this.styles.AllListing());
+            var styles = this.styles.AllListing(page, PageSize);
+
+            return View(new StylePageListingViewModel
+            {
+                Styles = styles,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(this.styles.Total() / (double)PageSize)
+            });
         }
 
         public IActionResult Create()

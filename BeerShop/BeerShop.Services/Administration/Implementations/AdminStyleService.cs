@@ -7,6 +7,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using static ServiceConstants;
+
     public class AdminStyleService : IAdminStyleService
     {
         private readonly BeerShopDbContext db;
@@ -16,9 +18,11 @@
             this.db = db;
         }
 
-        public IEnumerable<StyleListingServiceModel> AllListing()
+        public IEnumerable<StyleListingServiceModel> AllListing(int page = DefaultPage, int pageSize = DefaultPageSize)
             => this.db.Styles
                 .OrderBy(s => s.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ProjectTo<StyleListingServiceModel>()
                 .ToList();
 
@@ -75,5 +79,8 @@
 
             return true;
         }
+
+        public int Total()
+            => this.db.Styles.Count();
     }
 }

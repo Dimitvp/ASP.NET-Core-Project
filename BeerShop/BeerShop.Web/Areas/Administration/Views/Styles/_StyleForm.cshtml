@@ -6,7 +6,7 @@
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <a href="/administration/styles/all" class="btn btn-outline-info">Back</a>
+    <a asp-controller="Styles" asp-action="All" class="btn btn-outline-info">Back</a>
     <button type="submit" class="btn btn-outline-success">Save Style</button>
 </form>
 @section Scripts {
