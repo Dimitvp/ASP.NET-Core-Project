@@ -19,6 +19,7 @@
         private readonly IShoppingGiftSetService giftSets;
         private readonly IShoppingGlassService glasses;
         private readonly IShoppingUserService users;
+        private readonly IShoppingOrderService orders;
         private readonly UserManager<User> userManager;
 
         public OrdersController(
@@ -28,6 +29,7 @@
             IShoppingGiftSetService giftSets,
             IShoppingGlassService glasses,
             IShoppingUserService users,
+            IShoppingOrderService orders,
             UserManager<User> userManager)
         {
             this.addresses = addresses;
@@ -36,6 +38,7 @@
             this.giftSets = giftSets;
             this.glasses = glasses;
             this.users = users;
+            this.orders = orders;
             this.userManager = userManager;
         }
 
@@ -102,21 +105,70 @@
             var products = this.GetProductListingModel(shoppingCart);
 
             var address = this.addresses.ById(addressId);
-            var produtsAddress = new ProductsWithAddressViewModel
+
+            return View(new ProductsWithAddressViewModel
             {
                 Accessories = products.Accessories,
                 Beers = products.Beers,
                 GiftSets = products.GiftSets,
                 Glasses = products.Glasses,
-                PhoneNumber = user.PhoneNumber ?? string.Empty,
+                PhoneNumber = address.PhoneNumber,
                 Street = address.Street,
                 Town = address.Town,
                 ZipCode = address.ZipCode,
-                Id = address.Id,
+                AddressId = address.Id,
                 Total = products.Total
-            };
+            });
+        }
 
-            return View(produtsAddress);
+        [Authorize]
+        [HttpPost]
+        public IActionResult Checkout(ProductsWithAddressViewModel model)
+        {
+            var shoppingCart = HttpContext.Session.GetShoppingCart();
+
+            if (!ModelState.IsValid)
+            {
+                var products = this.GetProductListingModel(shoppingCart);
+                model.Beers = products.Beers;
+                model.Accessories = products.Accessories;
+                model.GiftSets = products.GiftSets;
+                model.Glasses = products.Glasses;
+                model.Total = products.Total;
+
+                return View(model);
+            }
+
+            var isAddressExist = this.addresses.Exists(
+                                model.AddressId,
+                                model.Town,
+                                model.Street,
+                                model.ZipCode,
+                                model.PhoneNumber);
+            if (!isAddressExist)
+            {
+                model.AddressId = this.addresses.Create(model.Town, model.Street, model.ZipCode, model.PhoneNumber);
+            }
+
+            var userId = this.userManager.GetUserId(User);
+
+            var success = this.orders.Create(shoppingCart.Beers,
+                                shoppingCart.Accessories,
+                                shoppingCart.GiftSets,
+                                shoppingCart.Glasses,
+                                model.Total,
+                                model.AddressId,
+                                userId);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
+            shoppingCart.Clear();
+            HttpContext.Session.Set(WebConstants.ShopArea, shoppingCart);
+
+            return Redirect("/shopping/home/index");
         }
 
         private bool IsProductExist(int id, string product)

@@ -2,15 +2,20 @@
 namespace BeerShop.Data.Migrations
 {
     using BeerShop.Data;
+    using BeerShop.Models.Enums;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Infrastructure;
     using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.EntityFrameworkCore.Migrations;
+    using Microsoft.EntityFrameworkCore.Storage;
+    using Microsoft.EntityFrameworkCore.Storage.Internal;
     using System;
 
     [DbContext(typeof(BeerShopDbContext))]
-    partial class BeerShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171209113821_PhoneNumberInAddress")]
+    partial class PhoneNumberInAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -201,8 +206,6 @@ namespace BeerShop.Data.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<double>("Discount");
-
-                    b.Property<decimal>("Price");
 
                     b.Property<int>("Status");
 

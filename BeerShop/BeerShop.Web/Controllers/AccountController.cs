@@ -102,7 +102,8 @@
                 {
                     Town = model.Town,
                     Street = model.Street,
-                    ZipCode = model.ZipCode
+                    ZipCode = model.ZipCode,
+                    PhoneNumber = model.PhoneNumber
                 };
 
                 var user = new User
@@ -112,7 +113,8 @@
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     RegisteredOn = DateTime.UtcNow,
-                    Address = address
+                    Address = address,
+                    PhoneNumber = model.PhoneNumber
                 };
 
                 var result = await this.userManager.CreateAsync(user, model.Password);

@@ -169,5 +169,11 @@
 
             return true;
         }
+
+        public string GetName(int id)
+            => this.db.Beers
+                .Where(b => b.Id == id)
+                .Select(b => b.Name)
+                .FirstOrDefault();
     }
 }

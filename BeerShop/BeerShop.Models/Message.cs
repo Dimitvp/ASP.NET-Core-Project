@@ -21,8 +21,8 @@
 
         [Required]
         [Display(Name = "Phone Number")]
-        [MinLength(MessagePhoneMinLength)]
-        [MaxLength(MessagePhoneMaxLength)]
+        [MinLength(PhoneNumberMinLength)]
+        [MaxLength(PhoneNumberMaxLength)]
         public string Phone { get; set; }
 
         [Required]

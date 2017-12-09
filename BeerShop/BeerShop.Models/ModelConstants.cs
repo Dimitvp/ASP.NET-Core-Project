@@ -41,8 +41,8 @@
         public const int MessageNameMaxLength = 50;
         public const int MessageNameMinLength = 2;
         public const int MessageEmailMaxLength = 50;
-        public const int MessagePhoneMaxLength = 25;
-        public const int MessagePhoneMinLength = 4;
+        public const int PhoneNumberMaxLength = 25;
+        public const int PhoneNumberMinLength = 4;
         public const int MessageContentMaxLength = 3000;
         public const int MessageContentMinLength = 5;
         public const int MessageSubjectMaxLength = 60;

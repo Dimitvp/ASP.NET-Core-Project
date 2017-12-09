@@ -33,16 +33,16 @@
 
                             @foreach (var beer in Model.Beers)
                             {
-                                <div class="row text-center">
-                                    <div class="col-md-2">
+                                <div class="row text-center align-self-center">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/Beers/@beer.Image">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 align-self-center">
                                         <h4 class="product-name"><strong>@beer.Name</strong></h4><h4><small>@(beer.Description.Length > 100 ? beer.Description.Substring(0, 97) + "..." : beer.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@beer.Price<span class="text-muted">x</span></strong></h6>
+                                            <h6><strong>@beer.Price<span class="text-muted"> x</span></strong></h6>
                                         </div>
                                         <div class="col-md-3 cart-fields">
                                             <div class="input-group">
@@ -65,15 +65,15 @@
                             @foreach (var accessory in Model.Accessories)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-2 text-center align-self-center">
                                         <img width="100" src="~/images/Accessories/@accessory.Image">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 align-self-center">
                                         <h4 class="product-name"><strong>@accessory.Name</strong></h4><h4><small>@(accessory.Description.Length > 100 ? accessory.Description.Substring(0, 97) + "..." : accessory.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@accessory.Price<span class="text-muted">x</span></strong></h6>
+                                            <h6><strong>@accessory.Price<span class="text-muted"> x</span></strong></h6>
                                         </div>
                                         <div class="col-md-3 cart-fields">
                                             <div class="input-group">
@@ -96,15 +96,15 @@
                             @foreach (var giftSet in Model.GiftSets)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2 ">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/GiftSets/@giftSet.Image">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 align-self-center">
                                         <h4 class="product-name"><strong>@giftSet.Name</strong></h4><h4><small>@(giftSet.Description.Length > 100 ? giftSet.Description.Substring(0, 97) + "..." : giftSet.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@giftSet.Price<span class="text-muted">x</span></strong></h6>
+                                            <h6><strong>@giftSet.Price<span class="text-muted"> x</span></strong></h6>
                                         </div>
                                         <div class="col-md-3 cart-fields">
                                             <div class="input-group">
@@ -127,15 +127,15 @@
                             @foreach (var glass in Model.Glasses)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/Glasses/@glass.Image">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 align-self-center">
                                         <h4 class="product-name"><strong>@glass.Name</strong></h4><h4><small>@(glass.Description.Length > 100 ? glass.Description.Substring(0, 97) + "..." : glass.Description)</small></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@glass.Price<span class="text-muted">x</span></strong></h6>
+                                            <h6><strong>@glass.Price<span class="text-muted"> x</span></strong></h6>
                                         </div>
                                         <div class="col-md-3 cart-fields">
                                             <div class="input-group">

@@ -57,7 +57,8 @@
                         {
                             Town = adminName,
                             Street = adminName,
-                            ZipCode = adminName
+                            ZipCode = adminName,
+                            PhoneNumber = adminName
                         };
 
                         adminUser = new User

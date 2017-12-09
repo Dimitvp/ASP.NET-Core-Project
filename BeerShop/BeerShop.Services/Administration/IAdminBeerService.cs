@@ -48,5 +48,7 @@
             string imageName);
 
         bool Delete(int id);
+
+        string GetName(int id);
     }
 }

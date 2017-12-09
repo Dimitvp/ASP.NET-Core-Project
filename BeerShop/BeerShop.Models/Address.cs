@@ -24,6 +24,11 @@
         [MinLength(TownZipCodeMinLength)]
         public string ZipCode { get; set; }
 
+        [Required]
+        [MaxLength(PhoneNumberMaxLength)]
+        [MinLength(PhoneNumberMinLength)]
+        public string PhoneNumber { get; set; }
+
         public ICollection<User> Users { get; set; } = new HashSet<User>();
 
         public ICollection<Order> Orders { get; set; } = new HashSet<Order>();

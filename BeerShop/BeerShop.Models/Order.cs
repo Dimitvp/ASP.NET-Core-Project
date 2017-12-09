@@ -24,6 +24,8 @@
 
         public Address Address { get; set; }
 
+        public decimal Price { get; set; }
+
         public ICollection<BeerOrder> Beers { get; set; } = new HashSet<BeerOrder>();
 
         public ICollection<GiftSetOrder> GiftSets { get; set; } = new HashSet<GiftSetOrder>();

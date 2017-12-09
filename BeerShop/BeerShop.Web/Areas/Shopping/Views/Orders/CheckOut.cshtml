@@ -14,43 +14,72 @@
                         <div class="card-title">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
-                                </div>
-                                <div class="col-md-4">
-                                    <a href="/shopping/Home/Index" class="btn btn-outline-primary btn-sm btn-block">
-                                        <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
-                                    </a>
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span>Address for delivery</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Town"></label>
+                            <input asp-for="Town" class="form-control" />
+                            <span asp-validation-for="Town" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Street"></label>
+                            <input asp-for="Street" class="form-control" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ZipCode"></label>
+                            <input asp-for="ZipCode" class="form-control"/>
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber"></label>
+                            <input asp-for="PhoneNumber" class="form-control"/>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="AddressId" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span>Products</h5>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
                     <div class="card-title">
                         @if (Model.Beers.Any())
                         {
-                            <h3>Beers</h3>
-
                             @foreach (var beer in Model.Beers)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/Beers/@beer.Image">
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4 class="product-name"><strong>@beer.Name</strong></h4><h4><small>@(beer.Description.Length > 100 ? beer.Description.Substring(0, 97) + "..." : beer.Description)</small></h4>
+                                    <div class="col-md-3 align-self-center">
+                                        <h4 class="product-name"><strong>@beer.Name</strong></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
+                                        <div class="col-md-2 cart-fields  align-middle">
+                                            <h6><strong>@beer.Price<span class="text-muted"> x</span></strong></h6>
+                                        </div>
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@beer.Price<span class="text-muted">x</span></strong></h6>
+                                            <input type="text" class="form-control input-sm" value="@beer.Quantity" readonly>
                                         </div>
                                         <div class="col-md-3 cart-fields">
-                                            <div class="input-group">
-                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
-                                                <input type="text" class="form-control input-sm" value="@beer.Quantity" readonly>
-                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 cart-fields">
-                                            <span><a asp-area="Shopping" asp-controller="Orders" asp-action="Remove" asp-route-id="@beer.Id" asp-route-product="beer"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                            <h6><strong>Total: @(beer.Price * beer.Quantity)</strong></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -59,29 +88,24 @@
                         }
                         @if (Model.Accessories.Any())
                         {
-                            <h3>Accessories</h3>
                             @foreach (var accessory in Model.Accessories)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/Accessories/@accessory.Image">
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4 class="product-name"><strong>@accessory.Name</strong></h4><h4><small>@(accessory.Description.Length > 100 ? accessory.Description.Substring(0, 97) + "..." : accessory.Description)</small></h4>
+                                    <div class="col-md-3 align-self-center">
+                                        <h4 class="product-name"><strong>@accessory.Name</strong></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
+                                        <div class="col-md-2 cart-fields  align-middle">
+                                            <h6><strong>@accessory.Price<span class="text-muted"> x</span></strong></h6>
+                                        </div>
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@accessory.Price<span class="text-muted">x</span></strong></h6>
+                                            <input type="text" class="form-control input-sm" value="@accessory.Quantity" readonly>
                                         </div>
                                         <div class="col-md-3 cart-fields">
-                                            <div class="input-group">
-                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="accessory" asp-route-id="@accessory.Id" asp-route-quantity="@(accessory.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
-                                                <input type="text" class="form-control input-sm" value="@accessory.Quantity" readonly>
-                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="accessory" asp-route-id="@accessory.Id" asp-route-quantity="@(accessory.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 cart-fields">
-                                            <span><a asp-area="Shopping" asp-controller="Orders" asp-action="Remove" asp-route-id="@accessory.Id" asp-route-product="accessory"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                            <h6><strong>Total: @(accessory.Price * accessory.Quantity)</strong></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -90,29 +114,24 @@
                         }
                         @if (Model.GiftSets.Any())
                         {
-                            <h3>Gift Sets</h3>
                             @foreach (var giftSet in Model.GiftSets)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2 ">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/GiftSets/@giftSet.Image">
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4 class="product-name"><strong>@giftSet.Name</strong></h4><h4><small>@(giftSet.Description.Length > 100 ? giftSet.Description.Substring(0, 97) + "..." : giftSet.Description)</small></h4>
+                                    <div class="col-md-3 align-self-center">
+                                        <h4 class="product-name"><strong>@giftSet.Name</strong></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
+                                        <div class="col-md-2 cart-fields  align-middle">
+                                            <h6><strong>@giftSet.Price<span class="text-muted"> x</span></strong></h6>
+                                        </div>
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@giftSet.Price<span class="text-muted">x</span></strong></h6>
+                                            <input type="text" class="form-control input-sm" value="@giftSet.Quantity" readonly>
                                         </div>
                                         <div class="col-md-3 cart-fields">
-                                            <div class="input-group">
-                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="giftset" asp-route-id="@giftSet.Id" asp-route-quantity="@(giftSet.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
-                                                <input type="text" class="form-control input-sm" value="@giftSet.Quantity" readonly>
-                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="giftset" asp-route-id="@giftSet.Id" asp-route-quantity="@(giftSet.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 cart-fields">
-                                            <span><a asp-area="Shopping" asp-controller="Orders" asp-action="Remove" asp-route-id="@giftSet.Id" asp-route-product="giftset"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                            <h6><strong>Total: @(giftSet.Price * giftSet.Quantity)</strong></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -121,29 +140,24 @@
                         }
                         @if (Model.Glasses.Any())
                         {
-                            <h3>Glasses</h3>
                             @foreach (var glass in Model.Glasses)
                             {
                                 <div class="row text-center">
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 align-self-center">
                                         <img width="100" src="~/images/Glasses/@glass.Image">
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4 class="product-name"><strong>@glass.Name</strong></h4><h4><small>@(glass.Description.Length > 100 ? glass.Description.Substring(0, 97) + "..." : glass.Description)</small></h4>
+                                    <div class="col-md-3 align-self-center">
+                                        <h4 class="product-name"><strong>@glass.Name</strong></h4>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 align-self-center">
+                                        <div class="col-md-2 cart-fields  align-middle">
+                                            <h6><strong>@glass.Price<span class="text-muted"> x</span></strong></h6>
+                                        </div>
                                         <div class="col-md-2 cart-fields">
-                                            <h6><strong>@glass.Price<span class="text-muted">x</span></strong></h6>
+                                            <input type="text" class="form-control input-sm" value="@glass.Quantity" readonly>
                                         </div>
                                         <div class="col-md-3 cart-fields">
-                                            <div class="input-group">
-                                                <a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="glass" asp-route-id="@glass.Id" asp-route-quantity="@(glass.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
-                                                <input type="text" class="form-control input-sm" value="@glass.Quantity" readonly>
-                                                <a a asp-area="Shopping" asp-controller="Orders" asp-action="Update" asp-route-product="glass" asp-route-id="@glass.Id" asp-route-quantity="@(glass.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 cart-fields">
-                                            <span><a asp-area="Shopping" asp-controller="Orders" asp-action="Remove" asp-route-id="@glass.Id" asp-route-product="glass"><i class="fa fa-trash fa-1x"></i></a> </span>
+                                            <h6><strong>Total: @(glass.Price * glass.Quantity)</strong></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -153,12 +167,16 @@
 
                     </div>
                     <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h4 class="text-right">Total <strong>@Model.Total</strong></h4>
+                        <div class="row text-center">
+                            <div class="col-md-2">
+                                <a asp-controller="Orders" asp-action="Cart" class="btn btn-sm btn-outline-primary">Back</a>
                             </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-outline-success btn-block" value="Order" />
+                            <div class="col-md-7 align-self-center">
+                                <h4 class="text-right">Grand Total <strong>@Model.Total</strong></h4>
+                                <input type="hidden" asp-for="Total" readonly/>
+                            </div>
+                            <div class="col-md-3 align-self-center">
+                                <button type="submit" class="btn btn-outline-success btn-block">Order</button>
                             </div>
                         </div>
                     </div>

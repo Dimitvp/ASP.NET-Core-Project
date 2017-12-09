@@ -14,9 +14,13 @@
 
         public DbSet<Accessory> Accessories { get; set; }
 
+        public DbSet<AccessoryOrder> AccessoryOrders { get; set; }
+
         public DbSet<Address> Addresses { get; set; }
 
         public DbSet<Beer> Beers { get; set; }
+
+        public DbSet<BeerOrder> BeerOrders { get; set; }
 
         public DbSet<Brewery> Breweries { get; set; }
 
@@ -24,7 +28,11 @@
 
         public DbSet<GiftSet> GiftSets { get; set; }
 
+        public DbSet<GiftSetOrder> GiftSetOrders { get; set; }
+
         public DbSet<Glass> Glasses { get; set; }
+
+        public DbSet<GlassOrder> GlassOrders { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 
