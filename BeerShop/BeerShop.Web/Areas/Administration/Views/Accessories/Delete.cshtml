@@ -24,7 +24,7 @@
                 <label asp-for="Quantity"></label>
                 <input asp-for="Quantity" class="form-control" min="0" disabled />
             </div>
-            <a href="/administration/accessories/all" class="btn btn-outline-info">Back</a>
+            <a asp-controller="Accessories" asp-action="All" class="btn btn-outline-info">Back</a>
             <button type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
     </div>

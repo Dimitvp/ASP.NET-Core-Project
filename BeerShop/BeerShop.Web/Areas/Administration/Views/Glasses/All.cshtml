@@ -5,7 +5,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <div>
-    <a href="/administration/glasses/create" class="btn btn-lg btn-outline-primary">Add Glass</a>
+    <a asp-controller="Glasses" asp-action="Create" class="btn btn-lg btn-outline-primary">Add Glass</a>
 </div>
 <hr />
 
@@ -25,7 +25,7 @@
 <br />
 <table class="table table-hover table-bordered table-striped">
     <thead>
-        <tr>
+        <tr class="table-info">
             <th>Name</th>
             <th>Material</th>
             <th>Volume</th>
@@ -38,21 +38,14 @@
         @foreach (var glass in Model.Glasses)
         {
             <tr>
-                @*<td>
-                        @if (beer.Image != null)
-                        {
-                            var imgUrl = "data:image;base64," + Convert.ToBase64String(beer.Image);
-                            <img src="@imgUrl" width="200" />
-                        }
-                    </td>*@
                 <td>@glass.Name</td>
                 <td>@glass.Material.ToString()</td>
                 <td>@glass.Volume</td>
                 <td>@glass.Quantity</td>
                 <td>@glass.Price</td>
                 <td>
-                    <a href="/administration/glasses/edit/@glass.Id" class="btn btn-sm btn-outline-warning">Edit</a>
-                    <a href="/administration/glasses/delete/@glass.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                    <a asp-controller="Glasses" asp-action="Edit" asp-route-id="@glass.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a asp-controller="Glasses" asp-action="Delete" asp-route-id="@glass.Id" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }
@@ -61,7 +54,7 @@
 <div class="container">
     <ul class="pagination justify-content-center">
         <li class="page-item @previousDisabled">
-            <a class="page-link @previousDisabled" href="/administration/glasses/all?page=@(Model.PreviousPage)@(searchTerm)" aria-label="Previous">
+            <a class="page-link @previousDisabled" asp-controller="Glasses" asp-action="All" asp-route-page="@Model.PreviousPage" asp-route-searchTerm="@Model.SearchTerm" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
             </a>
@@ -70,10 +63,10 @@
         @for (int i = 1; i <= Model.TotalPages; i++)
             {
 
-            <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)"><a class="page-link" href="/administration/glasses/all?page=@(i)@(searchTerm)">@i</a></li>
+            <li class="page-item @(Model.CurrentPage == i ? "active" : string.Empty)"><a class="page-link" asp-controller="Glasses" asp-action="All" asp-route-page="@i" asp-route-searchTerm="@Model.SearchTerm" >@i</a></li>
         }
         <li class="page-item @nextDisabled">
-            <a class="page-link @nextDisabled" href="/administration/glasses/all?page=@(Model.NextPage)@(searchTerm)" aria-label="Next">
+            <a class="page-link @nextDisabled" asp-controller="Glasses" asp-action="All" asp-route-page="@Model.NextPage" asp-route-searchTerm="@Model.SearchTerm"  aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
             </a>

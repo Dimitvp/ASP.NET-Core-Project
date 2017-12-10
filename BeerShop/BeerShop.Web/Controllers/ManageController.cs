@@ -1,12 +1,13 @@
 ﻿namespace BeerShop.Web.Controllers
 {
     using BeerShop.Models;
-    using Models.ManageViewModels;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
+    using Models.ManageViewModels;
+    using Services;
     using System;
     using System.Linq;
     using System.Text;
@@ -17,6 +18,8 @@
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
+        private readonly IAddressService addresses;
+        private readonly IOrderService orders;
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly ILogger logger;
@@ -25,11 +28,15 @@
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
         public ManageController(
+          IAddressService addresses,
+          IOrderService orders,
           UserManager<User> userManager,
           SignInManager<User> signInManager,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
+            this.addresses = addresses;
+            this.orders = orders;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
@@ -48,12 +55,18 @@
                 throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
             }
 
+            var address = this.addresses.ById(user.AddressId);
+
             var model = new IndexViewModel
             {
                 Username = user.UserName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                IsEmailConfirmed = user.EmailConfirmed,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Street = address.Street,
+                Town = address.Town,
+                ZipCode = address.ZipCode,
+                PhoneNumber = address.PhoneNumber,
                 StatusMessage = StatusMessage
             };
 
@@ -70,6 +83,7 @@
             }
 
             var user = await this.userManager.GetUserAsync(User);
+            var address = this.addresses.ById(user.AddressId);
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
@@ -85,39 +99,45 @@
                 }
             }
 
-            var phoneNumber = user.PhoneNumber;
-            if (model.PhoneNumber != phoneNumber)
+            var isFirstNameChanged = model.FirstName != user.FirstName;
+            var isLastNameChanged = model.LastName != user.LastName;
+            var isTownChanged = model.Town != address.Town;
+            var isStreetChanged = model.Street != address.Street;
+            var isZipCodeChanged = model.ZipCode != address.ZipCode;
+            var isPhoneChanged = model.PhoneNumber != address.PhoneNumber;
+
+            if (isFirstNameChanged)
             {
-                var setPhoneResult = await this.userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                user.FirstName = model.FirstName;
+            }
+
+            if (isLastNameChanged)
+            {
+                user.LastName = model.LastName;
+            }
+
+            if (isFirstNameChanged || isLastNameChanged)
+            {
+                await this.userManager.UpdateAsync(user);
+            }
+
+            if (isTownChanged || isStreetChanged || isZipCodeChanged || isPhoneChanged)
+            {
+                var success = this.addresses.Update(
+                                 address.Id,
+                                 model.Town,
+                                 model.Street,
+                                 model.ZipCode,
+                                 model.PhoneNumber);
+
+                if (!success)
                 {
-                    throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
+                    return BadRequest();
                 }
             }
 
+
             StatusMessage = "Your profile has been updated";
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendVerificationEmail(IndexViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = await this.userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
-            }
-
-            var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
-            var email = user.Email;
-
-            StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToAction(nameof(Index));
         }
 
@@ -215,6 +235,20 @@
             StatusMessage = "Your password has been set.";
 
             return RedirectToAction(nameof(SetPassword));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Orders()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var orders = this.orders.All(user.Id);
+
+            return View(orders);
         }
 
         [HttpGet]

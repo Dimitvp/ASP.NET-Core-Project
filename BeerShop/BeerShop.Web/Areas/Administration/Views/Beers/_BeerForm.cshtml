@@ -83,7 +83,7 @@
         <input asp-for="Image" class="form-control" accept="image/*"/>
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
-    <a href="/administration/beers/all" class="btn btn-outline-info">Back</a>
+    <a asp-controller="Beers" asp-action="All" class="btn btn-outline-info">Back</a>
     <button type="submit" class="btn btn-outline-success">Save Beer</button>
 </form>
 

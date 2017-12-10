@@ -5,5 +5,3 @@ define( [
 
 	return arr.indexOf;
 } );
-
-} );

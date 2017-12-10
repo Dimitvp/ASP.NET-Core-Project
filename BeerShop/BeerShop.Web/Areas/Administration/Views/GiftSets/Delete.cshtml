@@ -24,6 +24,6 @@
         <label asp-for="Quantity"></label>
         <input asp-for="Quantity" class="form-control" min="0" disabled/>
     </div>
-    <a href="/administration/giftsets/all" class="btn btn-outline-info">Back</a>
+    <a asp-controller="GiftSets" asp-action="All" class="btn btn-outline-info">Back</a>
     <button type="submit" class="btn btn-outline-danger">Delete Gift Set</button>
 </form>

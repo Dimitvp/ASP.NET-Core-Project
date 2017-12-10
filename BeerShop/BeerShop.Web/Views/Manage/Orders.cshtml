@@ -1,0 +1,131 @@
+﻿@model IEnumerable<OrderListingServiceModel>
+@{
+    ViewData["Title"] = "Orders";
+    ViewData.AddActivePage(ManageNavPages.Orders);
+}
+
+
+<h2>Orders</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @foreach (var order in Model)
+            {
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Order#@order.Id</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5>Date: @order.Date.ToShortDateString()</h5>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <h5>Order Status: @order.Status.ToString()</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header bg-info">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Address</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>City: @order.Address.Town</h5>
+                        <h5>Street: @order.Address.Street</h5>
+                        <h5>Zip Code: @order.Address.ZipCode</h5>
+                        <h5>Telephone Number: @order.Address.PhoneNumber</h5>
+                    </div>
+                    <div class="card-header bg-info">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Products</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-title text-center">
+                        @foreach (var beer in order.Beers)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@beer.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@beer.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                        @foreach (var accessory in order.Accessories)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@accessory.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@accessory.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                        @foreach (var giftsets in order.GiftSets)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@giftsets.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@giftsets.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                        @foreach (var glass in order.Glasses)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@glass.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@glass.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="text-right">Price: <strong>@order.Price</strong></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <br />
+        </div>
+    </div>
+</div>
