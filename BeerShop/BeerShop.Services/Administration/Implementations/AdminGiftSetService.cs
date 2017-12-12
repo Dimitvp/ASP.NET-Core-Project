@@ -33,22 +33,31 @@
                 .ProjectTo<GiftSetEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Create(string name, string description, int quantity, decimal price, string image)
+        public int Create(string name, string description, int quantity, decimal price)
         {
             var giftSet = new GiftSet
             {
                 Name = name,
                 Description = description,
                 Quantity = quantity,
-                Price = price,
-                Image = image
+                Price = price
             };
 
             this.db.GiftSets.Add(giftSet);
             this.db.SaveChanges();
+
+            return giftSet.Id;
         }
 
-        public bool Edit(int id, string name, string description, int quantity, decimal price, string image)
+        public void SetImage(int id, string image)
+        {
+            var giftSet = this.db.GiftSets.Find(id);
+            giftSet.Image = image;
+
+            this.db.SaveChanges();
+        }
+
+        public bool Edit(int id, string name, string description, int quantity, decimal price)
         {
             var giftSet = this.db.GiftSets.Find(id);
 
@@ -61,11 +70,6 @@
             giftSet.Description = description;
             giftSet.Quantity = quantity;
             giftSet.Price = price;
-
-            if (!string.IsNullOrWhiteSpace(image))
-            {
-                giftSet.Image = image;
-            }
 
             this.db.SaveChanges();
 

@@ -20,11 +20,11 @@
 
         public static ShoppingCart GetShoppingCart(this ISession session)
         {
-            var shoppingCart = session.Get<ShoppingCart>(WebConstants.ShoppingCart);
+            var shoppingCart = session.Get<ShoppingCart>(WebConstants.MyCart);
             if (shoppingCart == null)
             {
                 shoppingCart = new ShoppingCart();
-                session.Set(WebConstants.ShoppingCart, shoppingCart);
+                session.Set(WebConstants.MyCart, shoppingCart);
             }
 
             return shoppingCart;

@@ -28,7 +28,7 @@
                 <td>@message.Subject</td>
                 <td>@message.SentOn</td>
                 <td>
-                    <a asp-controller="Messages" asp-action="Edit" asp-route-id="@message.Id" class="btn btn-outline-info">Details</a>
+                    <a asp-controller="Messages" asp-action="Details" asp-route-id="@message.Id" class="btn btn-outline-info">Details</a>
                     <a asp-controller="Messages" asp-action="Delete" asp-route-id="@message.Id" class="btn btn-outline-danger">Delete</a>
                 </td>
             </tr>

@@ -9,6 +9,8 @@
     using System;
     using System.IO;
 
+    using static WebConstants;
+
     public class AccessoriesController : AdminBaseController
     {
         private readonly IAdminAccessoryService accessories;
@@ -20,15 +22,15 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(int page = WebConstants.DefaultPage)
+        public IActionResult All(int page = DefaultPage)
         {
-            var accessories = this.accessories.AllListing(page, WebConstants.PageSize);
+            var accessories = this.accessories.AllListing(page, PageSize);
 
             return View(new AccessoryPageListingViewModel
             {
                 Accessories = accessories,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.accessories.Total() / (double)WebConstants.PageSize)
+                TotalPages = (int)Math.Ceiling(this.accessories.Total() / (double)PageSize)
             });
         }
 
@@ -42,15 +44,19 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
+            var accessoryId = this.accessories.Create(
+                                    model.Name,
+                                    model.Description,
+                                    model.Quantity,
+                                    model.Price);
 
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                var imageName = this.SaveImage(accessoryId, model.Image);
+                this.accessories.SetImage(accessoryId, imageName);
             }
 
-            this.accessories.Create(model.Name, model.Description, model.Quantity, model.Price, imageName);
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -79,18 +85,23 @@
 
             var imageName = string.Empty;
 
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                this.accessories.SetImage(id, this.SaveImage(id, model.Image));
             }
 
-            var success = this.accessories.Edit(id, model.Name, model.Description, model.Quantity, model.Price, imageName);
+            var success = this.accessories.Edit(id,
+                                    model.Name,
+                                    model.Description,
+                                    model.Quantity,
+                                    model.Price);
 
             if (!success)
             {
                 return BadRequest();
             }
+
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -119,21 +130,18 @@
                 return BadRequest();
             }
 
+            this.TempData.AddDangerMessage(SuccessfullDelete);
+
             return RedirectToAction(nameof(All));
         }
 
-        private string SaveImage(string accessoryName, IFormFile file)
+        private string SaveImage(int accessoryId, IFormFile file)
         {
-            var indexOfDot = file.FileName.LastIndexOf('.');
-            var imageName = file.FileName
-                .Substring(indexOfDot)
-                .Insert(0, accessoryName)
-                .ToDashedString();
+            var imageName = file.FileName.ToImageName(accessoryId);
 
             var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Accessories",
+                .Combine(Directory.GetCurrentDirectory(), 
+                AccessoriesImagesPath,
                 imageName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -143,5 +151,10 @@
 
             return imageName;
         }
+        private bool HasValidImage(IFormFile image)
+            => image != null
+                && image.Length <= ImageSize
+                && (image.FileName.EndsWith(JpgFormat)
+                    || image.FileName.EndsWith(PngFormat));
     }
 }

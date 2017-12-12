@@ -1,6 +1,7 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using BeerShop.Models.Enums;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Models.Countries;
@@ -18,11 +19,6 @@
             this.countries = countries;
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         public IActionResult All(int page = DefaultPage)
         {
             var countries = this.countries.AllListing(page, PageSize);
@@ -35,6 +31,8 @@
             });
         }
 
+        public IActionResult Create() => View();
+
         [HttpPost]
         [Log(LogType.Create)]
         public IActionResult Create(CountryFormViewModel model)
@@ -45,7 +43,7 @@
             }
             this.countries.Create(model.Name, (Continent)model.Continent);
 
-            TempData["SuccessMessage"] = $"Succesfully added {model.Name}.";
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -71,6 +69,8 @@
             {
                 return BadRequest();
             }
+
+            this.TempData.AddDangerMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(All));
         }

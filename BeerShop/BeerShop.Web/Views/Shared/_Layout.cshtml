@@ -62,32 +62,38 @@
                         @await Html.PartialAsync("_LoginPartial")
                     </span>
                 </li>
-                
+
             </ul>
         </div>
     </nav>
     @{
-        if (TempData.ContainsKey("SuccessMessage"))
+        if (TempData.ContainsKey(WebConstants.TempDataSuccessMessageKey))
         {
-            <div class="alert alert-success text-center fade show" role="alert">
-                <strong>@TempData["SuccessMessage"]</strong>
+            <div class="text-center">
+                <div class="alert alert-success text-center fade show d-inline" role="alert">
+                    <strong>@TempData[WebConstants.TempDataSuccessMessageKey]</strong>
+                </div>
             </div>
         }
-        else if (TempData.ContainsKey("WarningMessage"))
+        else if (TempData.ContainsKey(WebConstants.TempDataWarningMessageKey))
         {
-            <div class="alert alert-warning text-center fade show" role="alert">
-                <strong>@TempData["WarningMessage"]</strong>
+            <div class="text-center">
+                <div class="alert alert-warning text-center fade show d-inline" role="alert">
+                    <strong>@TempData[WebConstants.TempDataWarningMessageKey]</strong>
+                </div>
             </div>
         }
-        else if (TempData.ContainsKey("DangerMessage"))
+        else if (TempData.ContainsKey(WebConstants.TempDataDangerMessageKey))
         {
-            <div class="alert alert-danger text-center fade show" role="alert">
-                <strong>@TempData["DangerMessage"]</strong>
+            <div class="text-center">
+                <div class="alert alert-danger text-center fade show d-inline" role="alert">
+                    <strong>@TempData[WebConstants.TempDataDangerMessageKey]</strong>
+                </div>
             </div>
         }
     }
     @RenderBody()
-    <footer class="navbar bg-inverse blockquote-footer">
+    <footer class="navbar bg-inverse blockquote-footer" id="my-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -95,7 +101,7 @@
                     <p>
                         The place where You will find high quality beer from all over the world, good moode and draft beer
                     </p>
-                    <span class="text-center"><img src="~/images/Logo/logo.png" width="130"/></span>
+                    <span class="text-center"><img src="~/images/Logo/logo.png" width="130" /></span>
                 </div>
                 <div class="col-md-3">
                     <h3 class="text-uppercase">Contact info</h3>
@@ -141,6 +147,9 @@
         <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
     </environment>
     <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js">
+        </script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"

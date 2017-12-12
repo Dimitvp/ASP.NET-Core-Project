@@ -47,7 +47,7 @@
             return beers.Count();
         }
 
-        public void Create(
+        public int Create(
             string name,
             decimal price,
             int quantity,
@@ -61,8 +61,7 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId,
-            string image)
+            int breweryId)
         {
             var beer = new Beer
             {
@@ -79,11 +78,20 @@
                 Sweetness = sweetness,
                 Gasification = gasification,
                 StyleId = styleId,
-                BreweryId = breweryId,
-                Image = image
+                BreweryId = breweryId
             };
 
             this.db.Beers.Add(beer);
+            this.db.SaveChanges();
+
+            return beer.Id;
+        }
+
+        public void SetImage(int id, string image)
+        {
+            var beer = this.db.Beers.Find(id);
+            beer.Image = image;
+
             this.db.SaveChanges();
         }
 
@@ -108,8 +116,7 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId,
-            string image)
+            int breweryId)
         {
             var beer = this.db.Beers.Find(id);
 
@@ -132,11 +139,6 @@
             beer.Gasification = gasification;
             beer.StyleId = styleId;
             beer.BreweryId = breweryId;
-
-            if (!string.IsNullOrWhiteSpace(image))
-            {
-                beer.Image = image;
-            }
 
             this.db.SaveChanges();
 
@@ -175,5 +177,6 @@
                 .Where(b => b.Id == id)
                 .Select(b => b.Name)
                 .FirstOrDefault();
+
     }
 }

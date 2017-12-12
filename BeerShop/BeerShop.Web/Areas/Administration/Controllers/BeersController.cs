@@ -2,7 +2,7 @@
 {
     using AutoMapper;
     using BeerShop.Models.Enums;
-    using BeerShop.Web.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+
+    using static WebConstants;
 
     public class BeersController : AdminBaseController
     {
@@ -33,27 +35,25 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(string searchTerm, int page = WebConstants.DefaultPage)
+        public IActionResult All(string searchTerm, int page = DefaultPage)
         {
-            var beers = this.beers.AllListing(searchTerm, page, WebConstants.PageSize);
+            var beers = this.beers.AllListing(searchTerm, page, PageSize);
 
             return View(new BeerPageListingViewModel
             {
                 Beers = beers,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.beers.Total(searchTerm) / (double)WebConstants.PageSize),
+                TotalPages = (int)Math.Ceiling(this.beers.Total(searchTerm) / (double)PageSize),
                 SearchTerm = searchTerm
             });
         }
 
         public IActionResult Create()
-        {
-            return View(new BeerFormViewModel
+            => View(new BeerFormViewModel
             {
                 Styles = this.GetStylesListItems(),
                 Breweries = this.GetBreweriesListItems()
             });
-        }
 
         [HttpPost]
         [Log(LogType.Create)]
@@ -66,33 +66,29 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
+            var beerId = this.beers.Create(
+                            model.Name,
+                            model.Price,
+                            model.Quantity,
+                            model.Description,
+                            model.Alcohol,
+                            model.Volume,
+                            model.ServingTemp,
+                            model.Color,
+                            model.Bitterness,
+                            model.Density,
+                            model.Sweetness,
+                            model.Gasification,
+                            model.StyleId,
+                            model.BreweryId);
 
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                var imageName = this.SaveImage(beerId, model.Image);
+                this.beers.SetImage(beerId, imageName);
             }
 
-
-            this.beers.Create(
-                model.Name,
-                model.Price,
-                model.Quantity,
-                model.Description,
-                model.Alcohol,
-                model.Volume,
-                model.ServingTemp,
-                model.Color,
-                model.Bitterness,
-                model.Density,
-                model.Sweetness,
-                model.Gasification,
-                model.StyleId,
-                model.BreweryId,
-                imageName);
-
-            TempData["SuccessMessage"] = $"Succesfully added beer {model.Name}.";
+            TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -124,12 +120,9 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
-
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                this.beers.SetImage(id, this.SaveImage(id, model.Image));
             }
 
             var success = this.beers.Edit(
@@ -147,15 +140,14 @@
                                         model.Sweetness,
                                         model.Gasification,
                                         model.StyleId,
-                                        model.BreweryId,
-                                        imageName);
+                                        model.BreweryId);
 
             if (!success)
             {
                 return BadRequest();
             }
 
-            TempData["WarningMessage"] = $"Successfully editted beer {model.Name}";
+            TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -187,7 +179,7 @@
                 return BadRequest();
             }
 
-            TempData["DangerMessage"] = "Delete was successfull.";
+            TempData.AddDangerMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(All));
         }
@@ -208,19 +200,14 @@
                     Value = s.Id.ToString()
                 });
 
-        private string SaveImage(string beerName, IFormFile file)
+        private string SaveImage(int beerId, IFormFile file)
         {
-            var indexOfDot = file.FileName.LastIndexOf('.');
-            var imageName = file.FileName
-                .Substring(indexOfDot)
-                .Insert(0, beerName)
-                .ToDashedString();
+            var imageName = file.FileName.ToImageName(beerId);
 
             var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Beers",
-                imageName);
+                .Combine(Directory.GetCurrentDirectory(),
+                    BeersImagesPath,
+                    imageName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -229,5 +216,11 @@
 
             return imageName;
         }
+
+        private bool HasValidImage(IFormFile image)
+            => image != null
+                && image.Length <= ImageSize
+                && (image.FileName.EndsWith(JpgFormat)
+                    || image.FileName.EndsWith(PngFormat));
     }
 }

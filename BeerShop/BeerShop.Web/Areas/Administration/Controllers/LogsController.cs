@@ -1,5 +1,6 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Models.Logs;
     using Services.Administration;
@@ -31,6 +32,8 @@
         public IActionResult Clear()
         {
             this.logs.Clear();
+
+            this.TempData.AddWarningMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(All));
         }

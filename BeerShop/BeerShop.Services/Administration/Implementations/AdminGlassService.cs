@@ -47,7 +47,7 @@
             return glasses.Count();
         }
 
-        public void Create(string name, string description, int volume, Material material, int quantity, decimal price, string image)
+        public int Create(string name, string description, int volume, Material material, int quantity, decimal price)
         {
             var glass = new Glass
             {
@@ -56,15 +56,24 @@
                 Volume = volume,
                 Material = material,
                 Quantity = quantity,
-                Price = price,
-                Image = image
+                Price = price
             };
 
             this.db.Glasses.Add(glass);
             this.db.SaveChanges();
+
+            return glass.Id;
         }
 
-        public bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price, string image)
+        public void SetImage(int id, string image)
+        {
+            var glass = this.db.Glasses.Find(id);
+            glass.Image = image;
+
+            this.db.SaveChanges();
+        }
+
+        public bool Edit(int id, string name, string description, int volume, Material material, int quantity, decimal price)
         {
             var glass = this.db.Glasses.Find(id);
 
@@ -79,11 +88,6 @@
             glass.Material = material;
             glass.Quantity = quantity;
             glass.Price = price;
-
-            if (!string.IsNullOrWhiteSpace(image))
-            {
-                glass.Image = image;
-            }
 
             this.db.SaveChanges();
 

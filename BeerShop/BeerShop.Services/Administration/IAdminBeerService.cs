@@ -10,7 +10,7 @@
 
         int Total(string searchTerm);
 
-        void Create(
+        int Create(
             string name, 
             decimal price, 
             int quantity, 
@@ -24,8 +24,9 @@
             int sweetness,
             int gasification,
             int styleId, 
-            int breweryId,
-            string image);
+            int breweryId);
+
+        void SetImage(int id, string image);
 
         BeerEditServiceModel ById(int id);
 
@@ -44,8 +45,7 @@
             int sweetness,
             int gasification,
             int styleId,
-            int breweryId,
-            string imageName);
+            int breweryId);
 
         bool Delete(int id);
 

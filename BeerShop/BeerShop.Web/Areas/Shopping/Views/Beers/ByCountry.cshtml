@@ -15,19 +15,21 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
+                        <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
                         <div class="card-block">
-                            <h5 class="text-bold">@beer.Name</h5>
+                            <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()">
+                                <h5 class="text-bold">@beer.Name</h5>
+                            </a>
                         </div>
                         <div class="card-text">
                             @beer.Price $
                         </div>
                         <div class="card-footer">
-                            <a data-ajax="true" 
+                            <a data-ajax="true"
                                data-ajax-method="GET"
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
-                               asp-area="Shopping" asp-controller="Orders" asp-action="AddToCart" asp-route-id="@beer.Id" asp-route-product="beer" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i> Add to cart</a>
+                               asp-controller="Orders" asp-action="AddToCart" asp-route-id="@beer.Id" asp-route-product="beer" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i>Add to cart</a>
                         </div>
                     </div>
                 </div>

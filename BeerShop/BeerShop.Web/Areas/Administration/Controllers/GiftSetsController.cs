@@ -1,7 +1,7 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
-    using BeerShop.Web.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.GiftSets;
@@ -44,15 +44,15 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
+            var giftSetId = this.giftSets.Create(model.Name, model.Description, model.Quantity, model.Price);
 
-            if (model.Image != null
-                && model.Image.Length < ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                var imageName = this.SaveImage(giftSetId, model.Image);
+                this.giftSets.SetImage(giftSetId, imageName);
             }
 
-            this.giftSets.Create(model.Name, model.Description, model.Quantity, model.Price, imageName);
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -79,20 +79,19 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
-
-            if (model.Image != null
-                && model.Image.Length < ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                this.giftSets.SetImage(id, this.SaveImage(id, model.Image));
             }
 
-            var success = this.giftSets.Edit(id, model.Name, model.Description, model.Quantity, model.Price, imageName);
+            var success = this.giftSets.Edit(id, model.Name, model.Description, model.Quantity, model.Price);
 
             if (!success)
             {
                 return BadRequest();
             }
+
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -120,21 +119,18 @@
                 return BadRequest();
             }
 
+            this.TempData.AddDangerMessage(SuccessfullDelete);
+
             return RedirectToAction(nameof(All));
         }
 
-        private string SaveImage(string giftSetName, IFormFile file)
+        private string SaveImage(int giftSetId, IFormFile file)
         {
-            var indexOfDot = file.FileName.LastIndexOf('.');
-            var imageName = file.FileName
-                .Substring(indexOfDot)
-                .Insert(0, giftSetName)
-                .ToDashedString();
+            var imageName = file.FileName.ToImageName(giftSetId);
 
             var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "GiftSets",
+                .Combine(Directory.GetCurrentDirectory(),
+                GiftSetsImagesPath,
                 imageName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -144,5 +140,11 @@
 
             return imageName;
         }
+
+        private bool HasValidImage(IFormFile image)
+            => image != null
+                && image.Length <= ImageSize
+                && (image.FileName.EndsWith(JpgFormat)
+                    || image.FileName.EndsWith(PngFormat));
     }
 }

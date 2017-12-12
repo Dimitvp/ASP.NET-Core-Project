@@ -1,6 +1,7 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using BeerShop.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,8 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using static WebConstants;
 
     public class UsersController : AdminBaseController
     {
@@ -28,13 +31,13 @@
 
         public IActionResult All(string searchTerm, int page = 1)
         {
-            var users = this.users.AllUsers(searchTerm, page, WebConstants.PageSize);
+            var users = this.users.AllUsers(searchTerm, page, PageSize);
 
             return View(new UserPageListingViewModel
             {
                 Users = users,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.users.Total(searchTerm) / (double)WebConstants.PageSize),
+                TotalPages = (int)Math.Ceiling(this.users.Total(searchTerm) / (double)PageSize),
                 SearchTerm = searchTerm
             });
         }
@@ -84,12 +87,15 @@
 
             await this.userManager.AddToRoleAsync(user, role);
 
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAddRoleToUser, role, user.UserName));
+
             return RedirectToAction(nameof(Details), new { id = id });
         }
 
         public async Task<IActionResult> ClearRoles(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
+
             if (user == null)
             {
                 return NotFound();
@@ -97,6 +103,8 @@
 
             var roles = await this.userManager.GetRolesAsync(user);
             await this.userManager.RemoveFromRolesAsync(user, roles);
+
+            this.TempData.AddDangerMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(Details), new { id = id });
         }

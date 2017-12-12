@@ -1,9 +1,12 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
-    using Services.Administration;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
-    using BeerShop.Web.Areas.Administration.Models.Messages;
+    using Models.Messages;
+    using Services.Administration;
     using System;
+
+    using static WebConstants;
 
     public class MessagesController : AdminBaseController
     {
@@ -14,15 +17,15 @@
             this.messages = messages;
         }
 
-        public IActionResult All(int page = 1)
+        public IActionResult All(int page = DefaultPage)
         {
-            var messsages = this.messages.AllListing(page, WebConstants.PageSize);
+            var messsages = this.messages.AllListing(page, PageSize);
 
             return View(new MessagePageListingViewModel
             {
                 Messages = messsages,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.messages.Total() / (double)WebConstants.PageSize)
+                TotalPages = (int)Math.Ceiling(this.messages.Total() / (double)PageSize)
             });
         }
 
@@ -49,7 +52,7 @@
                 return BadRequest();
             }
 
-            TempData["DangerMessage"] = "Successfully deleted a message.";
+            this.TempData.AddDangerMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(All));
         }

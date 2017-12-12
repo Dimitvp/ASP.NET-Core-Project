@@ -1,11 +1,12 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using BeerShop.Models.Enums;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Models.Orders;
     using Services.Administration;
     using System;
-    
+
     using static WebConstants;
 
     public class OrdersController : AdminBaseController
@@ -37,7 +38,7 @@
             {
                 return NotFound();
             }
-            
+
             return View(order);
         }
 
@@ -50,6 +51,8 @@
             {
                 return BadRequest();
             }
+
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEditOrder, id, status.ToString()));
 
             return RedirectToAction(nameof(Details), new { id });
         }

@@ -1,13 +1,15 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
-    using BeerShop.Web.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Glasses;
     using Services.Administration;
     using System;
     using System.IO;
+
+    using static WebConstants;
 
     public class GlassesController : AdminBaseController
     {
@@ -20,15 +22,15 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(string searchTerm, int page = WebConstants.DefaultPage)
+        public IActionResult All(string searchTerm, int page = DefaultPage)
         {
-            var glasses = this.glasses.AllListing(searchTerm, page, WebConstants.PageSize);
+            var glasses = this.glasses.AllListing(searchTerm, page, PageSize);
 
             return View(new GlassPageListingViewModel
             {
                 Glasses = glasses,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.glasses.Total(searchTerm) / (double)WebConstants.PageSize),
+                TotalPages = (int)Math.Ceiling(this.glasses.Total(searchTerm) / (double)PageSize),
                 SearchTerm = searchTerm
             });
         }
@@ -43,22 +45,21 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
+            var glassId = this.glasses.Create(
+                                model.Name,
+                                model.Description,
+                                model.Volume,
+                                model.Material,
+                                model.Quantity,
+                                model.Price);
 
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                var imageName = this.SaveImage(glassId, model.Image);
+                this.glasses.SetImage(glassId, imageName);
             }
 
-            this.glasses.Create(
-                model.Name,
-                model.Description,
-                model.Volume,
-                model.Material,
-                model.Quantity,
-                model.Price,
-                imageName);
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -85,12 +86,9 @@
                 return View(model);
             }
 
-            var imageName = string.Empty;
-
-            if (model.Image != null
-                && model.Image.Length < WebConstants.ImageSize)
+            if (this.HasValidImage(model.Image))
             {
-                imageName = this.SaveImage(model.Name, model.Image);
+                this.glasses.SetImage(id, this.SaveImage(id, model.Image));
             }
 
             var success = this.glasses.Edit(
@@ -100,13 +98,14 @@
                             model.Volume,
                             model.Material,
                             model.Quantity,
-                            model.Price,
-                            imageName);
+                            model.Price);
 
             if (!success)
             {
                 return BadRequest();
             }
+
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -135,21 +134,18 @@
                 return BadRequest();
             }
 
+            this.TempData.AddDangerMessage(SuccessfullDelete);
+
             return RedirectToAction(nameof(All));
         }
 
-        private string SaveImage(string glassName, IFormFile file)
+        private string SaveImage(int glassId, IFormFile file)
         {
-            var indexOfDot = file.FileName.LastIndexOf('.');
-            var imageName = file.FileName
-                .Substring(indexOfDot)
-                .Insert(0, glassName)
-                .ToDashedString();
+            var imageName = file.FileName.ToImageName(glassId);
 
             var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Glasses",
+                .Combine(Directory.GetCurrentDirectory(),
+                GlassesImagesPath,
                 imageName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -159,5 +155,11 @@
 
             return imageName;
         }
+
+        private bool HasValidImage(IFormFile image)
+            => image != null
+                && image.Length <= ImageSize
+                && (image.FileName.EndsWith(JpgFormat)
+                    || image.FileName.EndsWith(PngFormat));
     }
 }

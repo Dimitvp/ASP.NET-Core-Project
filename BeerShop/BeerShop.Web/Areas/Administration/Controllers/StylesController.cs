@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using BeerShop.Models.Enums;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
     using Microsoft.AspNetCore.Mvc;
     using Models.Styles;
@@ -48,7 +49,8 @@
             }
 
             this.styles.Create(model.Name);
-            TempData["SuccessMessage"] = $"Succesfully added style \"{model.Name}\".";
+
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -81,7 +83,7 @@
                 return BadRequest();
             }
 
-            TempData["WarningMessage"] = $"Successfully editted {model.Name}";
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -109,7 +111,8 @@
             {
                 return BadRequest();
             }
-            TempData["DangerMessage"] = "Delete was successfull.";
+
+            this.TempData.AddDangerMessage(SuccessfullDelete);
 
             return RedirectToAction(nameof(All));
         }

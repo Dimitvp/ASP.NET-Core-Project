@@ -11,6 +11,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using static WebConstants;
+
     public class OrdersController : BaseController
     {
         private readonly IShoppingAddressService addresses;
@@ -51,7 +53,9 @@
 
             var shoppingCart = HttpContext.Session.GetShoppingCart();
             shoppingCart.Add(product, id);
-            HttpContext.Session.Set(WebConstants.ShoppingCart, shoppingCart);
+            HttpContext.Session.Set(MyCart, shoppingCart);
+
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAddToCart, product));
 
             return PartialView("_ShoppingCart");
         }
@@ -73,7 +77,9 @@
             var shoppingCart = HttpContext.Session.GetShoppingCart();
             shoppingCart.Update(product, id, quantity);
 
-            HttpContext.Session.Set(WebConstants.ShoppingCart, shoppingCart);
+            HttpContext.Session.Set(MyCart, shoppingCart);
+
+            this.TempData.AddSuccessMessage(SuccessfullUpdateCart);
 
             return RedirectToAction(nameof(Cart));
         }
@@ -88,7 +94,9 @@
             var shoppingCart = HttpContext.Session.GetShoppingCart();
             shoppingCart.Remove(product, id);
 
-            HttpContext.Session.Set(WebConstants.ShoppingCart, shoppingCart);
+            HttpContext.Session.Set(MyCart, shoppingCart);
+
+            this.TempData.AddDangerMessage(string.Format(SuccessfullRemoveProductFromCart, product));
 
             return RedirectToAction(nameof(Cart));
         }
@@ -166,9 +174,11 @@
             }
 
             shoppingCart.Clear();
-            HttpContext.Session.Set(WebConstants.ShopArea, shoppingCart);
+            HttpContext.Session.Set(ShopArea, shoppingCart);
 
-            return Redirect("/shopping/home/index");
+            this.TempData.AddSuccessMessage(PlacedOrder);
+
+            return RedirectToAction("Index", "Home", new { area = ShopArea });
         }
 
         private bool IsProductExist(int id, string product)

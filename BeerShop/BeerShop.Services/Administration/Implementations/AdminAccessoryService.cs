@@ -33,22 +33,31 @@
                 .ProjectTo<AccessoryEditServiceModel>()
                 .FirstOrDefault();
 
-        public void Create(string name, string description, int quantity, decimal price, string image)
+        public int Create(string name, string description, int quantity, decimal price, string image)
         {
             var accessory = new Accessory
             {
                 Name = name,
                 Description = description,
                 Quantity = quantity,
-                Price = price,
-                Image = image
+                Price = price
             };
 
             this.db.Accessories.Add(accessory);
             this.db.SaveChanges();
+
+            return accessory.Id;
         }
 
-        public bool Edit(int id, string name, string description, int quantity, decimal price, string image)
+        public void SetImage(int id, string image)
+        {
+            var accessory = this.db.Accessories.Find(id);
+            accessory.Image = image;
+
+            this.db.SaveChanges();
+        }
+
+        public bool Edit(int id, string name, string description, int quantity, decimal price)
         {
             var accessory = this.db.Accessories.Find(id);
 
@@ -61,11 +70,6 @@
             accessory.Description = description;
             accessory.Quantity = quantity;
             accessory.Price = price;
-
-            if (!string.IsNullOrWhiteSpace(image))
-            {
-                accessory.Image = image;
-            }
 
             this.db.SaveChanges();
 
@@ -96,6 +100,11 @@
             this.db.SaveChanges();
 
             return true;
+        }
+
+        public int Create(string name, string description, int quantity, decimal price)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

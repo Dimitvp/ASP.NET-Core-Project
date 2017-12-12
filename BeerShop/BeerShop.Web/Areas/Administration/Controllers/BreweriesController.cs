@@ -1,13 +1,16 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using AutoMapper;
-    using BeerShop.Services.Administration;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Breweries;
+    using Services.Administration;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using static WebConstants;
 
     public class BreweriesController : AdminBaseController
     {
@@ -25,15 +28,15 @@
             this.mapper = mapper;
         }
 
-        public IActionResult All(int page = WebConstants.DefaultPage)
+        public IActionResult All(int page = DefaultPage)
         {
-            var breweries = this.breweries.AllListing(page, WebConstants.PageSize);
+            var breweries = this.breweries.AllListing(page, PageSize);
 
             return View(new BreweryPageListingViewModel
             {
                 Breweries = breweries,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(this.breweries.Total() / (double)WebConstants.PageSize)
+                TotalPages = (int)Math.Ceiling(this.breweries.Total() / (double)PageSize)
             });
         }
 
@@ -54,6 +57,8 @@
             }
 
             this.breweries.Create(model.Name, model.Description, model.CountryId);
+
+            this.TempData.AddSuccessMessage(string.Format(SuccessfullAdd, model.Name));
 
             return RedirectToAction(nameof(All));
         }
@@ -89,6 +94,8 @@
                 return BadRequest();
             }
 
+            this.TempData.AddWarningMessage(string.Format(SuccessfullEdit, model.Name));
+
             return RedirectToAction(nameof(All));
         }
 
@@ -116,7 +123,8 @@
                 return BadRequest();
             }
 
-            TempData["WarningMessage"] = "Successfully deleted a brewery";
+            this.TempData.AddDangerMessage(SuccessfullDelete);
+
             return RedirectToAction(nameof(All));
         }
 

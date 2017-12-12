@@ -9,25 +9,28 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
+                        <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
                         <div class="card-block">
-                            <h5 class="text-bold">@beer.Name</h5>
+                            <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()">
+                                <h5 class="text-bold">@beer.Name</h5>
+                            </a>
                         </div>
                         <div class="card-text">
                             @beer.Price $
                         </div>
                         <div class="card-footer">
-                            <a data-ajax="true" 
+                            <a data-ajax="true"
                                data-ajax-method="GET"
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
-                               asp-area="Shopping" 
-                               asp-controller="Orders" 
-                               asp-action="AddToCart" 
+                               asp-area="Shopping"
+                               asp-controller="Orders"
+                               asp-action="AddToCart"
                                asp-route-id="@beer.Id"
-                               asp-route-product="beer" 
+                               asp-route-product="beer"
                                class="btn btn-outline-warning btn">
-                            <i class="fa fa-cart-arrow-down"></i> Add to cart</a>
+                                <i class="fa fa-cart-arrow-down"></i> Add to cart
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -46,25 +49,27 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id"><img class="card-img-top" src="~/images/GiftSets/@giftSet.Image"></a>
+                        <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id"><img class="card-img-top" src="~/images/GiftSets/@giftSet.Image"></a>
                         <div class="card-block">
-                            <h5 class="text-bold">@giftSet.Name</h5>
+                            <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id">
+                                <h5 class="text-bold">@giftSet.Name</h5>
+                            </a>
                         </div>
                         <div class="card-text">
                             Price @giftSet.Price
                         </div>
                         <div class="card-footer">
-                            <a data-ajax="true" 
+                            <a data-ajax="true"
                                data-ajax-method="GET"
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
-                               asp-area="Shopping" 
-                               asp-controller="Orders" 
-                               asp-action="AddToCart" 
-                               asp-route-id="@giftSet.Id" 
-                               asp-route-product="giftset" 
+                               asp-area="Shopping"
+                               asp-controller="Orders"
+                               asp-action="AddToCart"
+                               asp-route-id="@giftSet.Id"
+                               asp-route-product="giftset"
                                class="btn btn-outline-warning btn">
-                            <i class="fa fa fa-cart-arrow-down"></i> Add to cart
+                                <i class="fa fa fa-cart-arrow-down"></i> Add to cart
                             </a>
                         </div>
                     </div>
@@ -84,25 +89,27 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id"><img class="card-img-top" src="~/images/Accessories/@accessory.Image"></a>
+                        <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id"><img class="card-img-top" src="~/images/Accessories/@accessory.Image"></a>
                         <div class="card-block">
-                            <h5 class="text-bold">@accessory.Name</h5>
+                            <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id">
+                                <h5 class="text-bold">@accessory.Name</h5>
+                            </a>
                         </div>
                         <div class="card-text">
                             Price @accessory.Price
                         </div>
                         <div class="card-footer">
-                            <a data-ajax="true" 
+                            <a data-ajax="true"
                                data-ajax-method="GET"
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
-                               asp-area="Shopping" 
-                               asp-controller="Orders" 
-                               asp-action="AddToCart" 
-                               asp-route-id="@accessory.Id" 
-                               asp-route-product="accessory" 
+                               asp-area="Shopping"
+                               asp-controller="Orders"
+                               asp-action="AddToCart"
+                               asp-route-id="@accessory.Id"
+                               asp-route-product="accessory"
                                class="btn btn-outline-warning btn">
-                            <i class="fa fa fa-cart-arrow-down"></i> Add to cart
+                                <i class="fa fa fa-cart-arrow-down"></i> Add to cart
                             </a>
                         </div>
                     </div>
@@ -123,24 +130,26 @@
             {
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
-                        <a asp-area="Shopping" asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
+                        <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
                         <div class="card-block">
-                            <h5 class="text-bold">@glass.Name</h5>
+                            <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id">
+                                <h5 class="text-bold">@glass.Name</h5>
+                            </a>
                         </div>
                         <div class="card-text">
                             Price @glass.Price
                         </div>
                         <div class="card-footer">
-                            <a data-ajax="true" 
+                            <a data-ajax="true"
                                data-ajax-method="GET"
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
-                               asp-area="Shopping" 
-                               asp-controller="Orders" 
-                               asp-action="AddToCart" 
-                               asp-route-id="@glass.Id" 
-                               asp-route-product="glass" 
-                               class="btn btn-outline-warning btn"><i class="fa fa fa-cart-arrow-down"></i> Add to cart</a>
+                               asp-area="Shopping"
+                               asp-controller="Orders"
+                               asp-action="AddToCart"
+                               asp-route-id="@glass.Id"
+                               asp-route-product="glass"
+                               class="btn btn-outline-warning btn"><i class="fa fa fa-cart-arrow-down"></i>Add to cart</a>
                         </div>
                     </div>
                 </div>

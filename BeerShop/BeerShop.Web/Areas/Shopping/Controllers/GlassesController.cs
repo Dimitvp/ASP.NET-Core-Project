@@ -29,13 +29,13 @@
             });
         }
 
-        public IActionResult Details (int id)
+        public IActionResult Details(int id)
         {
             var glass = this.glasses.ById(id);
 
             if (glass == null)
             {
-                return NotFound();    
+                return NotFound();
             }
 
             return View(glass);
