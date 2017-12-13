@@ -2,12 +2,11 @@
 @{
     ViewData["Title"] = "Edit Glass";
 }
-
-<h2>@ViewData["Title"]</h2>
-
-<div class="row">
-    <div class="col-md-4">
-        @Html.Partial("_GlassForm", Model)
+<section>
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("_GlassForm", Model)
+        </div>
     </div>
-</div>
-
+</section>

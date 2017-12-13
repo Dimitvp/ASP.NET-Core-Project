@@ -80,7 +80,9 @@ namespace BeerShop.Data.Migrations
 
                     b.Property<int>("CountryId");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(6000);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -355,6 +357,20 @@ namespace BeerShop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Styles");
+                });
+
+            modelBuilder.Entity("BeerShop.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("BeerShop.Models.User", b =>

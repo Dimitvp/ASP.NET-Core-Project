@@ -15,6 +15,9 @@
         [MinLength(BreweryNameMinLength)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(ProductDescriptionMaxLength)]
+        [MinLength(ProductDescriptionMinLength)]
         public string Description { get; set; }
         
         public int CountryId { get; set; }

@@ -6,7 +6,7 @@
 
         public const string ModeratorRole = "Moderator";
 
-        public const int PageSize = 1;
+        public const int PageSize = 30;
 
         public const int DefaultPage = 1;
 
@@ -45,6 +45,12 @@
         public const string SuccessfullEditOrder = "Succesfully edited Order#{0} status to {1}";
 
         public const string SuccessfullDelete = "Delete was successfull";
+
+        public const string InvalidEmailAddress = "This E-mail '{0}' is invalid";
+
+        public const string SuccessfullSubscribtion = "You have successfully subscribed for our newsletter";
+
+        public const string EmailAlreadySubscribed = "This E-mail '{0}' has already subscribed for our newsletter";
 
         public const string AdminArea = "Administration";
 

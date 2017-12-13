@@ -38,6 +38,8 @@
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<Subscription> Subscriptions { get; set; }
+
         public DbSet<Style> Styles { get; set; }
 
         public DbSet<Log> Logs { get; set; }

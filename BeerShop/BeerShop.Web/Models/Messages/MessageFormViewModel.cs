@@ -13,7 +13,7 @@
 
         [Required]
         [EmailAddress]
-        [MaxLength(MessageEmailMaxLength)]
+        [MaxLength(EmailMaxLength)]
         public string Email { get; set; }
 
         [Required]

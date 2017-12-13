@@ -15,5 +15,7 @@
         bool ChangeStatus(int id, OrderStatus status);
 
         int Total();
+
+        int TotalWaiting();
     }
 }

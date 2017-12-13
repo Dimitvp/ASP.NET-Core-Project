@@ -2,134 +2,133 @@
 @{
     ViewData["Title"] = $"Details about Order#{Model.Id}";
 }
-
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-warning">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>@ViewData["Title"]</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h5>Full Name: <span class="font-italic">@Model.User.FirstName @Model.User.LastName</span></h5>
-                    <h5>Username: <span class="font-italic">@Model.User.UserName</span></h5>
-                    <h5>Discount: <span class="font-italic">@(Model.Discount == 0 ? "None" : Model.Discount.ToString())</span></h5>
-                    <h5>Date Received: <span class="font-italic">@Model.Date</span></h5>
-                </div>
-                <form method="post" asp-controller="Orders" asp-action="ChangeStatus">
-                    <div class="col-md-6 input-group">
-                        <h5>Order status:</h5>
-                        <select asp-for="Status" asp-items="@Html.GetEnumSelectList<OrderStatus>()" class="form-control"></select>
-                        <span asp-validation-for="Status" class="text-danger"></span>
-                        <input type="hidden" asp-for="@Model.Id" />
-                        <div class="input-group-btn">
-                            <input type="submit" class="btn btn-outline-danger" value="Change status" />
-                        </div>
-                    </div>
-                </form>
-                <br />
-                <div class="card-header bg-info">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>Address for delivery</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h5>City: @Model.Address.Town</h5>
-                    <h5>Street: @Model.Address.Street</h5>
-                    <h5>Zip Code: @Model.Address.ZipCode</h5>
-                    <h5>Telephone Number: @Model.Address.PhoneNumber</h5>
-                </div>
-                <div class="card-header bg-info">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>Products</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-title text-center">
-                    @foreach (var beer in Model.Beers)
-                    {
-                        <div class="row text-center">
-                            <div class="col-md-6 align-self-center">
-                                <h4 class="product-name"><strong>@beer.Key</strong></h4>
-                            </div>
-                            <div class="col-md-6 align-self-center">
-                                <div class="col-md-2 cart-fields">
-                                    <input type="text" class="form-control input-sm" value="@beer.Value" readonly>
-                                    <span>pcs</span>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>@ViewData["Title"]</h5>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                    }
-                    @foreach (var accessory in Model.Accessories)
-                    {
-                        <div class="row text-center">
-                            <div class="col-md-6 align-self-center">
-                                <h4 class="product-name"><strong>@accessory.Key</strong></h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Full Name: <span class="font-italic">@Model.User.FirstName @Model.User.LastName</span></h5>
+                        <h5>Username: <span class="font-italic">@Model.User.UserName</span></h5>
+                        <h5>Discount: <span class="font-italic">@(Model.Discount == 0 ? "None" : Model.Discount.ToString())</span></h5>
+                        <h5>Date Received: <span class="font-italic">@Model.Date</span></h5>
+                    </div>
+                    <form method="post" asp-controller="Orders" asp-action="ChangeStatus">
+                        <div class="col-md-6 input-group">
+                            <h5>Order status:</h5>
+                            <select asp-for="Status" asp-items="@Html.GetEnumSelectList<OrderStatus>()" class="form-control"></select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                            <input type="hidden" asp-for="@Model.Id" />
+                            <div class="input-group-btn">
+                                <input type="submit" class="btn btn-outline-danger" value="Change status" />
                             </div>
-                            <div class="col-md-6 align-self-center">
-                                <div class="col-md-2 cart-fields">
-                                    <input type="text" class="form-control input-sm" value="@accessory.Value" readonly>
-                                    <span>pcs</span>
+                        </div>
+                    </form>
+                    <br />
+                    <div class="card-header bg-info">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Address for delivery</h5>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                    }
-                    @foreach (var giftsets in Model.GiftSets)
-                    {
-                        <div class="row text-center">
-                            <div class="col-md-6 align-self-center">
-                                <h4 class="product-name"><strong>@giftsets.Key</strong></h4>
-                            </div>
-                            <div class="col-md-6 align-self-center">
-                                <div class="col-md-2 cart-fields">
-                                    <input type="text" class="form-control input-sm" value="@giftsets.Value" readonly>
-                                    <span>pcs</span>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>City: @Model.Address.Town</h5>
+                        <h5>Street: @Model.Address.Street</h5>
+                        <h5>Zip Code: @Model.Address.ZipCode</h5>
+                        <h5>Telephone Number: @Model.Address.PhoneNumber</h5>
+                    </div>
+                    <div class="card-header bg-info">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Products</h5>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                    }
-                    @foreach (var glass in Model.Glasses)
-                    {
-                        <div class="row text-center">
-                            <div class="col-md-6 align-self-center">
-                                <h4 class="product-name"><strong>@glass.Key</strong></h4>
-                            </div>
-                            <div class="col-md-6 align-self-center">
-                                <div class="col-md-2 cart-fields">
-                                    <input type="text" class="form-control input-sm" value="@glass.Value" readonly>
-                                    <span>pcs</span>
+                    </div>
+                    <div class="card-title text-center">
+                        @foreach (var beer in Model.Beers)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@beer.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@beer.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                    }
-                </div>
-                <div class="panel-footer">
-                    <div class="row ">
-                        <div class="col-md-12">
-                            <div class="col-md-2 align-self-center">
-                                <a asp-controller="Orders" asp-action="All" class="btn btn-outline-primary">Back</a>
+                            <hr>
+                        }
+                        @foreach (var accessory in Model.Accessories)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@accessory.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@accessory.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6 align-self-center">
-                                <h4 class="text-right">Total: <strong>@Model.Price</strong></h4>
+                            <hr>
+                        }
+                        @foreach (var giftsets in Model.GiftSets)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@giftsets.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@giftsets.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                        @foreach (var glass in Model.Glasses)
+                        {
+                            <div class="row text-center">
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="product-name"><strong>@glass.Key</strong></h4>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <div class="col-md-2 cart-fields">
+                                        <input type="text" class="form-control input-sm" value="@glass.Value" readonly>
+                                        <span>pcs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <div class="col-md-2 align-self-center">
+                                    <a asp-controller="Orders" asp-action="All" class="btn btn-outline-primary">Back</a>
+                                </div>
+                                <div class="col-md-6 align-self-center">
+                                    <h4 class="text-right">Total: <strong>@Model.Price</strong></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -137,4 +136,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>

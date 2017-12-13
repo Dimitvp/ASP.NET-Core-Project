@@ -2,41 +2,43 @@
 @{
     ViewData["Title"] = $"Delete {Model.Name}";
 }
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <hr />
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Price"></label>
-                <input asp-for="Price" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity"></label>
-                <input asp-for="Quantity" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Description"></label>
-                <textarea asp-for="Description" class="form-control" rows="10" disabled></textarea>
-            </div>
-            <div class="form-group">
-                <label asp-for="StyleId"></label>
-                <select asp-for="StyleId" asp-items="Model.Styles" selected="StyleId" class="form-control" disabled>
-                    <option>Please select one</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BreweryId"></label>
-                <select asp-for="BreweryId" asp-items="Model.Breweries" class="form-control" disabled>
-                    <option>Please select one</option>
-                </select>
-            </div>
-            <a asp-controller="Beers" asp-action="All" class="btn btn-outline-primary">Back</a>
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
-        </form>
+<section>
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity"></label>
+                    <input asp-for="Quantity" class="form-control" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="10" disabled></textarea>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StyleId"></label>
+                    <select asp-for="StyleId" asp-items="Model.Styles" selected="StyleId" class="form-control" disabled>
+                        <option>Please select one</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BreweryId"></label>
+                    <select asp-for="BreweryId" asp-items="Model.Breweries" class="form-control" disabled>
+                        <option>Please select one</option>
+                    </select>
+                </div>
+                <a asp-controller="Beers" asp-action="All" class="btn btn-outline-primary">Back</a>
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
+        </div>
     </div>
-</div>
+</section>

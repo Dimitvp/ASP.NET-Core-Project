@@ -2,24 +2,25 @@
 @{
     ViewData["Title"] = "Add Role";
 }
-<h2>Add Role</h2>
+<section>
+    <h2>Add Role</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <hr />
-            <div class="form-group">
-                <label>Roles</label>
-                <select name="role" asp-items="Model.Roles" class="form-control">
-                    <option>Please Select One</option>
-                </select>
-            </div>
-            <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId" class="btn btn-outline-info">Cancel</a>
-            <button type="submit" class="btn btn-outline-success">Add Role</button>
-        </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <hr />
+                <div class="form-group">
+                    <label>Roles</label>
+                    <select name="role" asp-items="Model.Roles" class="form-control">
+                        <option>Please Select One</option>
+                    </select>
+                </div>
+                <a asp-controller="Users" asp-action="Details" asp-route-id="@Model.UserId" class="btn btn-outline-info">Cancel</a>
+                <button type="submit" class="btn btn-outline-success">Add Role</button>
+            </form>
+        </div>
     </div>
-</div>
-
+</section>
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

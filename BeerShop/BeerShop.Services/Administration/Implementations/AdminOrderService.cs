@@ -49,5 +49,10 @@
 
         public int Total()
             => this.db.Orders.Count();
+
+        public int TotalWaiting()
+            => this.db.Orders
+                .Where(o => o.Status == OrderStatus.Processing)
+                .Count();
     }
 }

@@ -2,9 +2,11 @@
 @{
     ViewData["Title"] = "Create country";
 }
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        @Html.Partial("_CountryForm", Model)
+<section>
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("_CountryForm", Model)
+        </div>
     </div>
-</div>
+</section>

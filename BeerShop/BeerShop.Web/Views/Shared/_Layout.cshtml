@@ -26,13 +26,13 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
+    <nav class="navbar navbar-toggleable-sm navbar-inverse" id="top-navbar">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarToggler">
             <a asp-area="Shopping" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/Logo/logo.png" width="40" /></a>
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto" id="top-navbar-main-menus">
                 @Html.Partial("_MenuItems")
                 <li class="nav-item">
                     <a class="nav-link" asp-area="Shopping" asp-controller="GiftSets" asp-action="All">Gift Sets</a>
@@ -46,15 +46,14 @@
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a>
                 </li>
-
                 @Html.Partial("_MenuAdmin")
-                <li class="nav-item ml-5">
+                <li class="ml-5">
                     @Html.Partial("_SearchForm", new SearchFormModel())
                 </li>
 
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" id="my-shopping-cart">
+                <li id="my-shopping-cart">
                     @Html.Partial("_ShoppingCart")
                 </li>
                 <li class="nav-item">
@@ -93,7 +92,7 @@
         }
     }
     @RenderBody()
-    <footer class="navbar bg-inverse blockquote-footer" id="my-footer">
+    <footer id="my-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -130,14 +129,21 @@
                     <hr />
                     <h3 class="text-uppercase">Mailing list</h3>
                     <p>Sign up for newsletter</p>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your E-mail" />
-                    </div>
+                    <form method="post" asp-area="Shopping" asp-controller="Newsletter" asp-action="Subscribe">
+                        <div class="input-group input-group-md">
+                            <input name="email" type="email" class="form-control" placeholder="Your E-mail" required />
+                            <input type="submit" class="input-group-addon" value="Subscribe" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <span class=" text-uppercase">&copy; @DateTime.UtcNow.Year - Beer Academy</span>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="text-center">
+                    <span class=" text-uppercase">Copyright &copy; 2016 - @DateTime.UtcNow.Year Beer Academy. All right reserved.</span>
+                </div>
+            </div>
         </div>
     </footer>
     <environment include="Development">

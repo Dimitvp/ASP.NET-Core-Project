@@ -2,17 +2,19 @@
 @{
     ViewData["Title"] = $"Delete {Model.Name} style";
 }
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <hr />
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" disabled />
-            </div>
-            <a asp-controller="Styles" asp-action="All" class="btn btn-outline-info">Back</a>
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+<section>
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" disabled />
+                </div>
+                <a asp-controller="Styles" asp-action="All" class="btn btn-outline-info">Back</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
     </div>
-</div>
+</section>

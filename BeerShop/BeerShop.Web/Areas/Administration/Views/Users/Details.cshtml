@@ -2,39 +2,40 @@
 @{
     ViewData["Title"] = $"Details for {Model.Username}";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-warning">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>@ViewData["Title"]</h5>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <div class="card-title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>@ViewData["Title"]</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <h5><strong>Name:</strong> @Model.FirstName @Model.LastName</h5>
-                    <h5><strong>Email:</strong> @Model.Email</h5>
-                    <h5><strong>Address:</strong> @Model.Address.Town / @Model.Address.Street / @Model.Address.ZipCode</h5>
-                    <h5><strong>Phone Number:</strong> @Model.Address.PhoneNumber</h5>
-                    <h5><strong>Number of orders:</strong> @Model.OrdersCount</h5>
-                    <h5><strong>Registered On: </strong> @Model.RegisteredOn</h5>
-                    <h5><strong>Last Login: </strong> @Model.LastLogin</h5>
-                    <h5><strong>Roles:</strong> @(string.Join(", ", Model.Roles))</h5>
-                </div>
-                <div class="card-footer">
-                    <a asp-controller="Users" asp-action="All" class="btn btn-info">Back</a>
-                    <a asp-controller="Users" asp-action="AddRole" asp-route-id="@Model.Id" class="btn btn-primary">Add Role</a>
-                    @if (Model.Username != WebConstants.AdminRole)
-                    {
-                        <a asp-controller="Users" asp-action="ClearRoles" asp-route-id="@Model.Id" class="btn btn-danger">Remove Roles</a>
-                    }
+                    <div class="col-md-6">
+                        <h5><strong>Name:</strong> @Model.FirstName @Model.LastName</h5>
+                        <h5><strong>Email:</strong> @Model.Email</h5>
+                        <h5><strong>Address:</strong> @Model.Address.Town / @Model.Address.Street / @Model.Address.ZipCode</h5>
+                        <h5><strong>Phone Number:</strong> @Model.Address.PhoneNumber</h5>
+                        <h5><strong>Number of orders:</strong> @Model.OrdersCount</h5>
+                        <h5><strong>Registered On: </strong> @Model.RegisteredOn</h5>
+                        <h5><strong>Last Login: </strong> @Model.LastLogin</h5>
+                        <h5><strong>Roles:</strong> @(string.Join(", ", Model.Roles))</h5>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Users" asp-action="All" class="btn btn-info">Back</a>
+                        <a asp-controller="Users" asp-action="AddRole" asp-route-id="@Model.Id" class="btn btn-primary">Add Role</a>
+                        @if (Model.Username != WebConstants.AdminRole)
+                        {
+                            <a asp-controller="Users" asp-action="ClearRoles" asp-route-id="@Model.Id" class="btn btn-danger">Remove Roles</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+</section>

@@ -1,6 +1,8 @@
 ﻿@inject IAdminMessageService messages
+@inject IAdminOrderService orders
 @{ 
     var messagesCount = this.messages.TotalToRead();
+    var ordersToSend = this.orders.TotalWaiting();
 }
 
 @if (User.IsInRole(WebConstants.AdminRole))
@@ -25,7 +27,8 @@
             <li><a class="dropdown-item" asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
             <li><a class="dropdown-item" asp-area="Administration" asp-controller="Messages" asp-action="All">Messages (@messagesCount)</a></li>
             <li><a class="dropdown-item" asp-area="Administration" asp-controller="Breweries" asp-action="All">Breweries</a></li>
-            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Orders" asp-action="All">Orders</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Orders" asp-action="All">Orders (@ordersToSend)</a></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="Newsletter" asp-action="All">Newsletter</a></li>
         </ul>
     </li>
 }

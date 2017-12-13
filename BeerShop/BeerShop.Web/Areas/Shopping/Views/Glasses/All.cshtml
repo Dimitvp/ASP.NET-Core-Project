@@ -1,49 +1,45 @@
 ﻿@model GlassPageListingViewModel
 @{
-    ViewData["Title"] = "Details";
-}
-@{
+    ViewData["Title"] = "All Glasses";
     var previousDisabled = Model.CurrentPage == 1 ? "disabled" : string.Empty;
     var nextDisabled = Model.CurrentPage == Model.TotalPages ? "disabled" : string.Empty;
 }
-
 <section>
-
     <div class="container">
-        <div class="jumbotron">
-            <h2 class="text-uppercase">@ViewData["Title"]</h2>
-            <div class="row">
-                @foreach (var glass in Model.Glasses)
-                {
-                    <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
-                        <div class="card text-center">
-                            <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id" asp-route-title="@glass.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
-                            <div class="card-block">
-                                <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id" asp-route-title="@glass.Name.ToFriendlyUrl()">
-                                    <h5 class="text-bold">@glass.Name</h5>
-                                </a>
-                            </div>
-                            <div class="card-text">
-                                @glass.Price $
-                            </div>
-                            <div class="card-footer">
-                                <a data-ajax="true"
-                                   data-ajax-method="GET"
-                                   data-ajax-update="#my-shopping-cart"
-                                   data-ajax-mode="replace"
-                                   asp-area="Shopping"
-                                   asp-controller="Orders"
-                                   asp-action="AddToCart"
-                                   asp-route-id="@glass.Id"
-                                   asp-route-product="glass" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i>Add to cart</a>
-                            </div>
+        <h2 class="text-uppercase">@ViewData["Title"]</h2>
+        <div class="row">
+            @foreach (var glass in Model.Glasses)
+            {
+                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+                    <div class="card text-center">
+                        <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id" asp-route-title="@glass.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
+                        <div class="card-block">
+                            <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id" asp-route-title="@glass.Name.ToFriendlyUrl()">
+                                <h5 class="text-bold">@glass.Name</h5>
+                            </a>
+                        </div>
+                        <div class="card-text">
+                            @glass.Price $
+                        </div>
+                        <div class="card-footer">
+                            <a data-ajax="true"
+                               data-ajax-method="GET"
+                               data-ajax-update="#my-shopping-cart"
+                               data-ajax-mode="replace"
+                               asp-area="Shopping"
+                               asp-controller="Orders"
+                               asp-action="AddToCart"
+                               asp-route-id="@glass.Id"
+                               asp-route-product="glass" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i>Add to cart</a>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
+
     <div class="container">
+        <hr />
         <ul class="pagination justify-content-center">
             <li class="page-item @previousDisabled">
                 <a class="page-link @previousDisabled" asp-controller="Glasses" asp-action="All" asp-route-page="@Model.PreviousPage" aria-label="Previous">
