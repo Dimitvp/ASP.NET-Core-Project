@@ -41,9 +41,9 @@
                                             </div>
                                             <div class="col-md-3 cart-fields">
                                                 <div class="input-group">
-                                                    <a asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity - 1)" class="input-group-addon"><i class="fa fa-arrow-circle-left"></i></a>
+                                                    <a asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity - 1)" class="input-group-addon"><i class="fa fa-minus fa-1x"></i></a>
                                                     <input type="text" class="form-control input-sm" value="@beer.Quantity" readonly>
-                                                    <a asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity + 1)" class="input-group-addon"><i class="fa fa-arrow-circle-right fa-1x"></i></a>
+                                                    <a asp-controller="Orders" asp-action="Update" asp-route-product="beer" asp-route-id="@beer.Id" asp-route-quantity="@(beer.Quantity + 1)" class="input-group-addon"><i class="fa fa-plus fa-1x"></i></a>
                                                 </div>
                                             </div>
                                             <div class="col-md-1 cart-fields">

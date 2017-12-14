@@ -16,6 +16,8 @@
 
         public const string BeersImagesPath = "wwwroot/images/beers";
 
+        public const string CarouselImagesPath = "wwwroot/images/carousel";
+
         public const string AccessoriesImagesPath = "wwwroot/images/accessories";
 
         public const string GiftSetsImagesPath = "wwwroot/images/giftsets";

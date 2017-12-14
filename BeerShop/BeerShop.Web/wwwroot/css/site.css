@@ -22,13 +22,18 @@ body {
 
 #top-navbar {
     background-color: #2E3436;
-    padding-top:8px;
-    padding-bottom:0;
+    padding-top: 8px;
+    padding-bottom: 0px;
 }
 
 #top-navbar-main-menus .nav-item:hover {
-    border-bottom: 1px solid;
+    border-bottom: 2px solid;
     border-color: orange;
+}
+
+.nav-item a {
+    font-size: 20px;
+    padding-bottom: 2px;
 }
 
 #my-footer {
