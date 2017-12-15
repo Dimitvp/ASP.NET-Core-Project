@@ -1,6 +1,7 @@
 ﻿namespace BeerShop.Web.Areas.Shopping.Models.Orders
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ShoppingCart
     {
@@ -134,10 +135,10 @@
 
         public int TotalAdded()
         {
-            var beers = this.Beers.Count;
-            var accessories = this.Accessories.Count;
-            var giftsets = this.GiftSets.Count;
-            var glasses = this.Glasses.Count;
+            var beers = this.Beers.Values.Sum();
+            var accessories = this.Accessories.Values.Sum();
+            var giftsets = this.GiftSets.Values.Sum();
+            var glasses = this.Glasses.Values.Sum();
 
             var all = beers + accessories + giftsets + glasses;
 

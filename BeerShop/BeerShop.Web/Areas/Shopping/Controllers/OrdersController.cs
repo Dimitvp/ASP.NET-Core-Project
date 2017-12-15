@@ -106,6 +106,11 @@
         {
             var shoppingCart = HttpContext.Session.GetShoppingCart();
 
+            if (shoppingCart.TotalAdded() == 0)
+            {
+                return BadRequest();
+            }
+
             var userId = this.userManager.GetUserId(User);
             var user = await this.userManager.FindByIdAsync(userId);
             var addressId = user.AddressId;
