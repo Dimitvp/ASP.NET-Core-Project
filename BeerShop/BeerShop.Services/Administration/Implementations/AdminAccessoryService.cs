@@ -33,7 +33,7 @@
                 .ProjectTo<AccessoryEditServiceModel>()
                 .FirstOrDefault();
 
-        public int Create(string name, string description, int quantity, decimal price, string image)
+        public int Create(string name, string description, int quantity, decimal price)
         {
             var accessory = new Accessory
             {
@@ -100,11 +100,6 @@
             this.db.SaveChanges();
 
             return true;
-        }
-
-        public int Create(string name, string description, int quantity, decimal price)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

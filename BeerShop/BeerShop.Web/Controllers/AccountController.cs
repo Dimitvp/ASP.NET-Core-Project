@@ -15,6 +15,8 @@
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private const string CustomReturnUrl = "/shopping/";
+
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly ILogger logger;
@@ -34,7 +36,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = "/shopping/")
+        public async Task<IActionResult> Login(string returnUrl = CustomReturnUrl)
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -45,7 +47,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "/shopping/")
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = CustomReturnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -84,7 +86,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = "/shopping/")
+        public IActionResult Register(string returnUrl = CustomReturnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -93,7 +95,7 @@
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = "/shopping/")
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = CustomReturnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -155,7 +157,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/shopping/", string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = CustomReturnUrl, string remoteError = null)
         {
             if (remoteError != null)
             {
@@ -182,9 +184,26 @@
             {
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
+                var username = info.Principal.FindFirstValue(ClaimTypes.GivenName);
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.Name);
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+                var phone = info.Principal.FindFirstValue(ClaimTypes.MobilePhone);
+                var town = info.Principal.FindFirstValue(ClaimTypes.StateOrProvince);
+                var zipCode = info.Principal.FindFirstValue(ClaimTypes.PostalCode);
+                var street = info.Principal.FindFirstValue(ClaimTypes.StreetAddress);
 
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                return View("ExternalLogin", new ExternalLoginViewModel
+                {
+                    Email = email,
+                    Username = username,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Town = town,
+                    Street = street,
+                    ZipCode = zipCode,
+                    PhoneNumber = phone
+                });
             }
         }
 
@@ -200,13 +219,24 @@
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
+
+                var address = new Address
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    Town = model.Town,
+                    Street = model.Street,
+                    ZipCode = model.ZipCode
+                };
+
                 var user = new User
                 {
                     UserName = model.Username,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    Address = address
                 };
+
                 var result = await this.userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

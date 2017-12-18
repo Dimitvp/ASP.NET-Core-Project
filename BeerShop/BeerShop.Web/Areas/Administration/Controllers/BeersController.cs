@@ -4,20 +4,20 @@
     using BeerShop.Models.Enums;
     using Infrastructure.Extensions;
     using Infrastructure.Filters;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Models.Beers;
     using Services.Administration;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     using static WebConstants;
 
     public class BeersController : AdminBaseController
     {
+        private const string BeerProduct = "Beer";
+
         private readonly IAdminBreweryService breweries;
         private readonly IAdminStyleService styles;
         private readonly IAdminBeerService beers;
@@ -82,9 +82,9 @@
                             model.StyleId,
                             model.BreweryId);
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                var imageName = this.SaveImage(beerId, model.Image);
+                var imageName = model.Image.SaveImage(beerId, BeerProduct, BeersImagesPath);
                 this.beers.SetImage(beerId, imageName);
             }
 
@@ -120,9 +120,9 @@
                 return View(model);
             }
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                this.beers.SetImage(id, this.SaveImage(id, model.Image));
+                this.beers.SetImage(id, model.Image.SaveImage(id, BeerProduct, BeersImagesPath));
             }
 
             var success = this.beers.Edit(
@@ -199,28 +199,5 @@
                     Text = s.Name,
                     Value = s.Id.ToString()
                 });
-
-        private string SaveImage(int beerId, IFormFile file)
-        {
-            var imageName = file.FileName.ToImageName(beerId);
-
-            var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(),
-                    BeersImagesPath,
-                    imageName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return imageName;
-        }
-
-        private bool HasValidImage(IFormFile image)
-            => image != null
-                && image.Length <= ImageSize
-                && (image.FileName.EndsWith(JpgFormat)
-                    || image.FileName.EndsWith(PngFormat));
     }
 }

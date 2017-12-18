@@ -1,14 +1,20 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
     using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Carousel;
-    using System.IO;
+
     using static WebConstants;
 
     public class CarouselController : AdminBaseController
     {
+        private const string FirstImageName = "01";
+        private const string SecondImageName = "02";
+        private const string ThirdImageName = "03";
+
+        private const string WarningMessage = "Please choose one or more images for upload";
+        private const string SuccessMessage = "Upload was successfull";
+
         public IActionResult Upload() => View();
 
         [HttpPost]
@@ -18,49 +24,28 @@
                 && model.SecondImage == null
                 && model.ThirdImage == null)
             {
-                this.TempData.AddWarningMessage("Please choose image/s to upload");
+                this.TempData.AddWarningMessage(WarningMessage);
                 return View();
             }
 
-            if (this.HasValidImage(model.FirstImage))
+            if (model.FirstImage.HasValidImage())
             {
-                this.SaveImage("01", model.FirstImage);
+                model.FirstImage.SaveImage(FirstImageName, CarouselImagesPath);
             }
 
-            if (this.HasValidImage(model.SecondImage))
+            if (model.SecondImage.HasValidImage())
             {
-                this.SaveImage("02", model.SecondImage);
+                model.SecondImage.SaveImage(SecondImageName, CarouselImagesPath);
             }
 
-            if (this.HasValidImage(model.ThirdImage))
+            if (model.ThirdImage.HasValidImage())
             {
-                this.SaveImage("03", model.ThirdImage);
+                model.ThirdImage.SaveImage(ThirdImageName, CarouselImagesPath);
             }
 
-            this.TempData.AddSuccessMessage("Upload was successfull");
+            this.TempData.AddSuccessMessage(SuccessMessage);
 
             return RedirectToAction(nameof(Upload));
         }
-
-        private void SaveImage(string imageName, IFormFile file)
-        {
-            var extension = Path.GetExtension(file.FileName);
-
-            var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(),
-                    CarouselImagesPath,
-                    imageName + extension);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-        }
-
-        private bool HasValidImage(IFormFile image)
-            => image != null
-                && image.Length <= ImageSize
-                && (image.FileName.EndsWith(JpgFormat)
-                    || image.FileName.EndsWith(PngFormat));
     }
 }

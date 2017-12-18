@@ -1,15 +1,18 @@
 ﻿namespace BeerShop.Web.Areas.Administration.Controllers
 {
-    using Services.Administration;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
+    using Models.Newsletter;
+    using Services.Administration;
+    using System;
 
     using static WebConstants;
-    using BeerShop.Web.Areas.Administration.Models.Newsletter;
-    using System;
-    using BeerShop.Web.Infrastructure.Extensions;
+
 
     public class NewsletterController : AdminBaseController
     {
+        private const string FileName = "EmailList.txt";
+
         private readonly IAdminNewsletterService newsletter;
 
         public NewsletterController(IAdminNewsletterService newsletter)
@@ -59,9 +62,8 @@
         public IActionResult Download()
         {
             var emailList = this.newsletter.Emails();
-            var fileName = "EmailList.txt";
 
-            return File(emailList, "text/plain", fileName);
+            return File(emailList, "text/plain", FileName);
         }
     }
 }

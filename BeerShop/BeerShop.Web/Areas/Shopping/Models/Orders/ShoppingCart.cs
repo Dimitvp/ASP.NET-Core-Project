@@ -5,6 +5,11 @@
 
     public class ShoppingCart
     {
+        private const string AccessoryProduct = "accessory";
+        private const string BeerProduct = "beer";
+        private const string GiftSetProduct = "giftset";
+        private const string GlassProduct = "glass";
+
         private readonly IDictionary<int, int> beerIds;
         private readonly IDictionary<int, int> accessoryIds;
         private readonly IDictionary<int, int> giftSetsIds;
@@ -30,7 +35,7 @@
         {
             switch (productType.ToLower())
             {
-                case "accessory":
+                case AccessoryProduct:
                     if (!this.Accessories.ContainsKey(id))
                     {
                         this.Accessories.Add(id, quantity);
@@ -40,7 +45,7 @@
                         this.Accessories[id]++;
                     }
                     break;
-                case "beer":
+                case BeerProduct:
                     if (!this.Beers.ContainsKey(id))
                     {
                         this.Beers.Add(id, quantity);
@@ -50,7 +55,7 @@
                         this.Beers[id]++;
                     }
                     break;
-                case "giftset":
+                case GiftSetProduct:
                     if (!this.GiftSets.ContainsKey(id))
                     {
                         this.GiftSets.Add(id, quantity);
@@ -60,7 +65,7 @@
                         this.GiftSets[id]++;
                     }
                     break;
-                case "glass":
+                case GlassProduct:
                     if (!this.Glasses.ContainsKey(id))
                     {
                         this.Glasses.Add(id, quantity);
@@ -79,28 +84,28 @@
         {
             switch (productType.ToLower())
             {
-                case "accessory":
+                case AccessoryProduct:
                     this.Accessories[id] = quantity;
                     if (this.Accessories[id] <= 0)
                     {
                         this.Accessories.Remove(id);
                     }
                     break;
-                case "beer":
+                case BeerProduct:
                     this.Beers[id] = quantity;
                     if (this.Beers[id] <= 0)
                     {
                         this.Beers.Remove(id);
                     }
                     break;
-                case "giftset":
+                case GiftSetProduct:
                     this.GiftSets[id] = quantity;
                     if (this.GiftSets[id] <= 0)
                     {
                         this.GiftSets.Remove(id);
                     }
                     break;
-                case "glass":
+                case GlassProduct:
                     this.Glasses[id] = quantity;
                     if (this.Glasses[id] <= 0)
                     {
@@ -116,16 +121,16 @@
         {
             switch (productType.ToLower())
             {
-                case "accessory":
+                case AccessoryProduct:
                     this.Accessories.Remove(id);
                     break;
-                case "beer":
+                case BeerProduct:
                     this.Beers.Remove(id);
                     break;
-                case "giftset":
+                case GiftSetProduct:
                     this.GiftSets.Remove(id);
                     break;
-                case "glass":
+                case GlassProduct:
                     this.glassIds.Remove(id);
                     break;
                 default:

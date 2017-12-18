@@ -2,17 +2,17 @@
 {
     using AutoMapper;
     using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.GiftSets;
     using Services.Administration;
     using System;
-    using System.IO;
 
     using static WebConstants;
 
     public class GiftSetsController : AdminBaseController
     {
+        private const string GiftSetProduct = "GiftSet";
+
         private readonly IAdminGiftSetService giftSets;
         private readonly IMapper mapper;
 
@@ -46,9 +46,9 @@
 
             var giftSetId = this.giftSets.Create(model.Name, model.Description, model.Quantity, model.Price);
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                var imageName = this.SaveImage(giftSetId, model.Image);
+                var imageName = model.Image.SaveImage(giftSetId, GiftSetProduct, GiftSetsImagesPath);
                 this.giftSets.SetImage(giftSetId, imageName);
             }
 
@@ -79,9 +79,9 @@
                 return View(model);
             }
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                this.giftSets.SetImage(id, this.SaveImage(id, model.Image));
+                this.giftSets.SetImage(id, model.Image.SaveImage(id, GiftSetProduct, GiftSetsImagesPath));
             }
 
             var success = this.giftSets.Edit(id, model.Name, model.Description, model.Quantity, model.Price);
@@ -123,28 +123,5 @@
 
             return RedirectToAction(nameof(All));
         }
-
-        private string SaveImage(int giftSetId, IFormFile file)
-        {
-            var imageName = file.FileName.ToImageName(giftSetId);
-
-            var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(),
-                GiftSetsImagesPath,
-                imageName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return imageName;
-        }
-
-        private bool HasValidImage(IFormFile image)
-            => image != null
-                && image.Length <= ImageSize
-                && (image.FileName.EndsWith(JpgFormat)
-                    || image.FileName.EndsWith(PngFormat));
     }
 }

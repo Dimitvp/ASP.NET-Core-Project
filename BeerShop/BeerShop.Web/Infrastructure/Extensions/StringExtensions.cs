@@ -15,10 +15,10 @@
                 .Replace(text, @"\s+", "-")
                 .ToLower();
 
-        public static string ToImageName(this string text, int id)
+        public static string ToImageName(this string text, int id, string productType)
             => text
                 .Substring(text.LastIndexOf('.'))
-                .Insert(0, $"{id}-Beer")
+                .Insert(0, $"{id}-{productType}")
                 .ToLower();
     }
 }

@@ -2,17 +2,17 @@
 {
     using AutoMapper;
     using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Accessories;
     using Services.Administration;
     using System;
-    using System.IO;
 
     using static WebConstants;
 
     public class AccessoriesController : AdminBaseController
     {
+        private const string AccessoryProduct = "Accessory";
+
         private readonly IAdminAccessoryService accessories;
         private readonly IMapper mapper;
 
@@ -50,9 +50,9 @@
                                     model.Quantity,
                                     model.Price);
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                var imageName = this.SaveImage(accessoryId, model.Image);
+                var imageName = model.Image.SaveImage(accessoryId, AccessoryProduct, AccessoriesImagesPath);
                 this.accessories.SetImage(accessoryId, imageName);
             }
 
@@ -85,9 +85,9 @@
 
             var imageName = string.Empty;
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                this.accessories.SetImage(id, this.SaveImage(id, model.Image));
+                this.accessories.SetImage(id, model.Image.SaveImage(id, AccessoryProduct, AccessoriesImagesPath));
             }
 
             var success = this.accessories.Edit(id,
@@ -134,27 +134,5 @@
 
             return RedirectToAction(nameof(All));
         }
-
-        private string SaveImage(int accessoryId, IFormFile file)
-        {
-            var imageName = file.FileName.ToImageName(accessoryId);
-
-            var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), 
-                AccessoriesImagesPath,
-                imageName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return imageName;
-        }
-        private bool HasValidImage(IFormFile image)
-            => image != null
-                && image.Length <= ImageSize
-                && (image.FileName.EndsWith(JpgFormat)
-                    || image.FileName.EndsWith(PngFormat));
     }
 }

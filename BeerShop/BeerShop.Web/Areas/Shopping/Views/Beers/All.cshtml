@@ -14,7 +14,7 @@
                 <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
                     <div class="card text-center">
                         <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
-                        <div class="card-block">
+                        <div class="card-block fixed-bottom">
                             <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()">
                                 <h5 class="text-bold">@beer.Name</h5>
                             </a>

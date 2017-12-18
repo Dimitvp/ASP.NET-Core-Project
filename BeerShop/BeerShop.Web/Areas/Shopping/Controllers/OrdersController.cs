@@ -15,6 +15,11 @@
 
     public class OrdersController : BaseController
     {
+        private const string AccessoryProduct = "accessory";
+        private const string BeerProduct = "beer";
+        private const string GiftSetProduct = "giftset";
+        private const string GlassProduct = "glass";
+
         private readonly IShoppingAddressService addresses;
         private readonly IShoppingBeerService beers;
         private readonly IShoppingAccessoryService accessories;
@@ -55,7 +60,7 @@
             shoppingCart.Add(product, id);
             HttpContext.Session.Set(MyCart, shoppingCart);
 
-            this.TempData.AddSuccessMessage(string.Format(SuccessfullAddToCart, product));
+            //this.TempData.AddSuccessMessage(string.Format(SuccessfullAddToCart, product));
 
             return PartialView("_ShoppingCart");
         }
@@ -187,10 +192,10 @@
         }
 
         private bool IsProductExist(int id, string product)
-            => this.beers.Exists(id) && product == "beer"
-                   || this.accessories.Exists(id) && product == "accessory"
-                   || this.giftSets.Exists(id) && product == "giftset"
-                   || this.glasses.Exists(id) && product == "glass";
+            => (this.beers.Exists(id) && product == BeerProduct)
+                   || (this.accessories.Exists(id) && product == AccessoryProduct)
+                   || (this.giftSets.Exists(id) && product == GiftSetProduct)
+                   || (this.glasses.Exists(id) && product == GlassProduct);
 
         private ProductListingViewModel GetProductListingModel(ShoppingCart shoppingCart)
         {

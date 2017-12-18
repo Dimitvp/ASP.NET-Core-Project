@@ -2,17 +2,17 @@
 {
     using AutoMapper;
     using Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Models.Glasses;
     using Services.Administration;
     using System;
-    using System.IO;
 
     using static WebConstants;
 
     public class GlassesController : AdminBaseController
     {
+        private const string GlassProduct = "Glass";
+
         private readonly IAdminGlassService glasses;
         private readonly IMapper mapper;
 
@@ -53,9 +53,9 @@
                                 model.Quantity,
                                 model.Price);
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                var imageName = this.SaveImage(glassId, model.Image);
+                var imageName = model.Image.SaveImage(glassId, GlassProduct, GlassesImagesPath);
                 this.glasses.SetImage(glassId, imageName);
             }
 
@@ -86,9 +86,9 @@
                 return View(model);
             }
 
-            if (this.HasValidImage(model.Image))
+            if (model.Image.HasValidImage())
             {
-                this.glasses.SetImage(id, this.SaveImage(id, model.Image));
+                this.glasses.SetImage(id, model.Image.SaveImage(id, GlassProduct, GlassesImagesPath));
             }
 
             var success = this.glasses.Edit(
@@ -138,28 +138,5 @@
 
             return RedirectToAction(nameof(All));
         }
-
-        private string SaveImage(int glassId, IFormFile file)
-        {
-            var imageName = file.FileName.ToImageName(glassId);
-
-            var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(),
-                GlassesImagesPath,
-                imageName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return imageName;
-        }
-
-        private bool HasValidImage(IFormFile image)
-            => image != null
-                && image.Length <= ImageSize
-                && (image.FileName.EndsWith(JpgFormat)
-                    || image.FileName.EndsWith(PngFormat));
     }
 }
