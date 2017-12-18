@@ -184,7 +184,7 @@
             }
 
             shoppingCart.Clear();
-            HttpContext.Session.Set(ShopArea, shoppingCart);
+            HttpContext.Session.Set(MyCart, shoppingCart);
 
             this.TempData.AddSuccessMessage(PlacedOrder);
 

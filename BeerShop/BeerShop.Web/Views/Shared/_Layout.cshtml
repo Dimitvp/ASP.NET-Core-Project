@@ -92,88 +92,72 @@
         }
     }
     @RenderBody()
-        <footer id="my-footer">
+    <footer id="my-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Beer Academy</h3>
+                    <p>
+                        The place where You will find high quality beer from all over the world, good mood and draft beer
+                    </p>
+                    <span class="text-center"><img src="~/images/Logo/logo.png" width="130" /></span>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Contact info</h3>
+                    <h5>Address</h5>
+                    <p>8000 Burgas, Bulgaria</p>
+                    <p>Ulitsa Uilyam Gladston 61</p>
+                    <h5>Phone Number</h5>
+                    <p>+359 883 31 29 20</p>
+                    <h5>Email Address</h5>
+                    <p>thebeers.burgas@gmail.com</p>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Pages</h3>
+                    <ul class="footer-list">
+                        <li><a asp-area="Shopping" asp-controller="Home" asp-action="Index">Home</a><hr /></li>
+                        <li><a asp-area="Shopping" asp-controller="Beers" asp-action="All">Beers</a><hr /></li>
+                        <li><a asp-area="" asp-controller="Manage" asp-action="Index">Profile</a><hr /></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3 class="text-uppercase">Follow us</h3>
+                    <a target="_blank" href="https://www.facebook.com/TheBEERSburgas/" class="my-fb-link">
+                        <i class="fa fa-facebook-square fa-3x"></i>
+                    </a>
+                    <hr />
+                    <h3 class="text-uppercase">Mailing list</h3>
+                    <p>Sign up for newsletter</p>
+                    <form method="post" asp-area="Shopping" asp-controller="Newsletter" asp-action="Subscribe">
+                        <div class="input-group input-group-md">
+                            <input name="email" type="email" class="form-control" placeholder="Your E-mail" required />
+                            <input type="submit" class="input-group-addon" value="Subscribe" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h3>Beer Academy</h3>
-                        <p>
-                            The place where You will find high quality beer from all over the world, good moode and draft beer
-                        </p>
-                        <span class="text-center"><img src="~/images/Logo/logo.png" width="130" /></span>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-uppercase">Contact info</h3>
-                        <h5>Address</h5>
-                        <p>8000 Burgas, Bulgaria</p>
-                        <p>Ulitsa Uilyam Gladston 61</p>
-                        <h5>Phone Number</h5>
-                        <p>+359 883 31 29 20</p>
-                        <h5>Email Address</h5>
-                        <p>thebeers.burgas@gmail.com</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-uppercase">Pages</h3>
-                        <ul class="footer-list">
-                            <li><a asp-area="Shopping" asp-controller="Home" asp-action="Index">Home</a><hr /></li>
-                            <li><a asp-area="Shopping" asp-controller="Beers" asp-action="All">Beers</a><hr /></li>
-                            <li><a asp-area="" asp-controller="Manage" asp-action="Index">Profile</a><hr /></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Contacts">Contacts</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-uppercase">Follow us</h3>
-                        <a target="_blank" href="https://www.facebook.com/TheBEERSburgas/" class="my-fb-link">
-                            <i class="fa fa-facebook-square fa-3x"></i>
-                        </a>
-                        <hr />
-                        <h3 class="text-uppercase">Mailing list</h3>
-                        <p>Sign up for newsletter</p>
-                        <form method="post" asp-area="Shopping" asp-controller="Newsletter" asp-action="Subscribe">
-                            <div class="input-group input-group-md">
-                                <input name="email" type="email" class="form-control" placeholder="Your E-mail" required />
-                                <input type="submit" class="input-group-addon" value="Subscribe" />
-                            </div>
-                        </form>
-                    </div>
+                <div class="text-center">
+                    <span class=" text-uppercase">Copyright &copy; 2016 - @DateTime.UtcNow.Year Beer Academy. All right reserved.</span>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="text-center">
-                        <span class=" text-uppercase">Copyright &copy; 2016 - @DateTime.UtcNow.Year Beer Academy. All right reserved.</span>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        </div>
+    </footer>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+
     </environment>
     <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
-                asp-fallback-src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js">
-        </script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN">
-        </script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-                asp-fallback-src="~/lib/tether/dist/js/tether.js"
-                crossorigin="anonymous"
-                integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
