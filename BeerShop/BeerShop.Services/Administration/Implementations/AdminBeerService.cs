@@ -11,6 +11,8 @@
 
     public class AdminBeerService : IAdminBeerService
     {
+        private const string BeersImagesPath = "wwwroot/images/beers";
+
         private readonly BeerShopDbContext db;
 
         public AdminBeerService(BeerShopDbContext db)
@@ -157,9 +159,8 @@
             if (!string.IsNullOrWhiteSpace(beer.Image))
             {
                 var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Beers",
+                .Combine(Directory.GetCurrentDirectory(), 
+                BeersImagesPath,
                 beer.Image);
 
                 File.Delete(filePath);

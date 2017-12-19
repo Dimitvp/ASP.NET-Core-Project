@@ -36,6 +36,7 @@
         {
             searchTerm = searchTerm ?? string.Empty;
             return this.db.Accessories
+                   .OrderByDescending(a=> a.Id)
                    .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
                    .ProjectTo<AccessoryListingServiceModel>()
                    .ToList();

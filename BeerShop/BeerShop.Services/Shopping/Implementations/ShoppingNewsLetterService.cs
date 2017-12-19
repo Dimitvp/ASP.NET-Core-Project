@@ -7,6 +7,7 @@
 
     public class ShoppingNewsLetterService : IShoppingNewsLetterService
     {
+        private const string EmailPattern = @"(?<=^|[\s+])([A-Za-z0-9]+[-.\w]+@([\w]+[-\w]+[.]){1,2}[a-z]+)(?=$|[,.\s+])";
         private readonly BeerShopDbContext db;
 
         public ShoppingNewsLetterService(BeerShopDbContext db)
@@ -16,8 +17,7 @@
 
         public bool Create(string email)
         {
-            var pattern = @"(?<=^|[\s+])([A-Za-z0-9]+[-.\w]+@([\w]+[-\w]+[.]){1,2}[a-z]+)(?=$|[,.\s+])";
-            var isEmailValid = Regex.IsMatch(email, pattern);
+            var isEmailValid = Regex.IsMatch(email, EmailPattern);
 
             if (!isEmailValid)
             {

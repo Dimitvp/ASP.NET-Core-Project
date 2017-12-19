@@ -11,6 +11,8 @@
 
     public class AdminGlassService : IAdminGlassService
     {
+        private const string GlassesImagesPath = "wwwroot/images/glasses";
+
         private readonly BeerShopDbContext db;
 
         public AdminGlassService(BeerShopDbContext db)
@@ -106,9 +108,8 @@
             if (!string.IsNullOrWhiteSpace(glass.Image))
             {
                 var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Glasses",
+                .Combine(Directory.GetCurrentDirectory(),
+                GlassesImagesPath,
                 glass.Image);
 
                 File.Delete(filePath);

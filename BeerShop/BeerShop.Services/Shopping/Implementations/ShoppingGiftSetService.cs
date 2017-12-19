@@ -36,7 +36,8 @@
         {
             searchTerm = searchTerm ?? string.Empty;
             return this.db.GiftSets
-                   .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
+                   .OrderByDescending(gs => gs.Id)
+                   .Where(gs => gs.Name.ToLower().Contains(searchTerm.ToLower()))
                    .ProjectTo<GiftSetListingServiceModel>()
                    .ToList();
         }
@@ -47,10 +48,10 @@
 
             foreach (var id in ids)
             {
-               var giftSet = this.db.GiftSets
-                        .Where(gs => gs.Id == id.Key && id.Value > 0)
-                        .ProjectTo<GiftSetOrderServiceModel>(new { quantity = id.Value })
-                        .FirstOrDefault();
+                var giftSet = this.db.GiftSets
+                         .Where(gs => gs.Id == id.Key && id.Value > 0)
+                         .ProjectTo<GiftSetOrderServiceModel>(new { quantity = id.Value })
+                         .FirstOrDefault();
 
                 if (giftSet != null)
                 {

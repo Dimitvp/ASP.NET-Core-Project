@@ -10,6 +10,8 @@
 
     public class AdminAccessoryService : IAdminAccessoryService
     {
+        private const string AccessoriesImagesPath = "wwwroot/images/accessories";
+
         private readonly BeerShopDbContext db;
 
         public AdminAccessoryService(BeerShopDbContext db)
@@ -88,9 +90,8 @@
             if (!string.IsNullOrWhiteSpace(accessory.Image))
             {
                 var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "Accessories",
+                .Combine(Directory.GetCurrentDirectory(), 
+                AccessoriesImagesPath,
                 accessory.Image);
 
                 File.Delete(filePath);

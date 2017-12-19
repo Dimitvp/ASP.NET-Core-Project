@@ -36,6 +36,7 @@
         {
             searchTerm = searchTerm ?? string.Empty;
             return this.db.Glasses
+                   .OrderByDescending(g => g.Id)
                    .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
                    .ProjectTo<GlassListingServiceModel>()
                    .ToList();
@@ -47,10 +48,10 @@
 
             foreach (var id in ids)
             {
-               var glass = this.db.Glasses
-                        .Where(g => g.Id == id.Key && id.Value > 0)
-                        .ProjectTo<GlassOrderServiceModel>(new { quantity = id.Value })
-                        .FirstOrDefault();
+                var glass = this.db.Glasses
+                         .Where(g => g.Id == id.Key && id.Value > 0)
+                         .ProjectTo<GlassOrderServiceModel>(new { quantity = id.Value })
+                         .FirstOrDefault();
 
                 if (glass != null)
                 {

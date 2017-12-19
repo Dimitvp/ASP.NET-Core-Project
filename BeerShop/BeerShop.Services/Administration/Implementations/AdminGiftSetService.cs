@@ -10,6 +10,8 @@
 
     public class AdminGiftSetService : IAdminGiftSetService
     {
+        private const string GiftSetsImagesPath = "wwwroot/images/giftsets";
+
         private readonly BeerShopDbContext db;
 
         public AdminGiftSetService(BeerShopDbContext db)
@@ -88,9 +90,8 @@
             if (!string.IsNullOrWhiteSpace(giftSet.Image))
             {
                 var filePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                "Images",
-                "GiftSets",
+                .Combine(Directory.GetCurrentDirectory(), 
+                GiftSetsImagesPath,
                 giftSet.Image);
 
                 File.Delete(filePath);

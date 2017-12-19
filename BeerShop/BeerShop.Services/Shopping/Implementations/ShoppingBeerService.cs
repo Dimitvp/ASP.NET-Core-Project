@@ -85,6 +85,7 @@
         {
             searchTerm = searchTerm ?? string.Empty;
             return this.db.Beers
+                   .OrderByDescending(b => b.Id)
                    .Where(b => b.Name.ToLower().Contains(searchTerm.ToLower()))
                    .ProjectTo<BeerListingServiceModel>()
                    .ToList();
