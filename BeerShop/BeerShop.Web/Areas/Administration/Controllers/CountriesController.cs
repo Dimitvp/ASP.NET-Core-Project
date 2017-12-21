@@ -52,7 +52,7 @@
         {
             var country = this.countries.ById(id);
 
-            if (countries == null)
+            if (country == null)
             {
                 return NotFound();
             }

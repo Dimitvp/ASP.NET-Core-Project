@@ -27,6 +27,15 @@
                                data-ajax-update="#my-shopping-cart"
                                data-ajax-mode="replace"
                                asp-controller="Orders" asp-action="AddToCart" asp-route-id="@giftSet.Id" asp-route-product="giftset" class="btn btn-outline-warning btn"><i class="fa fa-cart-arrow-down"></i>Add to cart</a>
+
+                            @if (User.IsInRole(AdminRole))
+                            {
+                                <div>
+                                    <hr class="bg-primary" />
+                                    <a asp-area="@AdminArea" asp-controller="GiftSets" asp-action="Edit" asp-route-id="@giftSet.Id" class="btn btn-outline-info">Edit</a>
+                                    <a asp-area="@AdminArea" asp-controller="GiftSets" asp-action="Delete" asp-route-id="@giftSet.Id" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

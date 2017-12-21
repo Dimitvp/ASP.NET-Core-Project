@@ -65,7 +65,7 @@
         {
             var accessory = this.accessories.ById(id);
 
-            if (accessories == null)
+            if (accessory == null)
             {
                 return NotFound();
             }
@@ -110,7 +110,7 @@
         {
             var accessory = this.accessories.ById(id);
 
-            if (accessories == null)
+            if (accessory == null)
             {
                 return NotFound();
             }

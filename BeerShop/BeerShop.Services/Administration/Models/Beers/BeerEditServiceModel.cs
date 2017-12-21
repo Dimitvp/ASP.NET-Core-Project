@@ -18,6 +18,8 @@
 
         public string Description { get; set; }
 
+        public int Volume { get; set; }
+
         public double Alcohol { get; set; }
 
         public string ServingTemp { get; set; }

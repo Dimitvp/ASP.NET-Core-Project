@@ -2,165 +2,197 @@
 
 @if (Model.Beers.Any())
 {
-    <div class="container">
-        <h2 class="text-uppercase">Beers</h2>
-        <div class="row">
-            @foreach (var beer in Model.Beers)
-            {
-                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
-                    <div class="card text-center">
-                        <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
-                        <div class="card-block">
-                            <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()">
-                                <h5 class="text-bold">@beer.Name</h5>
-                            </a>
-                        </div>
-                        <div class="card-text">
-                            @beer.Price $
-                        </div>
-                        <div class="card-footer">
-                            <a data-ajax="true"
-                               data-ajax-method="GET"
-                               data-ajax-update="#my-shopping-cart"
-                               data-ajax-mode="replace"
-                               asp-area="Shopping"
-                               asp-controller="Orders"
-                               asp-action="AddToCart"
-                               asp-route-id="@beer.Id"
-                               asp-route-product="beer"
-                               class="btn btn-outline-warning btn">
-                                <i class="fa fa-cart-arrow-down"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
+<div class="container">
+    <h2 class="text-uppercase">Beers</h2>
+    <div class="row">
+        @foreach (var beer in Model.Beers)
+        {
+        <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+            <div class="card text-center">
+                <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()"><img class="card-img-top" src="~/images/Beers/@beer.Image"></a>
+                <div class="card-block">
+                    <a asp-controller="Beers" asp-action="Details" asp-route-id="@beer.Id" asp-route-title="@beer.Name.ToFriendlyUrl()">
+                        <h5 class="text-bold">@beer.Name</h5>
+                    </a>
                 </div>
-            }
+                <div class="card-text">
+                    @beer.Price $
+                </div>
+                <div class="card-footer">
+                    <a data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-update="#my-shopping-cart"
+                       data-ajax-mode="replace"
+                       asp-area="Shopping"
+                       asp-controller="Orders"
+                       asp-action="AddToCart"
+                       asp-route-id="@beer.Id"
+                       asp-route-product="beer"
+                       class="btn btn-outline-warning btn">
+                        <i class="fa fa-cart-arrow-down"></i> Add to cart
+                    </a>
+                    @if (User.IsInRole(AdminRole))
+                    {
+                    <div>
+                        <hr class="bg-primary"/>
+                        <a asp-area="@AdminArea" asp-controller="Beers" asp-action="Edit" asp-route-id="@beer.Id" class="btn btn-outline-info">Edit</a>
+                        <a asp-area="@AdminArea" asp-controller="Beers" asp-action="Delete" asp-route-id="@beer.Id" class="btn btn-outline-danger">Delete</a>
+                    </div>
+                    }
+                </div>
+            </div>
         </div>
+        }
     </div>
+</div>
 }
 
 @if (Model.GiftSets.Any())
 {
-    <div class="container">
-        <hr />
-        <h2 class="text-uppercase">Gift Sets</h2>
-        <div class="row">
-            @foreach (var giftSet in Model.GiftSets)
-            {
-                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
-                    <div class="card text-center">
-                        <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id"><img class="card-img-top" src="~/images/GiftSets/@giftSet.Image"></a>
-                        <div class="card-block">
-                            <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id">
-                                <h5 class="text-bold">@giftSet.Name</h5>
-                            </a>
-                        </div>
-                        <div class="card-text">
-                            Price @giftSet.Price
-                        </div>
-                        <div class="card-footer">
-                            <a data-ajax="true"
-                               data-ajax-method="GET"
-                               data-ajax-update="#my-shopping-cart"
-                               data-ajax-mode="replace"
-                               asp-area="Shopping"
-                               asp-controller="Orders"
-                               asp-action="AddToCart"
-                               asp-route-id="@giftSet.Id"
-                               asp-route-product="giftset"
-                               class="btn btn-outline-warning btn">
-                                <i class="fa fa fa-cart-arrow-down"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Gift Sets</h2>
+    <div class="row">
+        @foreach (var giftSet in Model.GiftSets)
+        {
+        <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+            <div class="card text-center">
+                <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id"><img class="card-img-top" src="~/images/GiftSets/@giftSet.Image"></a>
+                <div class="card-block">
+                    <a asp-controller="GiftSets" asp-action="Details" asp-route-id="@giftSet.Id">
+                        <h5 class="text-bold">@giftSet.Name</h5>
+                    </a>
                 </div>
-            }
+                <div class="card-text">
+                    Price @giftSet.Price
+                </div>
+                <div class="card-footer">
+                    <a data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-update="#my-shopping-cart"
+                       data-ajax-mode="replace"
+                       asp-area="Shopping"
+                       asp-controller="Orders"
+                       asp-action="AddToCart"
+                       asp-route-id="@giftSet.Id"
+                       asp-route-product="giftset"
+                       class="btn btn-outline-warning btn">
+                        <i class="fa fa fa-cart-arrow-down"></i> Add to cart
+                    </a>
+                    @if (User.IsInRole(AdminRole))
+                    {
+                        <div>
+                            <hr class="bg-primary" />
+                            <a asp-area="@AdminArea" asp-controller="GiftSets" asp-action="Edit" asp-route-id="@giftSet.Id" class="btn btn-outline-info">Edit</a>
+                            <a asp-area="@AdminArea" asp-controller="GiftSets" asp-action="Delete" asp-route-id="@giftSet.Id" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
+        }
     </div>
+</div>
 }
 
 @if (Model.Accessories.Any())
 {
-    <div class="container">
-        <hr />
-        <h2 class="text-uppercase">Accessories</h2>
-        <div class="row">
-            @foreach (var accessory in Model.Accessories)
-            {
-                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
-                    <div class="card text-center">
-                        <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id"><img class="card-img-top" src="~/images/Accessories/@accessory.Image"></a>
-                        <div class="card-block">
-                            <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id">
-                                <h5 class="text-bold">@accessory.Name</h5>
-                            </a>
-                        </div>
-                        <div class="card-text">
-                            Price @accessory.Price
-                        </div>
-                        <div class="card-footer">
-                            <a data-ajax="true"
-                               data-ajax-method="GET"
-                               data-ajax-update="#my-shopping-cart"
-                               data-ajax-mode="replace"
-                               asp-area="Shopping"
-                               asp-controller="Orders"
-                               asp-action="AddToCart"
-                               asp-route-id="@accessory.Id"
-                               asp-route-product="accessory"
-                               class="btn btn-outline-warning btn">
-                                <i class="fa fa fa-cart-arrow-down"></i> Add to cart
-                            </a>
-                        </div>
-                    </div>
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Accessories</h2>
+    <div class="row">
+        @foreach (var accessory in Model.Accessories)
+        {
+        <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+            <div class="card text-center">
+                <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id"><img class="card-img-top" src="~/images/Accessories/@accessory.Image"></a>
+                <div class="card-block">
+                    <a asp-controller="Accessories" asp-action="Details" asp-route-id="@accessory.Id">
+                        <h5 class="text-bold">@accessory.Name</h5>
+                    </a>
                 </div>
-            }
+                <div class="card-text">
+                    Price @accessory.Price
+                </div>
+                <div class="card-footer">
+                    <a data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-update="#my-shopping-cart"
+                       data-ajax-mode="replace"
+                       asp-area="Shopping"
+                       asp-controller="Orders"
+                       asp-action="AddToCart"
+                       asp-route-id="@accessory.Id"
+                       asp-route-product="accessory"
+                       class="btn btn-outline-warning btn">
+                        <i class="fa fa fa-cart-arrow-down"></i> Add to cart
+                    </a>
+                    @if (User.IsInRole(AdminRole))
+                    {
+                        <div>
+                            <hr class="bg-primary" />
+                            <a asp-area="@AdminArea" asp-controller="Accessories" asp-action="Edit" asp-route-id="@accessory.Id" class="btn btn-outline-info">Edit</a>
+                            <a asp-area="@AdminArea" asp-controller="Accessories" asp-action="Delete" asp-route-id="@accessory.Id" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
+        }
     </div>
+</div>
 }
 
 
 @if (Model.Glasses.Any())
 {
-    <div class="container">
-        <hr />
-        <h2 class="text-uppercase">Glasses</h2>
-        <div class="row">
-            @foreach (var glass in Model.Glasses)
-            {
-                <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
-                    <div class="card text-center">
-                        <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
-                        <div class="card-block">
-                            <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id">
-                                <h5 class="text-bold">@glass.Name</h5>
-                            </a>
-                        </div>
-                        <div class="card-text">
-                            Price @glass.Price
-                        </div>
-                        <div class="card-footer">
-                            <a data-ajax="true"
-                               data-ajax-method="GET"
-                               data-ajax-update="#my-shopping-cart"
-                               data-ajax-mode="replace"
-                               asp-area="Shopping"
-                               asp-controller="Orders"
-                               asp-action="AddToCart"
-                               asp-route-id="@glass.Id"
-                               asp-route-product="glass"
-                               class="btn btn-outline-warning btn"><i class="fa fa fa-cart-arrow-down"></i>Add to cart</a>
-                        </div>
-                    </div>
+<div class="container">
+    <hr />
+    <h2 class="text-uppercase">Glasses</h2>
+    <div class="row">
+        @foreach (var glass in Model.Glasses)
+        {
+        <div class="col-sm-4 col-md-3 col-lg-3 mt-3">
+            <div class="card text-center">
+                <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id"><img class="card-img-top" src="~/images/Glasses/@glass.Image"></a>
+                <div class="card-block">
+                    <a asp-controller="Glasses" asp-action="Details" asp-route-id="@glass.Id">
+                        <h5 class="text-bold">@glass.Name</h5>
+                    </a>
                 </div>
-            }
+                <div class="card-text">
+                    Price @glass.Price
+                </div>
+                <div class="card-footer">
+                    <a data-ajax="true"
+                       data-ajax-method="GET"
+                       data-ajax-update="#my-shopping-cart"
+                       data-ajax-mode="replace"
+                       asp-area="Shopping"
+                       asp-controller="Orders"
+                       asp-action="AddToCart"
+                       asp-route-id="@glass.Id"
+                       asp-route-product="glass"
+                       class="btn btn-outline-warning btn"><i class="fa fa fa-cart-arrow-down"></i>Add to cart</a>
+                    @if (User.IsInRole(AdminRole))
+                    {
+                        <div>
+                            <hr class="bg-primary" />
+                            <a asp-area="@AdminArea" asp-controller="Glasses" asp-action="Edit" asp-route-id="@glass.Id" class="btn btn-outline-info">Edit</a>
+                            <a asp-area="@AdminArea" asp-controller="Glasses" asp-action="Delete" asp-route-id="@glass.Id" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
+        }
     </div>
+</div>
 }
 
 @if (!Model.Beers.Any() && !Model.Accessories.Any() && !Model.GiftSets.Any() && !Model.Glasses.Any())
 {
-    <div class="container">
-        <h2><i class="fa fa-search"></i> Sorry no results found :/</h2>
-    </div>
+<div class="container">
+    <h2><i class="fa fa-search"></i> Sorry no results found :/</h2>
+</div>
 }

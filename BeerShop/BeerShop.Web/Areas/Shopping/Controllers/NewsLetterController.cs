@@ -25,9 +25,9 @@
                 return RedirectToAction("Index", "Home");
             }
 
-            var result = this.newsletter.Create(email);
+            var success = this.newsletter.Create(email);
 
-            if (!result)
+            if (!success)
             {
                 this.TempData.AddWarningMessage(string.Format(InvalidEmailAddress, email));
             }

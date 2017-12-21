@@ -2,9 +2,9 @@
 {
     using AutoMapper;
     using BeerShop.Data;
+    using BeerShop.Web.Infrastructure.Mapping;
     using Microsoft.EntityFrameworkCore;
     using System;
-    using Web.Infrastructure.Mapping;
 
     public class Tests
     {

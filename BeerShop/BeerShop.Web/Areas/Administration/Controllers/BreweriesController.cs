@@ -67,7 +67,7 @@
         {
             var brewery = this.breweries.ById(id);
 
-            if (breweries == null)
+            if (brewery == null)
             {
                 return NotFound();
             }

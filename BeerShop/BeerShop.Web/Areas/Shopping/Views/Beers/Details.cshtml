@@ -101,6 +101,13 @@
                            data-ajax-mode="replace"
                            asp-controller="Orders" asp-action="AddToCart" asp-route-id="@Model.Id" asp-route-product="beer" class="btn btn-outline-warning"><i class="fa fa-cart-arrow-down"></i> Add To Cart</a>
                         <hr>
+                        @if (User.IsInRole(AdminRole))
+                        {
+                            <div>
+                                <a asp-area="@AdminArea" asp-controller="Beers" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-info">Edit</a>
+                                <a asp-area="@AdminArea" asp-controller="Beers" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
